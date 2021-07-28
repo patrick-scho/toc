@@ -1,0 +1,38 @@
+var abc: int
+var def: int
+var ghi: int
+
+func f1 (a : int, b : int) : int {
+  var i1 : int
+  var s1 : S1
+  if a != i1 {
+    var i2 : int = 987
+    return i2
+  }
+  print(s1.i1)
+  print(s1.a1[0])
+  return 133
+}
+
+struct S1 {
+  i1 : int
+  i2 : int
+  a1 : intArray
+
+  m1() : void {
+    while i1 < i2 {
+      i1 = m2(i1)
+
+      i2 = (i1 + i2) * i2
+
+      print(12345)
+    }
+  }
+
+  m2(i: int) : int {
+    var j : int = 0
+    while j < 10 {
+      print(a1[j])
+    }
+  }
+}

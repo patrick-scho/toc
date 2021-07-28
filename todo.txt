@@ -1,0 +1,26 @@
+define grammar:
+- declarations
+  - var decl
+    - ptr/array
+  - fn decl
+  - struct/enum/union
+- statements
+  - if/while/for/switch
+  - expr
+  - assignment
+  - return
+- expressions
+  - fn call
+  - unary/binary/(ternary) operator
+  - variable "call"
+  - literal
+  - parenthesis
+  - array access
+  - .
+  - cast
+
+- complete grammar
+- semantic checks when visiting
+- type modifier
+- operator precedence
+- ...
