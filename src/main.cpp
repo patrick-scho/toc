@@ -32,12 +32,6 @@ int main(int argc, const char * argv[]) {
 
   //std::cout << "Parse Tree: " << s << std::endl;
 
-  //toc(std::cout, prog);
-
-  //std::ofstream ofs("output.c");
-  //toc(ofs, prog);
-  //ofs.close();
-
   Program prg = getProgram(prog);
   std::cout << "Variables:\n";
   for (auto v : prg.variables)
@@ -45,6 +39,12 @@ int main(int argc, const char * argv[]) {
   std::cout << "Functions:\n";
   for (auto f : prg.functions)
     std::cout << " " << f.name << endl;
+
+  tocProgram(std::cout, prg);
+
+  //std::ofstream ofs("output.c");
+  //tocProg(ofs, prg);
+  //ofs.close();
 
   return 0;
 }

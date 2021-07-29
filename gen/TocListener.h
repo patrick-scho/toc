@@ -38,12 +38,6 @@ public:
   virtual void enterParameter(TocParser::ParameterContext *ctx) = 0;
   virtual void exitParameter(TocParser::ParameterContext *ctx) = 0;
 
-  virtual void enterFirstParameter(TocParser::FirstParameterContext *ctx) = 0;
-  virtual void exitFirstParameter(TocParser::FirstParameterContext *ctx) = 0;
-
-  virtual void enterAdditionalParameter(TocParser::AdditionalParameterContext *ctx) = 0;
-  virtual void exitAdditionalParameter(TocParser::AdditionalParameterContext *ctx) = 0;
-
   virtual void enterBody(TocParser::BodyContext *ctx) = 0;
   virtual void exitBody(TocParser::BodyContext *ctx) = 0;
 
@@ -88,6 +82,9 @@ public:
 
   virtual void enterNonSubscriptExpr(TocParser::NonSubscriptExprContext *ctx) = 0;
   virtual void exitNonSubscriptExpr(TocParser::NonSubscriptExprContext *ctx) = 0;
+
+  virtual void enterNonAccessExpr(TocParser::NonAccessExprContext *ctx) = 0;
+  virtual void exitNonAccessExpr(TocParser::NonAccessExprContext *ctx) = 0;
 
   virtual void enterFuncCall(TocParser::FuncCallContext *ctx) = 0;
   virtual void exitFuncCall(TocParser::FuncCallContext *ctx) = 0;

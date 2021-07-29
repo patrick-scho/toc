@@ -43,6 +43,7 @@ struct Body {
 };
 
 struct Function {
+  Type returnType;
   std::string name;
   std::vector<Variable> parameters;
   Body body;
@@ -65,7 +66,7 @@ enum class ExprType {
 };
 
 struct CallExpr {
-  Function function;
+  std::string functionName;
   std::vector<Expr> arguments;
 };
 
@@ -78,11 +79,8 @@ struct VariableExpr {
 };
 
 struct BracketsExpr {
-  BracketsExpr() {}
-  BracketsExpr(const BracketsExpr &) {}
-  BracketsExpr & operator=(const BracketsExpr &) {return *this;};
-  std::unique_ptr<Expr> lexpr;
-  std::unique_ptr<Expr> rexpr;
+  std::shared_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> rexpr;
 };
 
 enum class OperatorType {
@@ -92,19 +90,13 @@ enum class OperatorType {
 };
 
 struct OperatorExpr {
-  OperatorExpr() {}
-  OperatorExpr(const OperatorExpr &) {}
-  OperatorExpr & operator=(const OperatorExpr &) {return *this;};
-  std::unique_ptr<Expr> lexpr;
-  std::unique_ptr<Expr> rexpr;
+  std::shared_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> rexpr;
   OperatorType type;
 };
 
 struct DotExpr {
-  DotExpr() {}
-  DotExpr(const DotExpr &) {}
-  DotExpr & operator=(const DotExpr &) {return *this;};
-  std::unique_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> lexpr;
   std::string name;
 };
 

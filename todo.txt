@@ -19,8 +19,32 @@ define grammar:
   - .
   - cast
 
-- complete grammar
-- semantic checks when visiting
-- type modifier
-- operator precedence
-- ...
+
+
+==grammar==
+- exprs/stmts
+- operators (precedence)
+- types (modifiers)
+- dot/[]
+- literals
+- cast
+
+==compiler==
+- type checks
+- cast
+
+==new features==
+- generics
+- namespaces
+- methods
+- private
+
+
+Zeitplan:
+29.07: grammar
+30.07: compiler
+31.07: new features
+01.08: Schreiben, vorabversion
+02.08: Schreiben
+03.08: Schreiben
+04.08: Schreiben, abgeben

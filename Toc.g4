@@ -15,9 +15,7 @@ type: typeName;
 
 funcDecl: 'func' func;
 func: funcName '(' parameter ')' (':' type) body;
-parameter: (firstParameter (additionalParameter)*)?;
-firstParameter: var;
-additionalParameter: ',' var;
+parameter: (var (',' var)*)?;
 
 body: '{' stmt* '}';
 
@@ -61,9 +59,17 @@ nonOpExpr: funcCall
          | parenExpr;
 
 nonSubscriptExpr: funcCall
+                | literal
                 | identifier
                 | memberAccess
                 | parenExpr;
+
+nonAccessExpr: funcCall
+             | literal
+             | identifier
+             | subscript
+             | parenExpr
+             | operatorExpr;
 
 funcCall: funcName '(' (expr (',' expr)*)? ')';
 

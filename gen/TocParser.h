@@ -20,14 +20,14 @@ public:
 
   enum {
     RuleProg = 0, RuleDecl = 1, RuleVarDecl = 2, RuleVar = 3, RuleType = 4, 
-    RuleFuncDecl = 5, RuleFunc = 6, RuleParameter = 7, RuleFirstParameter = 8, 
-    RuleAdditionalParameter = 9, RuleBody = 10, RuleStructDecl = 11, RuleStructMember = 12, 
-    RuleStructVar = 13, RuleStructMethod = 14, RuleStmt = 15, RuleConditional = 16, 
-    RuleIfCond = 17, RuleLoop = 18, RuleWhileLoop = 19, RuleAssignment = 20, 
-    RuleReturnStmt = 21, RuleExpr = 22, RuleNonOpExpr = 23, RuleNonSubscriptExpr = 24, 
-    RuleFuncCall = 25, RuleOperatorExpr = 26, RuleBinaryOperator = 27, RuleIdentifier = 28, 
-    RuleLiteral = 29, RuleSubscript = 30, RuleMemberAccess = 31, RuleParenExpr = 32, 
-    RuleFuncName = 33, RuleVarName = 34, RuleTypeName = 35, RuleStructName = 36
+    RuleFuncDecl = 5, RuleFunc = 6, RuleParameter = 7, RuleBody = 8, RuleStructDecl = 9, 
+    RuleStructMember = 10, RuleStructVar = 11, RuleStructMethod = 12, RuleStmt = 13, 
+    RuleConditional = 14, RuleIfCond = 15, RuleLoop = 16, RuleWhileLoop = 17, 
+    RuleAssignment = 18, RuleReturnStmt = 19, RuleExpr = 20, RuleNonOpExpr = 21, 
+    RuleNonSubscriptExpr = 22, RuleNonAccessExpr = 23, RuleFuncCall = 24, 
+    RuleOperatorExpr = 25, RuleBinaryOperator = 26, RuleIdentifier = 27, 
+    RuleLiteral = 28, RuleSubscript = 29, RuleMemberAccess = 30, RuleParenExpr = 31, 
+    RuleFuncName = 32, RuleVarName = 33, RuleTypeName = 34, RuleStructName = 35
   };
 
   explicit TocParser(antlr4::TokenStream *input);
@@ -48,8 +48,6 @@ public:
   class FuncDeclContext;
   class FuncContext;
   class ParameterContext;
-  class FirstParameterContext;
-  class AdditionalParameterContext;
   class BodyContext;
   class StructDeclContext;
   class StructMemberContext;
@@ -65,6 +63,7 @@ public:
   class ExprContext;
   class NonOpExprContext;
   class NonSubscriptExprContext;
+  class NonAccessExprContext;
   class FuncCallContext;
   class OperatorExprContext;
   class BinaryOperatorContext;
@@ -182,9 +181,8 @@ public:
   public:
     ParameterContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    FirstParameterContext *firstParameter();
-    std::vector<AdditionalParameterContext *> additionalParameter();
-    AdditionalParameterContext* additionalParameter(size_t i);
+    std::vector<VarContext *> var();
+    VarContext* var(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -192,32 +190,6 @@ public:
   };
 
   ParameterContext* parameter();
-
-  class  FirstParameterContext : public antlr4::ParserRuleContext {
-  public:
-    FirstParameterContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    VarContext *var();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  FirstParameterContext* firstParameter();
-
-  class  AdditionalParameterContext : public antlr4::ParserRuleContext {
-  public:
-    AdditionalParameterContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    VarContext *var();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  AdditionalParameterContext* additionalParameter();
 
   class  BodyContext : public antlr4::ParserRuleContext {
   public:
@@ -429,6 +401,7 @@ public:
     NonSubscriptExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     FuncCallContext *funcCall();
+    LiteralContext *literal();
     IdentifierContext *identifier();
     MemberAccessContext *memberAccess();
     ParenExprContext *parenExpr();
@@ -439,6 +412,24 @@ public:
   };
 
   NonSubscriptExprContext* nonSubscriptExpr();
+
+  class  NonAccessExprContext : public antlr4::ParserRuleContext {
+  public:
+    NonAccessExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    FuncCallContext *funcCall();
+    LiteralContext *literal();
+    IdentifierContext *identifier();
+    SubscriptContext *subscript();
+    ParenExprContext *parenExpr();
+    OperatorExprContext *operatorExpr();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  NonAccessExprContext* nonAccessExpr();
 
   class  FuncCallContext : public antlr4::ParserRuleContext {
   public:

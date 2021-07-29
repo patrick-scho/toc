@@ -2,15 +2,17 @@
 
 #include "repr.h"
 
-Type getType(TocParser::TypeContext * ctx);
-Variable getVariable(TocParser::VarContext * ctx);
-Body getBody(TocParser::BodyContext * ctx);
-Function getFunction(TocParser::FuncContext * ctx);
-Struct getStruct(TocParser::StructDeclContext * ctx);
-Program getProgram(TocParser::ProgContext * ctx);
+Type         getType(TocParser::TypeContext * ctx);
+Variable     getVariable(TocParser::VarContext * ctx);
+Body         getBody(TocParser::BodyContext * ctx);
+Function     getFunction(TocParser::FuncContext * ctx);
+Struct       getStruct(TocParser::StructDeclContext * ctx);
+Program      getProgram(TocParser::ProgContext * ctx);
 OperatorExpr getOperatorExpr(TocParser::OperatorExprContext * ctx);
-Expr getExpression(TocParser::ExprContext * ctx);
-Stmt getStmt(TocParser::StmtContext * ctx);
+Expr         getExpr(TocParser::NonOpExprContext * ctx);
+Expr         getExpr(TocParser::NonSubscriptExprContext * ctx);
+Expr         getExpr(TocParser::ExprContext * ctx);
+Stmt         getStmt(TocParser::StmtContext * ctx);
 
 Type getType(TocParser::TypeContext * ctx) {
   Type result;
@@ -38,10 +40,10 @@ Body getBody(TocParser::BodyContext * ctx) {
 Function getFunction(TocParser::FuncContext * ctx) {
   Function result;
   result.name = ctx->funcName()->NAME()->toString();
-  if (ctx->parameter()->firstParameter() != nullptr) {
-    result.parameters.push_back(getVariable(ctx->parameter()->firstParameter()->var()));
-    for (auto p : ctx->parameter()->additionalParameter())
-      result.parameters.push_back(getVariable(p->var()));
+  result.returnType = getType(ctx->type());
+  if (!ctx->parameter()->var().empty()) {
+    for (auto p : ctx->parameter()->var())
+      result.parameters.push_back(getVariable(p));
   }
   result.body = getBody(ctx->body());
   return result;
@@ -76,8 +78,9 @@ Program getProgram(TocParser::ProgContext * ctx) {
 }
 OperatorExpr getOperatorExpr(TocParser::OperatorExprContext * ctx) {
   OperatorExpr result;
-  //result.lexpr = getExpr(ctx->binaryOperator()->nonOpExpr(0));
-  //result.rexpr = getExpr(ctx->binaryOperator()->nonOpExpr(1));
+  result.lexpr = std::make_unique<Expr>(getExpr(ctx->binaryOperator()->nonOpExpr(0)));
+  result.rexpr = std::make_unique<Expr>(getExpr(ctx->binaryOperator()->nonOpExpr(1)));
+  
   std::string op = ctx->binaryOperator()->BINARY_OPERATOR(0)->toString();
   if (op == "+")  result.type = OperatorType::Plus;
   if (op == "-")  result.type = OperatorType::Minus;
@@ -89,13 +92,13 @@ OperatorExpr getOperatorExpr(TocParser::OperatorExprContext * ctx) {
   if (op == ">")  result.type = OperatorType::GreaterThan;
   return result;
 }
-Expr getExpr(TocParser::ExprContext * ctx) {
+Expr getExpr(TocParser::NonOpExprContext * ctx) {
   Expr result;
   if (ctx->funcCall() != nullptr) {
     result.type = ExprType::Call;
     for (auto e : ctx->funcCall()->expr())
       result._call.arguments.push_back(getExpr(e));
-    //result._call.function = ctx->funcCall()->funcName();
+      result._call.functionName = ctx->funcCall()->funcName()->NAME()->toString();
   }
   if (ctx->literal() != nullptr) {
     result.type = ExprType::Literal;
@@ -107,12 +110,66 @@ Expr getExpr(TocParser::ExprContext * ctx) {
   }
   if (ctx->subscript() != nullptr) {
     result.type = ExprType::Brackets;
-    //result._brackets.lexpr = getExpr(ctx->subscript()->nonSubscriptExpr());
+    result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->subscript()->nonSubscriptExpr()));
     result._brackets.rexpr = std::make_unique<Expr>(getExpr(ctx->subscript()->expr()));
   }
   if (ctx->memberAccess() != nullptr) {
     result.type = ExprType::Dot;
-    //result._dot.lexpr = ctx->memberAccess()->identifier(0);
+    Expr e; e.type = ExprType::Variable; e._variable.name = ctx->memberAccess()->identifier(0)->varName()->NAME()->toString();
+    result._dot.lexpr = std::make_unique<Expr>(e);
+    result._dot.name = ctx->memberAccess()->identifier(1)->varName()->NAME()->toString();
+  }
+  return result;
+}
+Expr getExpr(TocParser::NonSubscriptExprContext * ctx) {
+  Expr result;
+  if (ctx->funcCall() != nullptr) {
+    result.type = ExprType::Call;
+    for (auto e : ctx->funcCall()->expr())
+      result._call.arguments.push_back(getExpr(e));
+      result._call.functionName = ctx->funcCall()->funcName()->NAME()->toString();
+  }
+  if (ctx->literal() != nullptr) {
+    result.type = ExprType::Literal;
+    result._literal.i = atoi(ctx->literal()->INTLIT()->toString().c_str());
+  }
+  if (ctx->identifier() != nullptr) {
+    result.type = ExprType::Variable;
+    result._variable.name = ctx->identifier()->varName()->NAME()->toString();
+  }
+  if (ctx->memberAccess() != nullptr) {
+    result.type = ExprType::Dot;
+    Expr e; e.type = ExprType::Variable; e._variable.name = ctx->memberAccess()->identifier(0)->varName()->NAME()->toString();
+    result._dot.lexpr = std::make_unique<Expr>(e);
+    result._dot.name = ctx->memberAccess()->identifier(1)->varName()->NAME()->toString();
+  }
+  return result;
+}
+Expr getExpr(TocParser::ExprContext * ctx) {
+  Expr result;
+  if (ctx->funcCall() != nullptr) {
+    result.type = ExprType::Call;
+    for (auto e : ctx->funcCall()->expr())
+      result._call.arguments.push_back(getExpr(e));
+      result._call.functionName = ctx->funcCall()->funcName()->NAME()->toString();
+  }
+  if (ctx->literal() != nullptr) {
+    result.type = ExprType::Literal;
+    result._literal.i = atoi(ctx->literal()->INTLIT()->toString().c_str());
+  }
+  if (ctx->identifier() != nullptr) {
+    result.type = ExprType::Variable;
+    result._variable.name = ctx->identifier()->varName()->NAME()->toString();
+  }
+  if (ctx->subscript() != nullptr) {
+    result.type = ExprType::Brackets;
+    result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->subscript()->nonSubscriptExpr()));
+    result._brackets.rexpr = std::make_unique<Expr>(getExpr(ctx->subscript()->expr()));
+  }
+  if (ctx->memberAccess() != nullptr) {
+    result.type = ExprType::Dot;
+    Expr e; e.type = ExprType::Variable; e._variable.name = ctx->memberAccess()->identifier(0)->varName()->NAME()->toString();
+    result._dot.lexpr = std::make_unique<Expr>(e);
     result._dot.name = ctx->memberAccess()->identifier(1)->varName()->NAME()->toString();
   }
   if (ctx->operatorExpr() != nullptr) {

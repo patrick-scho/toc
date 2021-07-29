@@ -40,12 +40,6 @@ public:
   virtual void enterParameter(TocParser::ParameterContext * /*ctx*/) override { }
   virtual void exitParameter(TocParser::ParameterContext * /*ctx*/) override { }
 
-  virtual void enterFirstParameter(TocParser::FirstParameterContext * /*ctx*/) override { }
-  virtual void exitFirstParameter(TocParser::FirstParameterContext * /*ctx*/) override { }
-
-  virtual void enterAdditionalParameter(TocParser::AdditionalParameterContext * /*ctx*/) override { }
-  virtual void exitAdditionalParameter(TocParser::AdditionalParameterContext * /*ctx*/) override { }
-
   virtual void enterBody(TocParser::BodyContext * /*ctx*/) override { }
   virtual void exitBody(TocParser::BodyContext * /*ctx*/) override { }
 
@@ -90,6 +84,9 @@ public:
 
   virtual void enterNonSubscriptExpr(TocParser::NonSubscriptExprContext * /*ctx*/) override { }
   virtual void exitNonSubscriptExpr(TocParser::NonSubscriptExprContext * /*ctx*/) override { }
+
+  virtual void enterNonAccessExpr(TocParser::NonAccessExprContext * /*ctx*/) override { }
+  virtual void exitNonAccessExpr(TocParser::NonAccessExprContext * /*ctx*/) override { }
 
   virtual void enterFuncCall(TocParser::FuncCallContext * /*ctx*/) override { }
   virtual void exitFuncCall(TocParser::FuncCallContext * /*ctx*/) override { }

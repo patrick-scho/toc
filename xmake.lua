@@ -12,6 +12,10 @@ target("main")
         "gen",
         "antlr4-cpp-runtime-4.9.2-source/install/include/antlr4-runtime/"
     )
+    set_languages("c++20")
+
+
+-- "C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe" -jar antlr-4.9.2-complete.jar -Dlanguage=Cpp -o gen Toc.g4
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
