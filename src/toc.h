@@ -18,7 +18,9 @@ std::ostream & operator<< (std::ostream & out, const std::vector<T> & v) {
 std::ostream & operator<< (std::ostream & out, const Type & t);
 std::ostream & operator<< (std::ostream & out, const Variable & v);
 std::ostream & operator<< (std::ostream & out, const Body & b);
-std::ostream & operator<< (std::ostream & out, const OperatorExpr & o);
+std::ostream & operator<< (std::ostream & out, const UnaryOperatorExpr & o);
+std::ostream & operator<< (std::ostream & out, const BinaryOperatorExpr & o);
+std::ostream & operator<< (std::ostream & out, const TernaryOperatorExpr & o);
 std::ostream & operator<< (std::ostream & out, const Expr & e);
 std::ostream & operator<< (std::ostream & out, const Stmt & s);
 
@@ -65,21 +67,23 @@ std::ostream & operator<< (std::ostream & out, const Body & b) {
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const OperatorExpr & o) {
-  out << *o.lexpr << " ";
-
-  switch (o.type) {
-  case OperatorType::Plus:        out << "+"; break;
-  case OperatorType::Minus:       out << "-"; break;
-  case OperatorType::Multiply:    out << "*"; break;
-  case OperatorType::Divide:      out << "/"; break;
-  case OperatorType::Equals:      out << "=="; break;
-  case OperatorType::NotEquals:   out << "!="; break;
-  case OperatorType::LessThan:    out << "<"; break;
-  case OperatorType::GreaterThan: out << ">"; break;
+std::ostream & operator<< (std::ostream & out, const UnaryOperatorExpr & o) {
+  if (o.type == UnaryOperatorType::IncrementPost || o.type == UnaryOperatorType::DecrementPost) {
+    out << UnaryOperatorTypeStrings[(int)o.type] << *o.expr;
+  }
+  else {
+    out << *o.expr << UnaryOperatorTypeStrings[(int)o.type];
   }
 
-  out << " " << *o.rexpr;
+  return out;
+}
+std::ostream & operator<< (std::ostream & out, const BinaryOperatorExpr & o) {
+  out << *o.lexpr << " " << BinaryOperatorTypeStrings[(int)o.type] << " " << *o.rexpr;
+
+  return out;
+}
+std::ostream & operator<< (std::ostream & out, const TernaryOperatorExpr & o) {
+  out << *o.lexpr << " ? " << *o.rexprTrue << " : " << *o.rexprFalse;
 
   return out;
 }

@@ -28,10 +28,13 @@ define grammar:
 - dot/[]
 - literals
 - cast
+- comments
 
 ==compiler==
 - type checks
 - cast
+- files (.c/.h)
+- l/rvalue
 
 ==new features==
 - generics
@@ -48,3 +51,11 @@ Zeitplan:
 02.08: Schreiben
 03.08: Schreiben
 04.08: Schreiben, abgeben
+
+
+
+
+
+Missing:
+- unions
+- const/static/extern

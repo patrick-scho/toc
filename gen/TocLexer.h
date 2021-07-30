@@ -14,8 +14,10 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, BINARY_OPERATOR = 17, INTLIT = 18, NAME = 19, 
-    WS = 20, NEWLINE = 21
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
+    T__20 = 21, T__21 = 22, T__22 = 23, POSTFIX_OP = 24, PREFIX_OP = 25, 
+    BINARY_OP = 26, INT_LIT = 27, DECIMAL_LIT = 28, STRING_LIT = 29, BOOL_LIT = 30, 
+    NAME = 31, WS = 32, NEWLINE = 33, NUMBER = 34
   };
 
   explicit TocLexer(antlr4::CharStream *input);

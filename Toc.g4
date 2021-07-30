@@ -9,8 +9,10 @@ decl: varDecl
 
 varDecl:  'var' var;
 var:  varName (':' type) ('=' expr)?;
+varInit:  varName (':' type) ('=' expr);
 
-type: typeName;
+type: typeName (typeModifier)*;
+typeModifier: '*' | '[' NUMBER? ']';
 
 
 funcDecl: 'func' func;
@@ -26,63 +28,60 @@ structVar: var;
 structMethod: func;
 
 
-stmt: (varDecl
-     | conditional
-     | loop
-     | assignment
-     | returnStmt
-     | expr) ;
+stmt: varDecl
+    | ifStmt
+    | switchStmt
+    | forStmt
+    | whileStmt
+    | assignStmt
+    | returnStmt
+    | expr;
 
-conditional: ifCond;
-ifCond: 'if' expr body;
+ifStmt: 'if' expr body ('else' 'if' expr body)* ('else' body)?;
 
-loop: whileLoop;
-whileLoop: 'while' expr body;
+switchStmt: 'switch' identifierExpr switchBody;
+switchBody: '{' ('case' expr body)* '}';
 
-assignment: identifier '=' expr;
+forStmt: 'for' (varInit | assignStmt) ',' expr ',' expr body;
+
+whileStmt: 'while' expr body;
+
+assignStmt: identifierExpr '=' expr;
 
 returnStmt: 'return' expr;
 
-expr: funcCall
-    | literal
-    | identifier
-    | subscript
-    | memberAccess
+expr: funcExpr
+    | litExpr
+    | identifierExpr
     | parenExpr
-    | operatorExpr;
+    | accessExpr
+    | opExpr;
 
-nonOpExpr: funcCall
-         | literal
-         | identifier
-         | subscript
-         | memberAccess
-         | parenExpr;
+/* op */
+nonOpExpr: funcExpr
+         | litExpr
+         | identifierExpr
+         | parenExpr
+         | accessExpr;
 
-nonSubscriptExpr: funcCall
-                | literal
-                | identifier
-                | memberAccess
-                | parenExpr;
+/* lit access op */
+nonAccessExpr: funcExpr
+             | identifierExpr
+             | parenExpr;
 
-nonAccessExpr: funcCall
-             | literal
-             | identifier
-             | subscript
-             | parenExpr
-             | operatorExpr;
+funcExpr: funcName '(' (expr (',' expr)*)? ')';
 
-funcCall: funcName '(' (expr (',' expr)*)? ')';
+opExpr: binaryOp | prefixOp | postfixOp | ternaryOp;
+binaryOp: nonOpExpr BINARY_OP nonOpExpr (BINARY_OP nonOpExpr)*;
+prefixOp: PREFIX_OP nonOpExpr;
+postfixOp: nonOpExpr POSTFIX_OP;
+ternaryOp: nonOpExpr '?' expr ':' expr;
 
-operatorExpr: binaryOperator;
-binaryOperator: nonOpExpr BINARY_OPERATOR nonOpExpr (BINARY_OPERATOR nonOpExpr)*;
+identifierExpr: varName;
 
-identifier: varName;
+litExpr: INT_LIT | DECIMAL_LIT | STRING_LIT | BOOL_LIT;
 
-literal: INTLIT;
-
-subscript: nonSubscriptExpr '[' expr ']';
-
-memberAccess: identifier '.' identifier;
+accessExpr: nonAccessExpr ((('.' | '->') identifierExpr) | ('[' expr ']'))+;
 
 parenExpr: '(' expr ')';
 
@@ -92,11 +91,22 @@ typeName: NAME;
 structName: NAME;
 
 
-BINARY_OPERATOR:
-    '+'  | '-'  | '*' | '/'
-  | '==' | '!='
-  | '<'  | '>';
-INTLIT: ('+' | '-')? [0-9]+;
+POSTFIX_OP:
+    '++' | '--';
+PREFIX_OP:
+    [+!~&*-] | POSTFIX_OP;
+BINARY_OP:
+    [+*/%&<|^>-] |
+    '==' | '!=' | '<=' | '>=' | '<'  | '>' |
+    '<<' | '>>' | '||' | '&&' | '&=' | '|=' | '^=' |
+    '<<=' | '>>=' | '+=' | '-=' | '*=' | '/=' | '%=';
+
+INT_LIT: ('+' | '-')? [0-9]+;
+DECIMAL_LIT: ('+' | '-')* [0-9]+ '.' [0-9]+;
+STRING_LIT: '"' [^"]* '"';
+BOOL_LIT: 'true' | 'false';
+
 NAME: ([a-z] | [A-Z] | [0-9])+;
 WS: [ \t\r\n]+ -> skip;
 NEWLINE: [\r\n]+;
+NUMBER: [0-9]+;

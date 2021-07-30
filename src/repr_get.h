@@ -8,9 +8,8 @@ Body         getBody(TocParser::BodyContext * ctx);
 Function     getFunction(TocParser::FuncContext * ctx);
 Struct       getStruct(TocParser::StructDeclContext * ctx);
 Program      getProgram(TocParser::ProgContext * ctx);
-OperatorExpr getOperatorExpr(TocParser::OperatorExprContext * ctx);
-Expr         getExpr(TocParser::NonOpExprContext * ctx);
-Expr         getExpr(TocParser::NonSubscriptExprContext * ctx);
+//Expr         getExpr(TocParser::NonOpExprContext * ctx);
+//Expr         getExpr(TocParser::NonAccessExprContext * ctx);
 Expr         getExpr(TocParser::ExprContext * ctx);
 Stmt         getStmt(TocParser::StmtContext * ctx);
 
@@ -76,12 +75,15 @@ Program getProgram(TocParser::ProgContext * ctx) {
   }
   return result;
 }
-OperatorExpr getOperatorExpr(TocParser::OperatorExprContext * ctx) {
+OperatorExpr getOperatorExpr(TocParser::OpExprContext * ctx) {
   OperatorExpr result;
-  result.lexpr = std::make_unique<Expr>(getExpr(ctx->binaryOperator()->nonOpExpr(0)));
-  result.rexpr = std::make_unique<Expr>(getExpr(ctx->binaryOperator()->nonOpExpr(1)));
+  result.lexpr = std::make_unique<Expr>(getExpr(ctx->binaryOp()->nonOpExpr(0)));
+  result.rexpr = std::make_unique<Expr>(getExpr(ctx->binaryOp()->nonOpExpr(1)));
   
-  std::string op = ctx->binaryOperator()->BINARY_OPERATOR(0)->toString();
+  std::string op = ctx->binaryOp()->BINARY_OP(0)->toString();
+  for (auto o : ops) {
+
+  }
   if (op == "+")  result.type = OperatorType::Plus;
   if (op == "-")  result.type = OperatorType::Minus;
   if (op == "*")  result.type = OperatorType::Multiply;
@@ -121,7 +123,7 @@ Expr getExpr(TocParser::NonOpExprContext * ctx) {
   }
   return result;
 }
-Expr getExpr(TocParser::NonSubscriptExprContext * ctx) {
+Expr getExpr(TocParser::NonAccessExprContext * ctx) {
   Expr result;
   if (ctx->funcCall() != nullptr) {
     result.type = ExprType::Call;

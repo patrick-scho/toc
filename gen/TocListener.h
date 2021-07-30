@@ -26,8 +26,14 @@ public:
   virtual void enterVar(TocParser::VarContext *ctx) = 0;
   virtual void exitVar(TocParser::VarContext *ctx) = 0;
 
+  virtual void enterVarInit(TocParser::VarInitContext *ctx) = 0;
+  virtual void exitVarInit(TocParser::VarInitContext *ctx) = 0;
+
   virtual void enterType(TocParser::TypeContext *ctx) = 0;
   virtual void exitType(TocParser::TypeContext *ctx) = 0;
+
+  virtual void enterTypeModifier(TocParser::TypeModifierContext *ctx) = 0;
+  virtual void exitTypeModifier(TocParser::TypeModifierContext *ctx) = 0;
 
   virtual void enterFuncDecl(TocParser::FuncDeclContext *ctx) = 0;
   virtual void exitFuncDecl(TocParser::FuncDeclContext *ctx) = 0;
@@ -56,20 +62,23 @@ public:
   virtual void enterStmt(TocParser::StmtContext *ctx) = 0;
   virtual void exitStmt(TocParser::StmtContext *ctx) = 0;
 
-  virtual void enterConditional(TocParser::ConditionalContext *ctx) = 0;
-  virtual void exitConditional(TocParser::ConditionalContext *ctx) = 0;
+  virtual void enterIfStmt(TocParser::IfStmtContext *ctx) = 0;
+  virtual void exitIfStmt(TocParser::IfStmtContext *ctx) = 0;
 
-  virtual void enterIfCond(TocParser::IfCondContext *ctx) = 0;
-  virtual void exitIfCond(TocParser::IfCondContext *ctx) = 0;
+  virtual void enterSwitchStmt(TocParser::SwitchStmtContext *ctx) = 0;
+  virtual void exitSwitchStmt(TocParser::SwitchStmtContext *ctx) = 0;
 
-  virtual void enterLoop(TocParser::LoopContext *ctx) = 0;
-  virtual void exitLoop(TocParser::LoopContext *ctx) = 0;
+  virtual void enterSwitchBody(TocParser::SwitchBodyContext *ctx) = 0;
+  virtual void exitSwitchBody(TocParser::SwitchBodyContext *ctx) = 0;
 
-  virtual void enterWhileLoop(TocParser::WhileLoopContext *ctx) = 0;
-  virtual void exitWhileLoop(TocParser::WhileLoopContext *ctx) = 0;
+  virtual void enterForStmt(TocParser::ForStmtContext *ctx) = 0;
+  virtual void exitForStmt(TocParser::ForStmtContext *ctx) = 0;
 
-  virtual void enterAssignment(TocParser::AssignmentContext *ctx) = 0;
-  virtual void exitAssignment(TocParser::AssignmentContext *ctx) = 0;
+  virtual void enterWhileStmt(TocParser::WhileStmtContext *ctx) = 0;
+  virtual void exitWhileStmt(TocParser::WhileStmtContext *ctx) = 0;
+
+  virtual void enterAssignStmt(TocParser::AssignStmtContext *ctx) = 0;
+  virtual void exitAssignStmt(TocParser::AssignStmtContext *ctx) = 0;
 
   virtual void enterReturnStmt(TocParser::ReturnStmtContext *ctx) = 0;
   virtual void exitReturnStmt(TocParser::ReturnStmtContext *ctx) = 0;
@@ -80,32 +89,35 @@ public:
   virtual void enterNonOpExpr(TocParser::NonOpExprContext *ctx) = 0;
   virtual void exitNonOpExpr(TocParser::NonOpExprContext *ctx) = 0;
 
-  virtual void enterNonSubscriptExpr(TocParser::NonSubscriptExprContext *ctx) = 0;
-  virtual void exitNonSubscriptExpr(TocParser::NonSubscriptExprContext *ctx) = 0;
-
   virtual void enterNonAccessExpr(TocParser::NonAccessExprContext *ctx) = 0;
   virtual void exitNonAccessExpr(TocParser::NonAccessExprContext *ctx) = 0;
 
-  virtual void enterFuncCall(TocParser::FuncCallContext *ctx) = 0;
-  virtual void exitFuncCall(TocParser::FuncCallContext *ctx) = 0;
+  virtual void enterFuncExpr(TocParser::FuncExprContext *ctx) = 0;
+  virtual void exitFuncExpr(TocParser::FuncExprContext *ctx) = 0;
 
-  virtual void enterOperatorExpr(TocParser::OperatorExprContext *ctx) = 0;
-  virtual void exitOperatorExpr(TocParser::OperatorExprContext *ctx) = 0;
+  virtual void enterOpExpr(TocParser::OpExprContext *ctx) = 0;
+  virtual void exitOpExpr(TocParser::OpExprContext *ctx) = 0;
 
-  virtual void enterBinaryOperator(TocParser::BinaryOperatorContext *ctx) = 0;
-  virtual void exitBinaryOperator(TocParser::BinaryOperatorContext *ctx) = 0;
+  virtual void enterBinaryOp(TocParser::BinaryOpContext *ctx) = 0;
+  virtual void exitBinaryOp(TocParser::BinaryOpContext *ctx) = 0;
 
-  virtual void enterIdentifier(TocParser::IdentifierContext *ctx) = 0;
-  virtual void exitIdentifier(TocParser::IdentifierContext *ctx) = 0;
+  virtual void enterPrefixOp(TocParser::PrefixOpContext *ctx) = 0;
+  virtual void exitPrefixOp(TocParser::PrefixOpContext *ctx) = 0;
 
-  virtual void enterLiteral(TocParser::LiteralContext *ctx) = 0;
-  virtual void exitLiteral(TocParser::LiteralContext *ctx) = 0;
+  virtual void enterPostfixOp(TocParser::PostfixOpContext *ctx) = 0;
+  virtual void exitPostfixOp(TocParser::PostfixOpContext *ctx) = 0;
 
-  virtual void enterSubscript(TocParser::SubscriptContext *ctx) = 0;
-  virtual void exitSubscript(TocParser::SubscriptContext *ctx) = 0;
+  virtual void enterTernaryOp(TocParser::TernaryOpContext *ctx) = 0;
+  virtual void exitTernaryOp(TocParser::TernaryOpContext *ctx) = 0;
 
-  virtual void enterMemberAccess(TocParser::MemberAccessContext *ctx) = 0;
-  virtual void exitMemberAccess(TocParser::MemberAccessContext *ctx) = 0;
+  virtual void enterIdentifierExpr(TocParser::IdentifierExprContext *ctx) = 0;
+  virtual void exitIdentifierExpr(TocParser::IdentifierExprContext *ctx) = 0;
+
+  virtual void enterLitExpr(TocParser::LitExprContext *ctx) = 0;
+  virtual void exitLitExpr(TocParser::LitExprContext *ctx) = 0;
+
+  virtual void enterAccessExpr(TocParser::AccessExprContext *ctx) = 0;
+  virtual void exitAccessExpr(TocParser::AccessExprContext *ctx) = 0;
 
   virtual void enterParenExpr(TocParser::ParenExprContext *ctx) = 0;
   virtual void exitParenExpr(TocParser::ParenExprContext *ctx) = 0;

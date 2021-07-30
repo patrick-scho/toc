@@ -28,8 +28,14 @@ public:
   virtual void enterVar(TocParser::VarContext * /*ctx*/) override { }
   virtual void exitVar(TocParser::VarContext * /*ctx*/) override { }
 
+  virtual void enterVarInit(TocParser::VarInitContext * /*ctx*/) override { }
+  virtual void exitVarInit(TocParser::VarInitContext * /*ctx*/) override { }
+
   virtual void enterType(TocParser::TypeContext * /*ctx*/) override { }
   virtual void exitType(TocParser::TypeContext * /*ctx*/) override { }
+
+  virtual void enterTypeModifier(TocParser::TypeModifierContext * /*ctx*/) override { }
+  virtual void exitTypeModifier(TocParser::TypeModifierContext * /*ctx*/) override { }
 
   virtual void enterFuncDecl(TocParser::FuncDeclContext * /*ctx*/) override { }
   virtual void exitFuncDecl(TocParser::FuncDeclContext * /*ctx*/) override { }
@@ -58,20 +64,23 @@ public:
   virtual void enterStmt(TocParser::StmtContext * /*ctx*/) override { }
   virtual void exitStmt(TocParser::StmtContext * /*ctx*/) override { }
 
-  virtual void enterConditional(TocParser::ConditionalContext * /*ctx*/) override { }
-  virtual void exitConditional(TocParser::ConditionalContext * /*ctx*/) override { }
+  virtual void enterIfStmt(TocParser::IfStmtContext * /*ctx*/) override { }
+  virtual void exitIfStmt(TocParser::IfStmtContext * /*ctx*/) override { }
 
-  virtual void enterIfCond(TocParser::IfCondContext * /*ctx*/) override { }
-  virtual void exitIfCond(TocParser::IfCondContext * /*ctx*/) override { }
+  virtual void enterSwitchStmt(TocParser::SwitchStmtContext * /*ctx*/) override { }
+  virtual void exitSwitchStmt(TocParser::SwitchStmtContext * /*ctx*/) override { }
 
-  virtual void enterLoop(TocParser::LoopContext * /*ctx*/) override { }
-  virtual void exitLoop(TocParser::LoopContext * /*ctx*/) override { }
+  virtual void enterSwitchBody(TocParser::SwitchBodyContext * /*ctx*/) override { }
+  virtual void exitSwitchBody(TocParser::SwitchBodyContext * /*ctx*/) override { }
 
-  virtual void enterWhileLoop(TocParser::WhileLoopContext * /*ctx*/) override { }
-  virtual void exitWhileLoop(TocParser::WhileLoopContext * /*ctx*/) override { }
+  virtual void enterForStmt(TocParser::ForStmtContext * /*ctx*/) override { }
+  virtual void exitForStmt(TocParser::ForStmtContext * /*ctx*/) override { }
 
-  virtual void enterAssignment(TocParser::AssignmentContext * /*ctx*/) override { }
-  virtual void exitAssignment(TocParser::AssignmentContext * /*ctx*/) override { }
+  virtual void enterWhileStmt(TocParser::WhileStmtContext * /*ctx*/) override { }
+  virtual void exitWhileStmt(TocParser::WhileStmtContext * /*ctx*/) override { }
+
+  virtual void enterAssignStmt(TocParser::AssignStmtContext * /*ctx*/) override { }
+  virtual void exitAssignStmt(TocParser::AssignStmtContext * /*ctx*/) override { }
 
   virtual void enterReturnStmt(TocParser::ReturnStmtContext * /*ctx*/) override { }
   virtual void exitReturnStmt(TocParser::ReturnStmtContext * /*ctx*/) override { }
@@ -82,32 +91,35 @@ public:
   virtual void enterNonOpExpr(TocParser::NonOpExprContext * /*ctx*/) override { }
   virtual void exitNonOpExpr(TocParser::NonOpExprContext * /*ctx*/) override { }
 
-  virtual void enterNonSubscriptExpr(TocParser::NonSubscriptExprContext * /*ctx*/) override { }
-  virtual void exitNonSubscriptExpr(TocParser::NonSubscriptExprContext * /*ctx*/) override { }
-
   virtual void enterNonAccessExpr(TocParser::NonAccessExprContext * /*ctx*/) override { }
   virtual void exitNonAccessExpr(TocParser::NonAccessExprContext * /*ctx*/) override { }
 
-  virtual void enterFuncCall(TocParser::FuncCallContext * /*ctx*/) override { }
-  virtual void exitFuncCall(TocParser::FuncCallContext * /*ctx*/) override { }
+  virtual void enterFuncExpr(TocParser::FuncExprContext * /*ctx*/) override { }
+  virtual void exitFuncExpr(TocParser::FuncExprContext * /*ctx*/) override { }
 
-  virtual void enterOperatorExpr(TocParser::OperatorExprContext * /*ctx*/) override { }
-  virtual void exitOperatorExpr(TocParser::OperatorExprContext * /*ctx*/) override { }
+  virtual void enterOpExpr(TocParser::OpExprContext * /*ctx*/) override { }
+  virtual void exitOpExpr(TocParser::OpExprContext * /*ctx*/) override { }
 
-  virtual void enterBinaryOperator(TocParser::BinaryOperatorContext * /*ctx*/) override { }
-  virtual void exitBinaryOperator(TocParser::BinaryOperatorContext * /*ctx*/) override { }
+  virtual void enterBinaryOp(TocParser::BinaryOpContext * /*ctx*/) override { }
+  virtual void exitBinaryOp(TocParser::BinaryOpContext * /*ctx*/) override { }
 
-  virtual void enterIdentifier(TocParser::IdentifierContext * /*ctx*/) override { }
-  virtual void exitIdentifier(TocParser::IdentifierContext * /*ctx*/) override { }
+  virtual void enterPrefixOp(TocParser::PrefixOpContext * /*ctx*/) override { }
+  virtual void exitPrefixOp(TocParser::PrefixOpContext * /*ctx*/) override { }
 
-  virtual void enterLiteral(TocParser::LiteralContext * /*ctx*/) override { }
-  virtual void exitLiteral(TocParser::LiteralContext * /*ctx*/) override { }
+  virtual void enterPostfixOp(TocParser::PostfixOpContext * /*ctx*/) override { }
+  virtual void exitPostfixOp(TocParser::PostfixOpContext * /*ctx*/) override { }
 
-  virtual void enterSubscript(TocParser::SubscriptContext * /*ctx*/) override { }
-  virtual void exitSubscript(TocParser::SubscriptContext * /*ctx*/) override { }
+  virtual void enterTernaryOp(TocParser::TernaryOpContext * /*ctx*/) override { }
+  virtual void exitTernaryOp(TocParser::TernaryOpContext * /*ctx*/) override { }
 
-  virtual void enterMemberAccess(TocParser::MemberAccessContext * /*ctx*/) override { }
-  virtual void exitMemberAccess(TocParser::MemberAccessContext * /*ctx*/) override { }
+  virtual void enterIdentifierExpr(TocParser::IdentifierExprContext * /*ctx*/) override { }
+  virtual void exitIdentifierExpr(TocParser::IdentifierExprContext * /*ctx*/) override { }
+
+  virtual void enterLitExpr(TocParser::LitExprContext * /*ctx*/) override { }
+  virtual void exitLitExpr(TocParser::LitExprContext * /*ctx*/) override { }
+
+  virtual void enterAccessExpr(TocParser::AccessExprContext * /*ctx*/) override { }
+  virtual void exitAccessExpr(TocParser::AccessExprContext * /*ctx*/) override { }
 
   virtual void enterParenExpr(TocParser::ParenExprContext * /*ctx*/) override { }
   virtual void exitParenExpr(TocParser::ParenExprContext * /*ctx*/) override { }

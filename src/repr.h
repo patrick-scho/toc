@@ -14,22 +14,36 @@ struct Body;
 struct Function;
 struct Struct;
 struct Program;
-struct CallExpr;
-struct LiteralExpr;
-struct VariableExpr;
+struct FuncExpr;
+struct LitExpr;
+struct IdentifierExpr;
 struct BracketsExpr;
-struct OperatorExpr;
+struct UnaryOperatorExpr;
+struct BinaryOperatorExpr;
+struct TernaryOperatorExpr;
 struct DotExpr;
 struct Expr;
 struct IfStmt;
+struct SwitchStmt;
+struct ForStmt;
 struct WhileStmt;
-struct ReturnStmt;
 struct AssignStmt;
+struct ReturnStmt;
 struct Stmt;
 
+enum class TypeModifierType {
+  Pointer, Array
+};
+
+struct TypeModifier {
+  TypeModifierType type;
+
+  int _arraySize;
+};
 
 struct Type {
   std::string name;
+  std::vector<TypeModifier> modifiers;
 };
 
 struct Variable {
@@ -62,19 +76,28 @@ struct Program {
 };
 
 enum class ExprType {
-  Call, Literal, Variable, Brackets, Operator, Dot
+  Func, Lit, Identifier, Brackets, UnaryOperator, BinaryOperator, TernaryOperator, Dot
 };
 
-struct CallExpr {
+struct FuncExpr {
   std::string functionName;
   std::vector<Expr> arguments;
 };
 
-struct LiteralExpr {
-  int i;
+enum class LitType {
+  Int, Decimal, String, Bool
 };
 
-struct VariableExpr {
+struct LitExpr {
+  LitType type;
+
+  int _int;
+  double _decimal;
+  std::string _string;
+  bool _bool;
+};
+
+struct IdentifierExpr {
   std::string name;
 };
 
@@ -83,40 +106,89 @@ struct BracketsExpr {
   std::shared_ptr<Expr> rexpr;
 };
 
-enum class OperatorType {
-  Plus, Minus, Multiply, Divide,
-  Equals, NotEquals,
-  LessThan, GreaterThan
+enum class UnaryOperatorType {
+  Plus, Minus, IncrementPre, DecrementPre, IncrementPost, DecrementPost, LogicalNot, BitwiseNot, Dereference, AddressOf
 };
 
-struct OperatorExpr {
+enum class BinaryOperatorType {
+  Plus, Minus, Multiply, Divide, Modulo, BitwiseAnd, BitwiseOr, BitwiseXor, LessThan, GreaterThan,
+  LeftShift, RightShift, LogicalAnd, LogicalOr, Equals, NotEquals, LessThanEquals, GreaterThanEquals, BitwiseAndEquals, BitwiseOrEquals, BitwiseXorEquals,
+  PlusEquals, MinusEquals, MultiplyEquals, DivideEquals, ModuloEquals,
+  LeftShiftEquals, RightShiftEquals
+};
+static std::string UnaryOperatorTypeStrings[] = {
+  "+", "-", "++", "--", "++", "--", "!", "~", "*", "&" };
+
+static std::string BinaryOperatorTypeStrings[] = {
+  "+", "-", "*", "/", "%", "&", "|", "^", "<", ">",
+  "<<",">>","&&","||","==","!=","<=",">=","&=","|=","^=",
+  "+=","-=","*=","/=","%=",
+  "<<=",">>=" };
+
+struct UnaryOperatorExpr {
+  UnaryOperatorType type;
+  std::shared_ptr<Expr> expr;
+};
+
+struct BinaryOperatorExpr {
+  BinaryOperatorType type;
   std::shared_ptr<Expr> lexpr;
   std::shared_ptr<Expr> rexpr;
-  OperatorType type;
+};
+
+struct TernaryOperatorExpr {
+  std::shared_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> rexprTrue;
+  std::shared_ptr<Expr> rexprFalse;
 };
 
 struct DotExpr {
   std::shared_ptr<Expr> lexpr;
-  std::string name;
+  IdentifierExpr ident;
 };
 
 struct Expr {
   ExprType type;
 
-  CallExpr     _call;
-  LiteralExpr  _literal;
-  VariableExpr _variable;
-  BracketsExpr _brackets;
-  OperatorExpr _operator;
-  DotExpr      _dot;
+  FuncExpr            _func;
+  LitExpr             _lit;
+  IdentifierExpr      _identifier;
+  BracketsExpr        _brackets;
+  UnaryOperatorExpr   _unaryOperator;
+  BinaryOperatorExpr  _binaryOperator;
+  TernaryOperatorExpr _ternaryOperator;
+  DotExpr             _dot;
 };
 
 enum class StmtType {
-  If, While, Return, Assign, Expr
+  If, Switch, For, While, Assign, Return, Expr
 };
 
+struct ElseStmt {
+  bool _if;
+  std::shared_ptr<Expr> expr;
+  Body body;
+};
 struct IfStmt {
   Expr condition;
+  Body body;
+  std::vector<ElseStmt> elses;
+};
+
+struct SwitchCase {
+  std::shared_ptr<Expr> expr;
+  Body body;
+};
+
+struct SwitchStmt {
+  IdentifierExpr ident;
+  std::vector<SwitchCase> cases;
+};
+
+struct ForStmt {
+  AssignStmt assign;
+  std::shared_ptr<Expr> condition;
+  std::shared_ptr<Expr> action;
   Body body;
 };
 
@@ -125,23 +197,25 @@ struct WhileStmt {
   Body body;
 };
 
-struct ReturnStmt {
-  Expr expr;
-};
-
 struct AssignStmt {
   Expr lexpr;
   Expr rexpr;
 };
 
+struct ReturnStmt {
+  Expr expr;
+};
+
 struct Stmt {
   StmtType type;
   
-  IfStmt     _if;
-  WhileStmt  _while;
-  ReturnStmt _return;
-  AssignStmt _assign;
-  Expr       _expr;
+  IfStmt      _if;
+  SwitchStmt  _switch;
+  ForStmt     _for;
+  WhileStmt   _while;
+  AssignStmt  _assign;
+  ReturnStmt  _return;
+  Expr        _expr;
 };
 
 
