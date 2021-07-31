@@ -97,6 +97,7 @@ struct LitExpr {
   bool _bool;
 };
 
+// TODO: accessExpr
 struct IdentifierExpr {
   std::string name;
 };
@@ -107,14 +108,17 @@ struct BracketsExpr {
 };
 
 enum class UnaryOperatorType {
-  Plus, Minus, IncrementPre, DecrementPre, IncrementPost, DecrementPost, LogicalNot, BitwiseNot, Dereference, AddressOf
+  Plus, Minus, IncrementPre, DecrementPre, IncrementPost, DecrementPost,
+  LogicalNot, BitwiseNot, Dereference, AddressOf,
+  COUNT
 };
 
 enum class BinaryOperatorType {
   Plus, Minus, Multiply, Divide, Modulo, BitwiseAnd, BitwiseOr, BitwiseXor, LessThan, GreaterThan,
   LeftShift, RightShift, LogicalAnd, LogicalOr, Equals, NotEquals, LessThanEquals, GreaterThanEquals, BitwiseAndEquals, BitwiseOrEquals, BitwiseXorEquals,
   PlusEquals, MinusEquals, MultiplyEquals, DivideEquals, ModuloEquals,
-  LeftShiftEquals, RightShiftEquals
+  LeftShiftEquals, RightShiftEquals,
+  COUNT
 };
 static std::string UnaryOperatorTypeStrings[] = {
   "+", "-", "++", "--", "++", "--", "!", "~", "*", "&" };
@@ -143,10 +147,11 @@ struct TernaryOperatorExpr {
 };
 
 struct DotExpr {
-  std::shared_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> expr;
   IdentifierExpr ident;
 };
 
+// TODO: paren expr
 struct Expr {
   ExprType type;
 
@@ -185,8 +190,10 @@ struct SwitchStmt {
   std::vector<SwitchCase> cases;
 };
 
+// TODO: int i = 0 (var decl)
 struct ForStmt {
-  AssignStmt assign;
+  std::string varName;
+  std::shared_ptr<Expr> initValue;
   std::shared_ptr<Expr> condition;
   std::shared_ptr<Expr> action;
   Body body;
@@ -198,8 +205,8 @@ struct WhileStmt {
 };
 
 struct AssignStmt {
-  Expr lexpr;
-  Expr rexpr;
+  std::string name;
+  Expr expr;
 };
 
 struct ReturnStmt {

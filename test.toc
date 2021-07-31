@@ -23,7 +23,7 @@ struct S1 {
     while i1 < i2 {
       i1 = m2(i1)
 
-      i2 = (i1 + i2) * i2
+      i2 = (i1 + i2 * i2)
 
       print(12345)
     }

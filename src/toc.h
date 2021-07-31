@@ -59,7 +59,7 @@ std::ostream & operator<< (std::ostream & out, const Body & b) {
   
   for (auto s : b.statements) {
     indent(out);
-    out << s << ";\n";
+    out << s << "\n";
   }
 
   indent(out, -2);
@@ -89,34 +89,57 @@ std::ostream & operator<< (std::ostream & out, const TernaryOperatorExpr & o) {
 }
 std::ostream & operator<< (std::ostream & out, const Expr & e) {
   switch (e.type) {
+  case ExprType::Func:
+    out << e._func.functionName << "(" << e._func.arguments << ")"; break;
+  case ExprType::Lit:
+    /**/ if (e._lit.type == LitType::Int) out << e._lit._int;
+    else if (e._lit.type == LitType::Decimal) out << e._lit._decimal;
+    else if (e._lit.type == LitType::String) out << e._lit._string;
+    else if (e._lit.type == LitType::Bool) out << e._lit._bool;
+    break;
+  case ExprType::Identifier:
+    out << e._identifier.name; break;
   case ExprType::Brackets:
     out << *e._brackets.lexpr << "[" << *e._brackets.rexpr << "]"; break;
-  case ExprType::Call:
-    out << e._call.functionName << "(" << e._call.arguments << ")"; break;
   case ExprType::Dot:
-    out << e._dot.name << "." << *e._dot.lexpr; break;
-  case ExprType::Literal:
-    out << e._literal.i; break;
-  case ExprType::Operator:
-    out << e._operator; break;
-  case ExprType::Variable:
-    out << e._variable.name; break;
+    out << *e._dot.expr << "." << e._dot.ident.name; break;
+  case ExprType::UnaryOperator:
+    out << e._unaryOperator; break;
+  case ExprType::BinaryOperator:
+    out << e._binaryOperator; break;
+  case ExprType::TernaryOperator:
+    out << e._ternaryOperator; break;
   }
 
   return out;
 }
 std::ostream & operator<< (std::ostream & out, const Stmt & s) {
   switch (s.type) {
-  case StmtType::Assign:
-    out << s._assign.lexpr << "=" << s._assign.rexpr; break;
-   case StmtType::Expr:
-     out << s._expr; break;
   case StmtType::If:
     out << "if (" << s._if.condition << ")\n" << s._if.body; break;
-  case StmtType::Return:
-    out << "return " << s._return.expr; break;
+  case StmtType::Switch:
+    out << "switch (" << s._switch.ident.name << ")\n{\n";
+    for (auto c : s._switch.cases) {
+      indent(out, 2);
+      out << "case " << *c.expr << ": " << c.body << "break;";
+    }
+    indent(out, -2);
+    out << "}\n";
+    break;
+  case StmtType::For:
+    out << "for (" <<
+      s._for.varName << " = " << *s._for.initValue << "; " <<
+      *s._for.condition << "; " <<
+      *s._for.action <<
+      ")\n" << s._for.body; break;
   case StmtType::While:
     out << "while (" << s._while.condition << ")\n" << s._while.body; break;
+  case StmtType::Assign:
+    out << s._assign.name << "=" << s._assign.expr << ";"; break;
+  case StmtType::Return:
+    out << "return " << s._return.expr << ";"; break;
+  case StmtType::Expr:
+    out << s._expr << ";"; break;
   }
 
   return out;
@@ -124,17 +147,7 @@ std::ostream & operator<< (std::ostream & out, const Stmt & s) {
 
 
 void tocFunction (std::ostream & out, const Function & f, bool stub) {
-  out << f.returnType << " " << f.name << " (";
-
-  bool comma = false;
-  for (auto p : f.parameters) {
-    if (comma) out << ", ";
-    else comma = true;
-
-    out << p.type << " " << p.name;
-  }
-
-  out << ")";
+  out << f.returnType << " " << f.name << " (" << f.parameters << ")";
 
   if (stub) {
     out << ";\n";
@@ -147,6 +160,9 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub) {
   out << "struct " << s.name;
   if (stub) {
     out << ";\n";
+    for (auto m : s.methods) {
+      out << m.returnType << " " << s.name << "_" << m.name << " (" << m.parameters << ");\n";
+    }
     return;
   }
   out << "\n{\n";
@@ -159,6 +175,10 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub) {
 
   indent(out, -2);
   out << "};\n";
+  
+  for (auto m : s.methods) {
+    out << m.returnType << " " << s.name << "_" << m.name << " (" << m.parameters << ")\n" << m.body;
+  }
 }
 void tocProgram (std::ostream & out, const Program & p) {
   for (auto s : p.structs) {

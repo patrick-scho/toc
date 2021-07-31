@@ -37,10 +37,13 @@ stmt: varDecl
     | returnStmt
     | expr;
 
-ifStmt: 'if' expr body ('else' 'if' expr body)* ('else' body)?;
+ifStmt: 'if' expr body elseIfStmt* elseStmt?;
+elseIfStmt: 'else' 'if' expr body;
+elseStmt: 'else' body;
 
 switchStmt: 'switch' identifierExpr switchBody;
-switchBody: '{' ('case' expr body)* '}';
+switchBody: '{' switchCase* '}';
+switchCase: 'case' expr body;
 
 forStmt: 'for' (varInit | assignStmt) ',' expr ',' expr body;
 
@@ -72,16 +75,19 @@ nonAccessExpr: funcExpr
 funcExpr: funcName '(' (expr (',' expr)*)? ')';
 
 opExpr: binaryOp | prefixOp | postfixOp | ternaryOp;
-binaryOp: nonOpExpr BINARY_OP nonOpExpr (BINARY_OP nonOpExpr)*;
-prefixOp: PREFIX_OP nonOpExpr;
-postfixOp: nonOpExpr POSTFIX_OP;
+binaryOp: nonOpExpr binary_op nonOpExpr (binary_op nonOpExpr)*;
+prefixOp: prefix_op nonOpExpr;
+postfixOp: nonOpExpr postfix_op;
 ternaryOp: nonOpExpr '?' expr ':' expr;
 
 identifierExpr: varName;
 
 litExpr: INT_LIT | DECIMAL_LIT | STRING_LIT | BOOL_LIT;
 
-accessExpr: nonAccessExpr ((('.' | '->') identifierExpr) | ('[' expr ']'))+;
+accessExpr: nonAccessExpr (accessSubExpr)+;
+accessSubExpr: accessMember | accessBrackets;
+accessMember: ('.' | '->') identifierExpr;
+accessBrackets: '[' expr ']';
 
 parenExpr: '(' expr ')';
 
@@ -91,12 +97,12 @@ typeName: NAME;
 structName: NAME;
 
 
-POSTFIX_OP:
+postfix_op:
     '++' | '--';
-PREFIX_OP:
-    [+!~&*-] | POSTFIX_OP;
-BINARY_OP:
-    [+*/%&<|^>-] |
+prefix_op:
+    '+' | '-' | '!' | '~' | '&' | '*' | postfix_op;
+binary_op:
+    '+' | '-' | '*' | '/' | '%' | '&' | '<' | '|' | '^' | '>' |
     '==' | '!=' | '<=' | '>=' | '<'  | '>' |
     '<<' | '>>' | '||' | '&&' | '&=' | '|=' | '^=' |
     '<<=' | '>>=' | '+=' | '-=' | '*=' | '/=' | '%=';

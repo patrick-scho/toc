@@ -65,11 +65,20 @@ public:
   virtual void enterIfStmt(TocParser::IfStmtContext *ctx) = 0;
   virtual void exitIfStmt(TocParser::IfStmtContext *ctx) = 0;
 
+  virtual void enterElseIfStmt(TocParser::ElseIfStmtContext *ctx) = 0;
+  virtual void exitElseIfStmt(TocParser::ElseIfStmtContext *ctx) = 0;
+
+  virtual void enterElseStmt(TocParser::ElseStmtContext *ctx) = 0;
+  virtual void exitElseStmt(TocParser::ElseStmtContext *ctx) = 0;
+
   virtual void enterSwitchStmt(TocParser::SwitchStmtContext *ctx) = 0;
   virtual void exitSwitchStmt(TocParser::SwitchStmtContext *ctx) = 0;
 
   virtual void enterSwitchBody(TocParser::SwitchBodyContext *ctx) = 0;
   virtual void exitSwitchBody(TocParser::SwitchBodyContext *ctx) = 0;
+
+  virtual void enterSwitchCase(TocParser::SwitchCaseContext *ctx) = 0;
+  virtual void exitSwitchCase(TocParser::SwitchCaseContext *ctx) = 0;
 
   virtual void enterForStmt(TocParser::ForStmtContext *ctx) = 0;
   virtual void exitForStmt(TocParser::ForStmtContext *ctx) = 0;
@@ -119,6 +128,15 @@ public:
   virtual void enterAccessExpr(TocParser::AccessExprContext *ctx) = 0;
   virtual void exitAccessExpr(TocParser::AccessExprContext *ctx) = 0;
 
+  virtual void enterAccessSubExpr(TocParser::AccessSubExprContext *ctx) = 0;
+  virtual void exitAccessSubExpr(TocParser::AccessSubExprContext *ctx) = 0;
+
+  virtual void enterAccessMember(TocParser::AccessMemberContext *ctx) = 0;
+  virtual void exitAccessMember(TocParser::AccessMemberContext *ctx) = 0;
+
+  virtual void enterAccessBrackets(TocParser::AccessBracketsContext *ctx) = 0;
+  virtual void exitAccessBrackets(TocParser::AccessBracketsContext *ctx) = 0;
+
   virtual void enterParenExpr(TocParser::ParenExprContext *ctx) = 0;
   virtual void exitParenExpr(TocParser::ParenExprContext *ctx) = 0;
 
@@ -133,6 +151,15 @@ public:
 
   virtual void enterStructName(TocParser::StructNameContext *ctx) = 0;
   virtual void exitStructName(TocParser::StructNameContext *ctx) = 0;
+
+  virtual void enterPostfix_op(TocParser::Postfix_opContext *ctx) = 0;
+  virtual void exitPostfix_op(TocParser::Postfix_opContext *ctx) = 0;
+
+  virtual void enterPrefix_op(TocParser::Prefix_opContext *ctx) = 0;
+  virtual void exitPrefix_op(TocParser::Prefix_opContext *ctx) = 0;
+
+  virtual void enterBinary_op(TocParser::Binary_opContext *ctx) = 0;
+  virtual void exitBinary_op(TocParser::Binary_opContext *ctx) = 0;
 
 
 };

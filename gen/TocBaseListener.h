@@ -67,11 +67,20 @@ public:
   virtual void enterIfStmt(TocParser::IfStmtContext * /*ctx*/) override { }
   virtual void exitIfStmt(TocParser::IfStmtContext * /*ctx*/) override { }
 
+  virtual void enterElseIfStmt(TocParser::ElseIfStmtContext * /*ctx*/) override { }
+  virtual void exitElseIfStmt(TocParser::ElseIfStmtContext * /*ctx*/) override { }
+
+  virtual void enterElseStmt(TocParser::ElseStmtContext * /*ctx*/) override { }
+  virtual void exitElseStmt(TocParser::ElseStmtContext * /*ctx*/) override { }
+
   virtual void enterSwitchStmt(TocParser::SwitchStmtContext * /*ctx*/) override { }
   virtual void exitSwitchStmt(TocParser::SwitchStmtContext * /*ctx*/) override { }
 
   virtual void enterSwitchBody(TocParser::SwitchBodyContext * /*ctx*/) override { }
   virtual void exitSwitchBody(TocParser::SwitchBodyContext * /*ctx*/) override { }
+
+  virtual void enterSwitchCase(TocParser::SwitchCaseContext * /*ctx*/) override { }
+  virtual void exitSwitchCase(TocParser::SwitchCaseContext * /*ctx*/) override { }
 
   virtual void enterForStmt(TocParser::ForStmtContext * /*ctx*/) override { }
   virtual void exitForStmt(TocParser::ForStmtContext * /*ctx*/) override { }
@@ -121,6 +130,15 @@ public:
   virtual void enterAccessExpr(TocParser::AccessExprContext * /*ctx*/) override { }
   virtual void exitAccessExpr(TocParser::AccessExprContext * /*ctx*/) override { }
 
+  virtual void enterAccessSubExpr(TocParser::AccessSubExprContext * /*ctx*/) override { }
+  virtual void exitAccessSubExpr(TocParser::AccessSubExprContext * /*ctx*/) override { }
+
+  virtual void enterAccessMember(TocParser::AccessMemberContext * /*ctx*/) override { }
+  virtual void exitAccessMember(TocParser::AccessMemberContext * /*ctx*/) override { }
+
+  virtual void enterAccessBrackets(TocParser::AccessBracketsContext * /*ctx*/) override { }
+  virtual void exitAccessBrackets(TocParser::AccessBracketsContext * /*ctx*/) override { }
+
   virtual void enterParenExpr(TocParser::ParenExprContext * /*ctx*/) override { }
   virtual void exitParenExpr(TocParser::ParenExprContext * /*ctx*/) override { }
 
@@ -135,6 +153,15 @@ public:
 
   virtual void enterStructName(TocParser::StructNameContext * /*ctx*/) override { }
   virtual void exitStructName(TocParser::StructNameContext * /*ctx*/) override { }
+
+  virtual void enterPostfix_op(TocParser::Postfix_opContext * /*ctx*/) override { }
+  virtual void exitPostfix_op(TocParser::Postfix_opContext * /*ctx*/) override { }
+
+  virtual void enterPrefix_op(TocParser::Prefix_opContext * /*ctx*/) override { }
+  virtual void exitPrefix_op(TocParser::Prefix_opContext * /*ctx*/) override { }
+
+  virtual void enterBinary_op(TocParser::Binary_opContext * /*ctx*/) override { }
+  virtual void exitBinary_op(TocParser::Binary_opContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
