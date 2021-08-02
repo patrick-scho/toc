@@ -29,16 +29,16 @@ public:
     RuleProg = 0, RuleDecl = 1, RuleVarDecl = 2, RuleVar = 3, RuleVarInit = 4, 
     RuleType = 5, RuleTypeModifier = 6, RuleFuncDecl = 7, RuleFunc = 8, 
     RuleParameter = 9, RuleBody = 10, RuleStructDecl = 11, RuleStructMember = 12, 
-    RuleStructVar = 13, RuleStructMethod = 14, RuleStmt = 15, RuleIfStmt = 16, 
-    RuleElseIfStmt = 17, RuleElseStmt = 18, RuleSwitchStmt = 19, RuleSwitchBody = 20, 
-    RuleSwitchCase = 21, RuleForStmt = 22, RuleWhileStmt = 23, RuleAssignStmt = 24, 
-    RuleReturnStmt = 25, RuleExpr = 26, RuleNonOpExpr = 27, RuleNonAccessExpr = 28, 
-    RuleFuncExpr = 29, RuleOpExpr = 30, RuleBinaryOp = 31, RulePrefixOp = 32, 
-    RulePostfixOp = 33, RuleTernaryOp = 34, RuleIdentifierExpr = 35, RuleLitExpr = 36, 
-    RuleAccessExpr = 37, RuleAccessSubExpr = 38, RuleAccessMember = 39, 
-    RuleAccessBrackets = 40, RuleParenExpr = 41, RuleFuncName = 42, RuleVarName = 43, 
-    RuleTypeName = 44, RuleStructName = 45, RulePostfix_op = 46, RulePrefix_op = 47, 
-    RuleBinary_op = 48
+    RuleStructVar = 13, RuleStructMethod = 14, RuleGenericDecl = 15, RuleStmt = 16, 
+    RuleIfStmt = 17, RuleElseIfStmt = 18, RuleElseStmt = 19, RuleSwitchStmt = 20, 
+    RuleSwitchBody = 21, RuleSwitchCase = 22, RuleForStmt = 23, RuleWhileStmt = 24, 
+    RuleAssignStmt = 25, RuleReturnStmt = 26, RuleExpr = 27, RuleNonOpExpr = 28, 
+    RuleNonAccessExpr = 29, RuleFuncExpr = 30, RuleOpExpr = 31, RuleBinaryOp = 32, 
+    RulePrefixOp = 33, RulePostfixOp = 34, RuleTernaryOp = 35, RuleIdentifierExpr = 36, 
+    RuleLitExpr = 37, RuleAccessExpr = 38, RuleAccessSubExpr = 39, RuleAccessMember = 40, 
+    RuleAccessBrackets = 41, RuleParenExpr = 42, RuleFuncName = 43, RuleVarName = 44, 
+    RuleTypeName = 45, RuleStructName = 46, RulePostfix_op = 47, RulePrefix_op = 48, 
+    RuleBinary_op = 49
   };
 
   explicit TocParser(antlr4::TokenStream *input);
@@ -66,6 +66,7 @@ public:
   class StructMemberContext;
   class StructVarContext;
   class StructMethodContext;
+  class GenericDeclContext;
   class StmtContext;
   class IfStmtContext;
   class ElseIfStmtContext;
@@ -207,6 +208,7 @@ public:
     ParameterContext *parameter();
     BodyContext *body();
     TypeContext *type();
+    GenericDeclContext *genericDecl();
 
    
   };
@@ -242,6 +244,7 @@ public:
     StructDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     StructNameContext *structName();
+    GenericDeclContext *genericDecl();
     std::vector<StructMemberContext *> structMember();
     StructMemberContext* structMember(size_t i);
 
@@ -283,6 +286,18 @@ public:
   };
 
   StructMethodContext* structMethod();
+
+  class  GenericDeclContext : public antlr4::ParserRuleContext {
+  public:
+    GenericDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<TypeNameContext *> typeName();
+    TypeNameContext* typeName(size_t i);
+
+   
+  };
+
+  GenericDeclContext* genericDecl();
 
   class  StmtContext : public antlr4::ParserRuleContext {
   public:

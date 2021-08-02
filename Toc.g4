@@ -16,17 +16,18 @@ typeModifier: '*' | ('[' (INT_LIT)? ']');
 
 
 funcDecl: 'func' func;
-func: funcName '(' parameter ')' (':' type) body;
+func: funcName genericDecl? '(' parameter ')' (':' type) body;
 parameter: (var (',' var)*)?;
 
 body: '{' stmt* '}';
 
 
-structDecl: 'struct' structName '{' structMember* '}';
+structDecl: 'struct' structName genericDecl? '{' structMember* '}';
 structMember: structVar | structMethod;
 structVar: var ';';
 structMethod: func;
 
+genericDecl: '<' typeName (',' typeName)* '>';
 
 stmt: varDecl ';'
     | ifStmt

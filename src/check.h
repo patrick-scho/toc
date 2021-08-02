@@ -8,10 +8,6 @@ bool checkStmt(
   std::vector<Function> funcs,
   std::vector<Variable> vars)
 {
-  // switch (s.type) {
-  // case StmtType::Assign:
-  //   if (!checkVar(s._assign.))
-  // }
   return true;
 }
 

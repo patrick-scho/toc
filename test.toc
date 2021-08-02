@@ -2,7 +2,7 @@ var abc: int;
 var def: int;
 var ghi: int;
 
-func f1 (a : int, b : int) : int {
+func f1<A, B> (a : int, b : int) : int {
   var i1 : int;
   var s1 : S1;
   if a != i1 {
@@ -14,13 +14,13 @@ func f1 (a : int, b : int) : int {
   return 133;
 }
 
-struct S1 {
+struct S1<T> {
   i1 : int;
   i2 : int;
   a1 : int[10];
   a2 : int[10]*;
 
-  m1() : void {
+  m1<I>() : void {
     while i1 < i2 {
       i1 = m2(i1);
 
@@ -30,7 +30,7 @@ struct S1 {
     }
   }
 
-  m2(i: int) : int {
+  m2<A>(i: int) : int {
     var j : int = 0;
     while j < 10 {
       print(a1[j]);

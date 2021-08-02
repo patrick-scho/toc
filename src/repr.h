@@ -17,6 +17,7 @@ struct Program;
 struct FuncExpr;
 struct LitExpr;
 struct IdentifierExpr;
+struct AccessExpr;
 struct BracketsExpr;
 struct UnaryOperatorExpr;
 struct BinaryOperatorExpr;
