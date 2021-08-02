@@ -2,7 +2,7 @@ grammar Toc;
 
 prog: (decl)+ EOF;
 
-decl: varDecl
+decl: varDecl ';'
     | funcDecl
     | structDecl
     ;
@@ -12,7 +12,7 @@ var:  varName (':' type) ('=' expr)?;
 varInit:  varName (':' type) ('=' expr);
 
 type: typeName (typeModifier)*;
-typeModifier: '*' | '[' NUMBER? ']';
+typeModifier: '*' | ('[' (INT_LIT)? ']');
 
 
 funcDecl: 'func' func;
@@ -24,18 +24,18 @@ body: '{' stmt* '}';
 
 structDecl: 'struct' structName '{' structMember* '}';
 structMember: structVar | structMethod;
-structVar: var;
+structVar: var ';';
 structMethod: func;
 
 
-stmt: varDecl
+stmt: varDecl ';'
     | ifStmt
     | switchStmt
     | forStmt
     | whileStmt
-    | assignStmt
-    | returnStmt
-    | expr;
+    | assignStmt ';'
+    | returnStmt ';'
+    | expr ';';
 
 ifStmt: 'if' expr body elseIfStmt* elseStmt?;
 elseIfStmt: 'else' 'if' expr body;
@@ -115,4 +115,3 @@ BOOL_LIT: 'true' | 'false';
 NAME: ([a-z] | [A-Z] | [0-9])+;
 WS: [ \t\r\n]+ -> skip;
 NEWLINE: [\r\n]+;
-NUMBER: [0-9]+;

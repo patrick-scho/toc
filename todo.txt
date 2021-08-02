@@ -60,3 +60,6 @@ Missing:
 - unions
 - const/static/extern
 - operator precedence
+- bitfields
+- nested bodies {}
+- multiple files

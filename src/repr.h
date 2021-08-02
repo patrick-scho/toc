@@ -22,6 +22,7 @@ struct UnaryOperatorExpr;
 struct BinaryOperatorExpr;
 struct TernaryOperatorExpr;
 struct DotExpr;
+struct ParenExpr;
 struct Expr;
 struct IfStmt;
 struct SwitchStmt;
@@ -38,6 +39,7 @@ enum class TypeModifierType {
 struct TypeModifier {
   TypeModifierType type;
 
+  bool _staticArray;
   int _arraySize;
 };
 
@@ -154,6 +156,8 @@ struct DotExpr {
 // TODO: paren expr
 struct Expr {
   ExprType type;
+
+  bool parenthesized;
 
   FuncExpr            _func;
   LitExpr             _lit;

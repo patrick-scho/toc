@@ -7,6 +7,7 @@
 #include "toc.h"
 #include "repr.h"
 #include "repr_get.h"
+#include "check.h"
 
 using namespace antlr4;
 
@@ -33,14 +34,11 @@ int main(int argc, const char * argv[]) {
   //std::cout << "Parse Tree: " << s << std::endl;
 
   Program prg = getProgram(prog);
-  std::cout << "Variables:\n";
-  for (auto v : prg.variables)
-    std::cout << " " << v.name << endl;
-  std::cout << "Functions:\n";
-  for (auto f : prg.functions)
-    std::cout << " " << f.name << endl;
 
   tocProgram(std::cout, prg);
+
+  if (!checkProgram(prg))
+    std::cerr << "Error" << std::endl;
 
   //std::ofstream ofs("output.c");
   //tocProg(ofs, prg);

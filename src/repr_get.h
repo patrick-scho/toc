@@ -22,9 +22,13 @@ Type getType(TocParser::TypeContext * ctx) {
   Type result;
   result.name = ctx->typeName()->NAME()->toString();
   for (auto m : ctx->typeModifier()) {
+    bool isPointer = m->getText() == "*";
+    bool isStaticArray = m->INT_LIT() != nullptr;
+
     result.modifiers.emplace_back(
-      m->toString() == "*" ? TypeModifierType::Pointer : TypeModifierType::Array,
-      m->toString() == "*" ? -1 : atoi(m->NUMBER()->toString().c_str())
+      isPointer ? TypeModifierType::Pointer : TypeModifierType::Array,
+      isStaticArray,
+      isStaticArray ? atoi(m->INT_LIT()->toString().c_str()) : -1
     );
   }
   return result;
@@ -129,7 +133,6 @@ BinaryOperatorExpr getBinaryOperatorExpr(TocParser::OpExprContext * ctx) {
   result.rexpr = std::make_unique<Expr>(getExpr(ctx->binaryOp()->nonOpExpr(1)));
   
   std::string op = ctx->binaryOp()->binary_op(0)->getText();
-  std::cout << op << std::endl;
 
   result.type = getBinaryOperatorType(op);
 
@@ -144,6 +147,7 @@ TernaryOperatorExpr getTernaryOperatorExpr(TocParser::OpExprContext * ctx) {
 }
 Expr getExpr(TocParser::NonOpExprContext * ctx) {
   Expr result;
+  result.parenthesized = false;
   if (ctx->funcExpr() != nullptr) {
     result.type = ExprType::Func;
     result._func.functionName = ctx->funcExpr()->funcName()->NAME()->toString();
@@ -175,17 +179,31 @@ Expr getExpr(TocParser::NonOpExprContext * ctx) {
   }
   if (ctx->parenExpr() != nullptr) {
     result = getExpr(ctx->parenExpr()->expr());
+    result.parenthesized = true;
   }
   if (ctx->accessExpr() != nullptr) {
-    // TODO: access chain
-    for (auto sub : ctx->accessExpr()->accessSubExpr()) {
+    auto firstSub = ctx->accessExpr()->accessSubExpr(0);
+    if (firstSub->accessMember() != nullptr) {
+      result.type = ExprType::Dot;
+      result._dot.expr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+      result._dot.ident.name = firstSub->accessMember()->identifierExpr()->varName()->NAME()->toString();
+    }
+    else {
+      result.type = ExprType::Brackets;
+      result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+      result._brackets.rexpr = std::make_unique<Expr>(getExpr(firstSub->accessBrackets()->expr()));
+    }
+    for (int i = 1; i < ctx->accessExpr()->accessSubExpr().size(); i++) {
+      Expr tmp = result;
+      auto sub = ctx->accessExpr()->accessSubExpr(i);
       if (sub->accessMember() != nullptr) {
         result.type = ExprType::Dot;
+        result._dot.expr = std::make_unique<Expr>(tmp);
         result._dot.ident.name = sub->accessMember()->identifierExpr()->varName()->NAME()->toString();
       }
       else {
         result.type = ExprType::Brackets;
-        result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+        result._brackets.lexpr = std::make_unique<Expr>(tmp);
         result._brackets.rexpr = std::make_unique<Expr>(getExpr(sub->accessBrackets()->expr()));
       }
     }
@@ -194,6 +212,7 @@ Expr getExpr(TocParser::NonOpExprContext * ctx) {
 }
 Expr getExpr(TocParser::NonAccessExprContext * ctx) {
   Expr result;
+  result.parenthesized = false;
   if (ctx->funcExpr() != nullptr) {
     result.type = ExprType::Func;
     result._func.functionName = ctx->funcExpr()->funcName()->NAME()->toString();
@@ -206,11 +225,13 @@ Expr getExpr(TocParser::NonAccessExprContext * ctx) {
   }
   if (ctx->parenExpr() != nullptr) {
     result = getExpr(ctx->parenExpr()->expr());
+    result.parenthesized = true;
   }
   return result;
 }
 Expr getExpr(TocParser::ExprContext * ctx) {
   Expr result;
+  result.parenthesized = false;
   if (ctx->funcExpr() != nullptr) {
     result.type = ExprType::Func;
     result._func.functionName = ctx->funcExpr()->funcName()->NAME()->toString();
@@ -242,18 +263,31 @@ Expr getExpr(TocParser::ExprContext * ctx) {
   }
   if (ctx->parenExpr() != nullptr) {
     result = getExpr(ctx->parenExpr()->expr());
+    result.parenthesized = true;
   }
   if (ctx->accessExpr() != nullptr) {
-    // TODO: access chain
-    for (auto sub : ctx->accessExpr()->accessSubExpr()) {
+    auto firstSub = ctx->accessExpr()->accessSubExpr(0);
+    if (firstSub->accessMember() != nullptr) {
+      result.type = ExprType::Dot;
+      result._dot.expr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+      result._dot.ident.name = firstSub->accessMember()->identifierExpr()->varName()->NAME()->toString();
+    }
+    else {
+      result.type = ExprType::Brackets;
+      result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+      result._brackets.rexpr = std::make_unique<Expr>(getExpr(firstSub->accessBrackets()->expr()));
+    }
+    for (int i = 1; i < ctx->accessExpr()->accessSubExpr().size(); i++) {
+      Expr tmp = result;
+      auto sub = ctx->accessExpr()->accessSubExpr(i);
       if (sub->accessMember() != nullptr) {
         result.type = ExprType::Dot;
-        result._dot.expr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+        result._dot.expr = std::make_unique<Expr>(tmp);
         result._dot.ident.name = sub->accessMember()->identifierExpr()->varName()->NAME()->toString();
       }
       else {
         result.type = ExprType::Brackets;
-        result._brackets.lexpr = std::make_unique<Expr>(getExpr(ctx->accessExpr()->nonAccessExpr()));
+        result._brackets.lexpr = std::make_unique<Expr>(tmp);
         result._brackets.rexpr = std::make_unique<Expr>(getExpr(sub->accessBrackets()->expr()));
       }
     }
