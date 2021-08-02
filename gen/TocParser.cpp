@@ -2,7 +2,6 @@
 // Generated from Toc.g4 by ANTLR 4.9.2
 
 
-#include "TocListener.h"
 
 #include "TocParser.h"
 
@@ -54,17 +53,6 @@ size_t TocParser::ProgContext::getRuleIndex() const {
   return TocParser::RuleProg;
 }
 
-void TocParser::ProgContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterProg(this);
-}
-
-void TocParser::ProgContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitProg(this);
-}
 
 TocParser::ProgContext* TocParser::prog() {
   ProgContext *_localctx = _tracker.createInstance<ProgContext>(_ctx, getState());
@@ -129,17 +117,6 @@ size_t TocParser::DeclContext::getRuleIndex() const {
   return TocParser::RuleDecl;
 }
 
-void TocParser::DeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDecl(this);
-}
-
-void TocParser::DeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDecl(this);
-}
 
 TocParser::DeclContext* TocParser::decl() {
   DeclContext *_localctx = _tracker.createInstance<DeclContext>(_ctx, getState());
@@ -208,17 +185,6 @@ size_t TocParser::VarDeclContext::getRuleIndex() const {
   return TocParser::RuleVarDecl;
 }
 
-void TocParser::VarDeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVarDecl(this);
-}
-
-void TocParser::VarDeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVarDecl(this);
-}
 
 TocParser::VarDeclContext* TocParser::varDecl() {
   VarDeclContext *_localctx = _tracker.createInstance<VarDeclContext>(_ctx, getState());
@@ -271,17 +237,6 @@ size_t TocParser::VarContext::getRuleIndex() const {
   return TocParser::RuleVar;
 }
 
-void TocParser::VarContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVar(this);
-}
-
-void TocParser::VarContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVar(this);
-}
 
 TocParser::VarContext* TocParser::var() {
   VarContext *_localctx = _tracker.createInstance<VarContext>(_ctx, getState());
@@ -348,17 +303,6 @@ size_t TocParser::VarInitContext::getRuleIndex() const {
   return TocParser::RuleVarInit;
 }
 
-void TocParser::VarInitContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVarInit(this);
-}
-
-void TocParser::VarInitContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVarInit(this);
-}
 
 TocParser::VarInitContext* TocParser::varInit() {
   VarInitContext *_localctx = _tracker.createInstance<VarInitContext>(_ctx, getState());
@@ -419,17 +363,6 @@ size_t TocParser::TypeContext::getRuleIndex() const {
   return TocParser::RuleType;
 }
 
-void TocParser::TypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterType(this);
-}
-
-void TocParser::TypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitType(this);
-}
 
 TocParser::TypeContext* TocParser::type() {
   TypeContext *_localctx = _tracker.createInstance<TypeContext>(_ctx, getState());
@@ -485,17 +418,6 @@ size_t TocParser::TypeModifierContext::getRuleIndex() const {
   return TocParser::RuleTypeModifier;
 }
 
-void TocParser::TypeModifierContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTypeModifier(this);
-}
-
-void TocParser::TypeModifierContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTypeModifier(this);
-}
 
 TocParser::TypeModifierContext* TocParser::typeModifier() {
   TypeModifierContext *_localctx = _tracker.createInstance<TypeModifierContext>(_ctx, getState());
@@ -566,17 +488,6 @@ size_t TocParser::FuncDeclContext::getRuleIndex() const {
   return TocParser::RuleFuncDecl;
 }
 
-void TocParser::FuncDeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFuncDecl(this);
-}
-
-void TocParser::FuncDeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFuncDecl(this);
-}
 
 TocParser::FuncDeclContext* TocParser::funcDecl() {
   FuncDeclContext *_localctx = _tracker.createInstance<FuncDeclContext>(_ctx, getState());
@@ -633,17 +544,6 @@ size_t TocParser::FuncContext::getRuleIndex() const {
   return TocParser::RuleFunc;
 }
 
-void TocParser::FuncContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFunc(this);
-}
-
-void TocParser::FuncContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFunc(this);
-}
 
 TocParser::FuncContext* TocParser::func() {
   FuncContext *_localctx = _tracker.createInstance<FuncContext>(_ctx, getState());
@@ -703,17 +603,6 @@ size_t TocParser::ParameterContext::getRuleIndex() const {
   return TocParser::RuleParameter;
 }
 
-void TocParser::ParameterContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParameter(this);
-}
-
-void TocParser::ParameterContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParameter(this);
-}
 
 TocParser::ParameterContext* TocParser::parameter() {
   ParameterContext *_localctx = _tracker.createInstance<ParameterContext>(_ctx, getState());
@@ -779,17 +668,6 @@ size_t TocParser::BodyContext::getRuleIndex() const {
   return TocParser::RuleBody;
 }
 
-void TocParser::BodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterBody(this);
-}
-
-void TocParser::BodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitBody(this);
-}
 
 TocParser::BodyContext* TocParser::body() {
   BodyContext *_localctx = _tracker.createInstance<BodyContext>(_ctx, getState());
@@ -873,17 +751,6 @@ size_t TocParser::StructDeclContext::getRuleIndex() const {
   return TocParser::RuleStructDecl;
 }
 
-void TocParser::StructDeclContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStructDecl(this);
-}
-
-void TocParser::StructDeclContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStructDecl(this);
-}
 
 TocParser::StructDeclContext* TocParser::structDecl() {
   StructDeclContext *_localctx = _tracker.createInstance<StructDeclContext>(_ctx, getState());
@@ -947,17 +814,6 @@ size_t TocParser::StructMemberContext::getRuleIndex() const {
   return TocParser::RuleStructMember;
 }
 
-void TocParser::StructMemberContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStructMember(this);
-}
-
-void TocParser::StructMemberContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStructMember(this);
-}
 
 TocParser::StructMemberContext* TocParser::structMember() {
   StructMemberContext *_localctx = _tracker.createInstance<StructMemberContext>(_ctx, getState());
@@ -1017,17 +873,6 @@ size_t TocParser::StructVarContext::getRuleIndex() const {
   return TocParser::RuleStructVar;
 }
 
-void TocParser::StructVarContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStructVar(this);
-}
-
-void TocParser::StructVarContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStructVar(this);
-}
 
 TocParser::StructVarContext* TocParser::structVar() {
   StructVarContext *_localctx = _tracker.createInstance<StructVarContext>(_ctx, getState());
@@ -1072,17 +917,6 @@ size_t TocParser::StructMethodContext::getRuleIndex() const {
   return TocParser::RuleStructMethod;
 }
 
-void TocParser::StructMethodContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStructMethod(this);
-}
-
-void TocParser::StructMethodContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStructMethod(this);
-}
 
 TocParser::StructMethodContext* TocParser::structMethod() {
   StructMethodContext *_localctx = _tracker.createInstance<StructMethodContext>(_ctx, getState());
@@ -1153,17 +987,6 @@ size_t TocParser::StmtContext::getRuleIndex() const {
   return TocParser::RuleStmt;
 }
 
-void TocParser::StmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStmt(this);
-}
-
-void TocParser::StmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStmt(this);
-}
 
 TocParser::StmtContext* TocParser::stmt() {
   StmtContext *_localctx = _tracker.createInstance<StmtContext>(_ctx, getState());
@@ -1289,17 +1112,6 @@ size_t TocParser::IfStmtContext::getRuleIndex() const {
   return TocParser::RuleIfStmt;
 }
 
-void TocParser::IfStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIfStmt(this);
-}
-
-void TocParser::IfStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIfStmt(this);
-}
 
 TocParser::IfStmtContext* TocParser::ifStmt() {
   IfStmtContext *_localctx = _tracker.createInstance<IfStmtContext>(_ctx, getState());
@@ -1372,17 +1184,6 @@ size_t TocParser::ElseIfStmtContext::getRuleIndex() const {
   return TocParser::RuleElseIfStmt;
 }
 
-void TocParser::ElseIfStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterElseIfStmt(this);
-}
-
-void TocParser::ElseIfStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitElseIfStmt(this);
-}
 
 TocParser::ElseIfStmtContext* TocParser::elseIfStmt() {
   ElseIfStmtContext *_localctx = _tracker.createInstance<ElseIfStmtContext>(_ctx, getState());
@@ -1431,17 +1232,6 @@ size_t TocParser::ElseStmtContext::getRuleIndex() const {
   return TocParser::RuleElseStmt;
 }
 
-void TocParser::ElseStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterElseStmt(this);
-}
-
-void TocParser::ElseStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitElseStmt(this);
-}
 
 TocParser::ElseStmtContext* TocParser::elseStmt() {
   ElseStmtContext *_localctx = _tracker.createInstance<ElseStmtContext>(_ctx, getState());
@@ -1490,17 +1280,6 @@ size_t TocParser::SwitchStmtContext::getRuleIndex() const {
   return TocParser::RuleSwitchStmt;
 }
 
-void TocParser::SwitchStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSwitchStmt(this);
-}
-
-void TocParser::SwitchStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSwitchStmt(this);
-}
 
 TocParser::SwitchStmtContext* TocParser::switchStmt() {
   SwitchStmtContext *_localctx = _tracker.createInstance<SwitchStmtContext>(_ctx, getState());
@@ -1551,17 +1330,6 @@ size_t TocParser::SwitchBodyContext::getRuleIndex() const {
   return TocParser::RuleSwitchBody;
 }
 
-void TocParser::SwitchBodyContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSwitchBody(this);
-}
-
-void TocParser::SwitchBodyContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSwitchBody(this);
-}
 
 TocParser::SwitchBodyContext* TocParser::switchBody() {
   SwitchBodyContext *_localctx = _tracker.createInstance<SwitchBodyContext>(_ctx, getState());
@@ -1621,17 +1389,6 @@ size_t TocParser::SwitchCaseContext::getRuleIndex() const {
   return TocParser::RuleSwitchCase;
 }
 
-void TocParser::SwitchCaseContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSwitchCase(this);
-}
-
-void TocParser::SwitchCaseContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSwitchCase(this);
-}
 
 TocParser::SwitchCaseContext* TocParser::switchCase() {
   SwitchCaseContext *_localctx = _tracker.createInstance<SwitchCaseContext>(_ctx, getState());
@@ -1694,17 +1451,6 @@ size_t TocParser::ForStmtContext::getRuleIndex() const {
   return TocParser::RuleForStmt;
 }
 
-void TocParser::ForStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterForStmt(this);
-}
-
-void TocParser::ForStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitForStmt(this);
-}
 
 TocParser::ForStmtContext* TocParser::forStmt() {
   ForStmtContext *_localctx = _tracker.createInstance<ForStmtContext>(_ctx, getState());
@@ -1779,17 +1525,6 @@ size_t TocParser::WhileStmtContext::getRuleIndex() const {
   return TocParser::RuleWhileStmt;
 }
 
-void TocParser::WhileStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterWhileStmt(this);
-}
-
-void TocParser::WhileStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitWhileStmt(this);
-}
 
 TocParser::WhileStmtContext* TocParser::whileStmt() {
   WhileStmtContext *_localctx = _tracker.createInstance<WhileStmtContext>(_ctx, getState());
@@ -1840,17 +1575,6 @@ size_t TocParser::AssignStmtContext::getRuleIndex() const {
   return TocParser::RuleAssignStmt;
 }
 
-void TocParser::AssignStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAssignStmt(this);
-}
-
-void TocParser::AssignStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAssignStmt(this);
-}
 
 TocParser::AssignStmtContext* TocParser::assignStmt() {
   AssignStmtContext *_localctx = _tracker.createInstance<AssignStmtContext>(_ctx, getState());
@@ -1897,17 +1621,6 @@ size_t TocParser::ReturnStmtContext::getRuleIndex() const {
   return TocParser::RuleReturnStmt;
 }
 
-void TocParser::ReturnStmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterReturnStmt(this);
-}
-
-void TocParser::ReturnStmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitReturnStmt(this);
-}
 
 TocParser::ReturnStmtContext* TocParser::returnStmt() {
   ReturnStmtContext *_localctx = _tracker.createInstance<ReturnStmtContext>(_ctx, getState());
@@ -1972,17 +1685,6 @@ size_t TocParser::ExprContext::getRuleIndex() const {
   return TocParser::RuleExpr;
 }
 
-void TocParser::ExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExpr(this);
-}
-
-void TocParser::ExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExpr(this);
-}
 
 TocParser::ExprContext* TocParser::expr() {
   ExprContext *_localctx = _tracker.createInstance<ExprContext>(_ctx, getState());
@@ -2086,17 +1788,6 @@ size_t TocParser::NonOpExprContext::getRuleIndex() const {
   return TocParser::RuleNonOpExpr;
 }
 
-void TocParser::NonOpExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterNonOpExpr(this);
-}
-
-void TocParser::NonOpExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitNonOpExpr(this);
-}
 
 TocParser::NonOpExprContext* TocParser::nonOpExpr() {
   NonOpExprContext *_localctx = _tracker.createInstance<NonOpExprContext>(_ctx, getState());
@@ -2185,17 +1876,6 @@ size_t TocParser::NonAccessExprContext::getRuleIndex() const {
   return TocParser::RuleNonAccessExpr;
 }
 
-void TocParser::NonAccessExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterNonAccessExpr(this);
-}
-
-void TocParser::NonAccessExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitNonAccessExpr(this);
-}
 
 TocParser::NonAccessExprContext* TocParser::nonAccessExpr() {
   NonAccessExprContext *_localctx = _tracker.createInstance<NonAccessExprContext>(_ctx, getState());
@@ -2270,17 +1950,6 @@ size_t TocParser::FuncExprContext::getRuleIndex() const {
   return TocParser::RuleFuncExpr;
 }
 
-void TocParser::FuncExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFuncExpr(this);
-}
-
-void TocParser::FuncExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFuncExpr(this);
-}
 
 TocParser::FuncExprContext* TocParser::funcExpr() {
   FuncExprContext *_localctx = _tracker.createInstance<FuncExprContext>(_ctx, getState());
@@ -2374,17 +2043,6 @@ size_t TocParser::OpExprContext::getRuleIndex() const {
   return TocParser::RuleOpExpr;
 }
 
-void TocParser::OpExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterOpExpr(this);
-}
-
-void TocParser::OpExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitOpExpr(this);
-}
 
 TocParser::OpExprContext* TocParser::opExpr() {
   OpExprContext *_localctx = _tracker.createInstance<OpExprContext>(_ctx, getState());
@@ -2470,17 +2128,6 @@ size_t TocParser::BinaryOpContext::getRuleIndex() const {
   return TocParser::RuleBinaryOp;
 }
 
-void TocParser::BinaryOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterBinaryOp(this);
-}
-
-void TocParser::BinaryOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitBinaryOp(this);
-}
 
 TocParser::BinaryOpContext* TocParser::binaryOp() {
   BinaryOpContext *_localctx = _tracker.createInstance<BinaryOpContext>(_ctx, getState());
@@ -2572,17 +2219,6 @@ size_t TocParser::PrefixOpContext::getRuleIndex() const {
   return TocParser::RulePrefixOp;
 }
 
-void TocParser::PrefixOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPrefixOp(this);
-}
-
-void TocParser::PrefixOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPrefixOp(this);
-}
 
 TocParser::PrefixOpContext* TocParser::prefixOp() {
   PrefixOpContext *_localctx = _tracker.createInstance<PrefixOpContext>(_ctx, getState());
@@ -2631,17 +2267,6 @@ size_t TocParser::PostfixOpContext::getRuleIndex() const {
   return TocParser::RulePostfixOp;
 }
 
-void TocParser::PostfixOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPostfixOp(this);
-}
-
-void TocParser::PostfixOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPostfixOp(this);
-}
 
 TocParser::PostfixOpContext* TocParser::postfixOp() {
   PostfixOpContext *_localctx = _tracker.createInstance<PostfixOpContext>(_ctx, getState());
@@ -2694,17 +2319,6 @@ size_t TocParser::TernaryOpContext::getRuleIndex() const {
   return TocParser::RuleTernaryOp;
 }
 
-void TocParser::TernaryOpContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTernaryOp(this);
-}
-
-void TocParser::TernaryOpContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTernaryOp(this);
-}
 
 TocParser::TernaryOpContext* TocParser::ternaryOp() {
   TernaryOpContext *_localctx = _tracker.createInstance<TernaryOpContext>(_ctx, getState());
@@ -2755,17 +2369,6 @@ size_t TocParser::IdentifierExprContext::getRuleIndex() const {
   return TocParser::RuleIdentifierExpr;
 }
 
-void TocParser::IdentifierExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIdentifierExpr(this);
-}
-
-void TocParser::IdentifierExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIdentifierExpr(this);
-}
 
 TocParser::IdentifierExprContext* TocParser::identifierExpr() {
   IdentifierExprContext *_localctx = _tracker.createInstance<IdentifierExprContext>(_ctx, getState());
@@ -2820,17 +2423,6 @@ size_t TocParser::LitExprContext::getRuleIndex() const {
   return TocParser::RuleLitExpr;
 }
 
-void TocParser::LitExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterLitExpr(this);
-}
-
-void TocParser::LitExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitLitExpr(this);
-}
 
 TocParser::LitExprContext* TocParser::litExpr() {
   LitExprContext *_localctx = _tracker.createInstance<LitExprContext>(_ctx, getState());
@@ -2893,17 +2485,6 @@ size_t TocParser::AccessExprContext::getRuleIndex() const {
   return TocParser::RuleAccessExpr;
 }
 
-void TocParser::AccessExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAccessExpr(this);
-}
-
-void TocParser::AccessExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAccessExpr(this);
-}
 
 TocParser::AccessExprContext* TocParser::accessExpr() {
   AccessExprContext *_localctx = _tracker.createInstance<AccessExprContext>(_ctx, getState());
@@ -2964,17 +2545,6 @@ size_t TocParser::AccessSubExprContext::getRuleIndex() const {
   return TocParser::RuleAccessSubExpr;
 }
 
-void TocParser::AccessSubExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAccessSubExpr(this);
-}
-
-void TocParser::AccessSubExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAccessSubExpr(this);
-}
 
 TocParser::AccessSubExprContext* TocParser::accessSubExpr() {
   AccessSubExprContext *_localctx = _tracker.createInstance<AccessSubExprContext>(_ctx, getState());
@@ -3035,17 +2605,6 @@ size_t TocParser::AccessMemberContext::getRuleIndex() const {
   return TocParser::RuleAccessMember;
 }
 
-void TocParser::AccessMemberContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAccessMember(this);
-}
-
-void TocParser::AccessMemberContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAccessMember(this);
-}
 
 TocParser::AccessMemberContext* TocParser::accessMember() {
   AccessMemberContext *_localctx = _tracker.createInstance<AccessMemberContext>(_ctx, getState());
@@ -3100,17 +2659,6 @@ size_t TocParser::AccessBracketsContext::getRuleIndex() const {
   return TocParser::RuleAccessBrackets;
 }
 
-void TocParser::AccessBracketsContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAccessBrackets(this);
-}
-
-void TocParser::AccessBracketsContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAccessBrackets(this);
-}
 
 TocParser::AccessBracketsContext* TocParser::accessBrackets() {
   AccessBracketsContext *_localctx = _tracker.createInstance<AccessBracketsContext>(_ctx, getState());
@@ -3157,17 +2705,6 @@ size_t TocParser::ParenExprContext::getRuleIndex() const {
   return TocParser::RuleParenExpr;
 }
 
-void TocParser::ParenExprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParenExpr(this);
-}
-
-void TocParser::ParenExprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParenExpr(this);
-}
 
 TocParser::ParenExprContext* TocParser::parenExpr() {
   ParenExprContext *_localctx = _tracker.createInstance<ParenExprContext>(_ctx, getState());
@@ -3214,17 +2751,6 @@ size_t TocParser::FuncNameContext::getRuleIndex() const {
   return TocParser::RuleFuncName;
 }
 
-void TocParser::FuncNameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFuncName(this);
-}
-
-void TocParser::FuncNameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFuncName(this);
-}
 
 TocParser::FuncNameContext* TocParser::funcName() {
   FuncNameContext *_localctx = _tracker.createInstance<FuncNameContext>(_ctx, getState());
@@ -3267,17 +2793,6 @@ size_t TocParser::VarNameContext::getRuleIndex() const {
   return TocParser::RuleVarName;
 }
 
-void TocParser::VarNameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVarName(this);
-}
-
-void TocParser::VarNameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVarName(this);
-}
 
 TocParser::VarNameContext* TocParser::varName() {
   VarNameContext *_localctx = _tracker.createInstance<VarNameContext>(_ctx, getState());
@@ -3320,17 +2835,6 @@ size_t TocParser::TypeNameContext::getRuleIndex() const {
   return TocParser::RuleTypeName;
 }
 
-void TocParser::TypeNameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTypeName(this);
-}
-
-void TocParser::TypeNameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTypeName(this);
-}
 
 TocParser::TypeNameContext* TocParser::typeName() {
   TypeNameContext *_localctx = _tracker.createInstance<TypeNameContext>(_ctx, getState());
@@ -3373,17 +2877,6 @@ size_t TocParser::StructNameContext::getRuleIndex() const {
   return TocParser::RuleStructName;
 }
 
-void TocParser::StructNameContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStructName(this);
-}
-
-void TocParser::StructNameContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStructName(this);
-}
 
 TocParser::StructNameContext* TocParser::structName() {
   StructNameContext *_localctx = _tracker.createInstance<StructNameContext>(_ctx, getState());
@@ -3422,17 +2915,6 @@ size_t TocParser::Postfix_opContext::getRuleIndex() const {
   return TocParser::RulePostfix_op;
 }
 
-void TocParser::Postfix_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPostfix_op(this);
-}
-
-void TocParser::Postfix_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPostfix_op(this);
-}
 
 TocParser::Postfix_opContext* TocParser::postfix_op() {
   Postfix_opContext *_localctx = _tracker.createInstance<Postfix_opContext>(_ctx, getState());
@@ -3485,17 +2967,6 @@ size_t TocParser::Prefix_opContext::getRuleIndex() const {
   return TocParser::RulePrefix_op;
 }
 
-void TocParser::Prefix_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPrefix_op(this);
-}
-
-void TocParser::Prefix_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPrefix_op(this);
-}
 
 TocParser::Prefix_opContext* TocParser::prefix_op() {
   Prefix_opContext *_localctx = _tracker.createInstance<Prefix_opContext>(_ctx, getState());
@@ -3587,17 +3058,6 @@ size_t TocParser::Binary_opContext::getRuleIndex() const {
   return TocParser::RuleBinary_op;
 }
 
-void TocParser::Binary_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterBinary_op(this);
-}
-
-void TocParser::Binary_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<TocListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitBinary_op(this);
-}
 
 TocParser::Binary_opContext* TocParser::binary_op() {
   Binary_opContext *_localctx = _tracker.createInstance<Binary_opContext>(_ctx, getState());

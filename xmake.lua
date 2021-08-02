@@ -15,7 +15,7 @@ target("main")
     set_languages("c++20")
 
 
--- "C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe" -jar antlr-4.9.2-complete.jar -Dlanguage=Cpp -o gen Toc.g4
+-- java -jar antlr-4.9.2-complete.jar -Dlanguage=Cpp -no-listener -o gen Toc.g4
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
