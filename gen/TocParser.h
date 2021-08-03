@@ -20,25 +20,25 @@ public:
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
     T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
-    T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, INT_LIT = 56, 
-    DECIMAL_LIT = 57, STRING_LIT = 58, BOOL_LIT = 59, NAME = 60, WS = 61, 
-    NEWLINE = 62
+    T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
+    T__56 = 57, INT_LIT = 58, DECIMAL_LIT = 59, STRING_LIT = 60, BOOL_LIT = 61, 
+    NAME = 62, WS = 63, NEWLINE = 64
   };
 
   enum {
-    RuleProg = 0, RuleDecl = 1, RuleVarDecl = 2, RuleVar = 3, RuleVarInit = 4, 
-    RuleType = 5, RuleTypeModifier = 6, RuleFuncDecl = 7, RuleFunc = 8, 
-    RuleParameter = 9, RuleBody = 10, RuleStructDecl = 11, RuleStructMember = 12, 
-    RuleStructVar = 13, RuleStructMethod = 14, RuleGenericDecl = 15, RuleStmt = 16, 
-    RuleIfStmt = 17, RuleElseIfStmt = 18, RuleElseStmt = 19, RuleSwitchStmt = 20, 
-    RuleSwitchBody = 21, RuleSwitchCase = 22, RuleForStmt = 23, RuleWhileStmt = 24, 
-    RuleAssignStmt = 25, RuleReturnStmt = 26, RuleExpr = 27, RuleNonOpExpr = 28, 
-    RuleNonAccessExpr = 29, RuleFuncExpr = 30, RuleOpExpr = 31, RuleBinaryOp = 32, 
-    RulePrefixOp = 33, RulePostfixOp = 34, RuleTernaryOp = 35, RuleIdentifierExpr = 36, 
-    RuleLitExpr = 37, RuleAccessExpr = 38, RuleAccessSubExpr = 39, RuleAccessMember = 40, 
-    RuleAccessBrackets = 41, RuleParenExpr = 42, RuleFuncName = 43, RuleVarName = 44, 
-    RuleTypeName = 45, RuleStructName = 46, RulePostfix_op = 47, RulePrefix_op = 48, 
-    RuleBinary_op = 49
+    RuleProg = 0, RuleDecl = 1, RuleNamespaceDecl = 2, RuleVarDecl = 3, 
+    RuleVar = 4, RuleVarInit = 5, RuleType = 6, RuleTypeModifier = 7, RuleFuncDecl = 8, 
+    RuleFunc = 9, RuleParameter = 10, RuleBody = 11, RuleStructDecl = 12, 
+    RuleStructMember = 13, RuleStructVar = 14, RuleStructMethod = 15, RulePrivateDecl = 16, 
+    RuleGenericDecl = 17, RuleStmt = 18, RuleIfStmt = 19, RuleElseIfStmt = 20, 
+    RuleElseStmt = 21, RuleSwitchStmt = 22, RuleSwitchBody = 23, RuleSwitchCase = 24, 
+    RuleForStmt = 25, RuleWhileStmt = 26, RuleAssignStmt = 27, RuleReturnStmt = 28, 
+    RuleExpr = 29, RuleNonOpExpr = 30, RuleNonAccessExpr = 31, RuleFuncExpr = 32, 
+    RuleOpExpr = 33, RuleBinaryOp = 34, RulePrefixOp = 35, RulePostfixOp = 36, 
+    RuleTernaryOp = 37, RuleIdentifierExpr = 38, RuleLitExpr = 39, RuleAccessExpr = 40, 
+    RuleAccessSubExpr = 41, RuleAccessMember = 42, RuleAccessBrackets = 43, 
+    RuleParenExpr = 44, RuleFuncName = 45, RuleVarName = 46, RuleTypeName = 47, 
+    RuleStructName = 48, RulePostfix_op = 49, RulePrefix_op = 50, RuleBinary_op = 51
   };
 
   explicit TocParser(antlr4::TokenStream *input);
@@ -53,6 +53,7 @@ public:
 
   class ProgContext;
   class DeclContext;
+  class NamespaceDeclContext;
   class VarDeclContext;
   class VarContext;
   class VarInitContext;
@@ -66,6 +67,7 @@ public:
   class StructMemberContext;
   class StructVarContext;
   class StructMethodContext;
+  class PrivateDeclContext;
   class GenericDeclContext;
   class StmtContext;
   class IfStmtContext;
@@ -122,11 +124,25 @@ public:
     VarDeclContext *varDecl();
     FuncDeclContext *funcDecl();
     StructDeclContext *structDecl();
+    NamespaceDeclContext *namespaceDecl();
 
    
   };
 
   DeclContext* decl();
+
+  class  NamespaceDeclContext : public antlr4::ParserRuleContext {
+  public:
+    NamespaceDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    TypeNameContext *typeName();
+    std::vector<DeclContext *> decl();
+    DeclContext* decl(size_t i);
+
+   
+  };
+
+  NamespaceDeclContext* namespaceDecl();
 
   class  VarDeclContext : public antlr4::ParserRuleContext {
   public:
@@ -258,6 +274,7 @@ public:
     StructMemberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     StructVarContext *structVar();
+    PrivateDeclContext *privateDecl();
     StructMethodContext *structMethod();
 
    
@@ -286,6 +303,16 @@ public:
   };
 
   StructMethodContext* structMethod();
+
+  class  PrivateDeclContext : public antlr4::ParserRuleContext {
+  public:
+    PrivateDeclContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  PrivateDeclContext* privateDecl();
 
   class  GenericDeclContext : public antlr4::ParserRuleContext {
   public:

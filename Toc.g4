@@ -5,7 +5,10 @@ prog: (decl)+ EOF;
 decl: varDecl ';'
     | funcDecl
     | structDecl
+    | namespaceDecl
     ;
+
+namespaceDecl: 'namespace' typeName '{' decl* '}';
 
 varDecl:  'var' var;
 var:  varName (':' type) ('=' expr)?;
@@ -23,9 +26,10 @@ body: '{' stmt* '}';
 
 
 structDecl: 'struct' structName genericDecl? '{' structMember* '}';
-structMember: structVar | structMethod;
+structMember: privateDecl? structVar | structMethod;
 structVar: var ';';
 structMethod: func;
+privateDecl: 'private';
 
 genericDecl: '<' typeName (',' typeName)* '>';
 

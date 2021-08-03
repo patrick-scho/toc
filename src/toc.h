@@ -6,9 +6,11 @@
 #include "repr.h"
 
 template<typename T>
-std::ostream & operator<< (std::ostream & out, const std::vector<T> & v) {
+std::ostream & operator<< (std::ostream & out, const std::vector<T> & v)
+{
   bool comma = false;
-  for (auto t : v) {
+  for (auto t : v)
+  {
     if (comma) out << ", ";
     else comma = true;
     out << t;
@@ -31,29 +33,35 @@ void tocProgram  (std::ostream & out, const Program & p);
 
 static const int TAB_WIDTH = 2;
 static int indentation = 0;
-static void indent(std::ostream & out, int change = 0) {
+static void indent(std::ostream & out, int change = 0)
+{
   indentation += change;
   out << std::string(indentation, ' ');
 }
 
-std::ostream & operator<< (std::ostream & out, const Type & t) {
+std::ostream & operator<< (std::ostream & out, const Type & t)
+{
   out << t.name;
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const Variable & v) {
+std::ostream & operator<< (std::ostream & out, const Variable & v)
+{
   out << v.type << " ";
 
   std::stringstream sstr;
   std::string s = v.name;
 
-  for (auto m = v.type.modifiers.rbegin(); m != v.type.modifiers.rend(); m++) {
-    if (m->type == TypeModifierType::Pointer) {
+  for (auto m = v.type.modifiers.rbegin(); m != v.type.modifiers.rend(); m++)
+  {
+    if (m->type == TypeModifierType::Pointer)
+    {
       sstr.str(std::string());
       sstr << "*(" << s << ")";
       s = sstr.str();
     }
-    else {
+    else
+    {
       sstr.str(std::string());
       sstr << "(" << s << ")[";
       if (m->_staticArray)
@@ -66,19 +74,22 @@ std::ostream & operator<< (std::ostream & out, const Variable & v) {
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const Body & b) {
+std::ostream & operator<< (std::ostream & out, const Body & b)
+{
   indent(out);
   out << "{\n";
   indentation += 2;
 
-  for (auto v : b.variables) {
+  for (auto v : b.variables)
+  {
     indent(out);
     out << v << ";\n";
   }
 
   out << "\n";
   
-  for (auto s : b.statements) {
+  for (auto s : b.statements)
+  {
     indent(out);
     out << s << "\n";
   }
@@ -88,31 +99,38 @@ std::ostream & operator<< (std::ostream & out, const Body & b) {
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const UnaryOperatorExpr & o) {
-  if (o.type == UnaryOperatorType::IncrementPost || o.type == UnaryOperatorType::DecrementPost) {
+std::ostream & operator<< (std::ostream & out, const UnaryOperatorExpr & o)
+{
+  if (o.type == UnaryOperatorType::IncrementPost || o.type == UnaryOperatorType::DecrementPost)
+  {
     out << UnaryOperatorTypeStrings[(int)o.type] << *o.expr;
   }
-  else {
+  else
+  {
     out << *o.expr << UnaryOperatorTypeStrings[(int)o.type];
   }
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const BinaryOperatorExpr & o) {
+std::ostream & operator<< (std::ostream & out, const BinaryOperatorExpr & o)
+{
   out << *o.lexpr << " " << BinaryOperatorTypeStrings[(int)o.type] << " " << *o.rexpr;
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const TernaryOperatorExpr & o) {
+std::ostream & operator<< (std::ostream & out, const TernaryOperatorExpr & o)
+{
   out << *o.lexpr << " ? " << *o.rexprTrue << " : " << *o.rexprFalse;
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const Expr & e) {
+std::ostream & operator<< (std::ostream & out, const Expr & e)
+{
   if (e.parenthesized)
     out << "(";
 
-  switch (e.type) {
+  switch (e.type)
+  {
   case ExprType::Func:
     out << e._func.functionName << "(" << e._func.arguments << ")"; break;
   case ExprType::Lit:
@@ -140,13 +158,16 @@ std::ostream & operator<< (std::ostream & out, const Expr & e) {
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const Stmt & s) {
-  switch (s.type) {
+std::ostream & operator<< (std::ostream & out, const Stmt & s)
+{
+  switch (s.type)
+  {
   case StmtType::If:
     out << "if (" << s._if.condition << ")\n" << s._if.body; break;
   case StmtType::Switch:
     out << "switch (" << s._switch.ident.name << ")\n{\n";
-    for (auto c : s._switch.cases) {
+    for (auto c : s._switch.cases)
+    {
       indent(out, 2);
       out << "case " << *c.expr << ": " << c.body << "break;";
     }
@@ -173,22 +194,31 @@ std::ostream & operator<< (std::ostream & out, const Stmt & s) {
 }
 
 
-void tocFunction (std::ostream & out, const Function & f, bool stub) {
+void tocFunction (std::ostream & out, const Function & f, bool stub)
+{
   out << f.returnType << " " << f.name << " (" << f.parameters << ")";
 
-  if (stub) {
+  if (stub)
+  {
     out << ";\n";
   }
-  else {
+  else
+  {
     out << "\n" << f.body;
   }
 }
-void tocStruct (std::ostream & out, const Struct & s, bool stub) {
+void tocStruct (std::ostream & out, const Struct & s, bool stub)
+{
   out << "struct " << s.name;
-  if (stub) {
+  if (stub)
+  {
     out << ";\n";
-    for (auto m : s.methods) {
-      m.parameters.insert(m.parameters.begin(), {"this", {s.name, {{TypeModifierType::Pointer, false, -1}}}});
+    for (auto m : s.methods)
+    {
+      m.parameters.insert(m.parameters.begin(),
+      {"this",
+      {s.name,
+      {{TypeModifierType::Pointer, false, -1}}}});
       out << m.returnType << " " <<
         s.name << "_" << m.name <<
         " (" << m.parameters << ");\n";
@@ -198,7 +228,8 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub) {
   out << "\n{\n";
   indentation += 2;
 
-  for (auto m : s.members) {
+  for (auto m : s.members)
+  {
     indent(out);
     out << m << ";\n";
   }
@@ -206,26 +237,36 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub) {
   indent(out, -2);
   out << "};\n";
   
-  for (auto m : s.methods) {
-    m.parameters.insert(m.parameters.begin(), {"this", {s.name, {{TypeModifierType::Pointer, false, -1}}}});  
+  for (auto m : s.methods)
+  {
+    m.parameters.insert(m.parameters.begin(),
+    {"this",
+    {s.name,
+    {{TypeModifierType::Pointer, false, -1}}}});  
     out << m.returnType << " " << s.name << "_" << m.name << " (" << m.parameters << ")\n" << m.body;
   }
 }
-void tocProgram (std::ostream & out, const Program & p) {
-  for (auto s : p.structs) {
+void tocProgram (std::ostream & out, const Program & p)
+{
+  for (auto s : p.structs)
+  {
     tocStruct(out, s, true);
   }
-  for (auto f : p.functions) {
+  for (auto f : p.functions)
+  {
     tocFunction(out, f, true);
   }
 
-  for (auto v : p.variables) {
+  for (auto v : p.variables)
+  {
     out << v << ";\n";
   }
-  for (auto s : p.structs) {
+  for (auto s : p.structs)
+  {
     tocStruct(out, s, false);
   }
-  for (auto f : p.functions) {
+  for (auto f : p.functions)
+  {
     tocFunction(out, f, false);
   }
 }

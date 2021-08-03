@@ -12,7 +12,8 @@
 using namespace antlr4;
 
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
   std::ifstream ifs("test.toc");
 
   ANTLRInputStream input(ifs);
@@ -24,7 +25,8 @@ int main(int argc, const char * argv[]) {
   TocParser::ProgContext * prog = parser.prog();
   tree::ParseTree * tree = prog;
 
-  if (parser.getNumberOfSyntaxErrors() > 0) {
+  if (parser.getNumberOfSyntaxErrors() > 0)
+  {
     std::cerr << "Parsing error" << std::endl;
     return 1;
   }

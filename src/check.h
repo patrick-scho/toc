@@ -19,7 +19,8 @@ bool checkFunction(
 {
   vars.insert(vars.end(), f.parameters.begin(), f.parameters.end());
   vars.insert(vars.end(), f.body.variables.begin(), f.body.variables.end());
-  for (auto s : f.body.statements) {
+  for (auto s : f.body.statements)
+  {
     if (!checkStmt(s, structs, funcs, vars))
       return false;
   }
@@ -28,15 +29,18 @@ bool checkFunction(
 
 bool checkProgram(const Program & p)
 {
-  for (auto f : p.functions) {
+  for (auto f : p.functions)
+  {
     if (!checkFunction(f, p.structs, p.functions, p.variables))
       return false;
   }
-  for (auto s : p.structs) {
+  for (auto s : p.structs)
+  {
     std::vector<Variable> vars = p.variables;
     for (auto v : s.members)
       vars.push_back(v);
-    for (auto f : s.methods) {
+    for (auto f : s.methods)
+    {
       if (!checkFunction(f, p.structs, p.functions, vars))
         return false;
     }
