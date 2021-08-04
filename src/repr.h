@@ -61,6 +61,7 @@ struct Type
   std::vector<std::string> namespacePrefixes;
   std::string name;
   std::vector<TypeModifier> modifiers;
+  std::vector<Type> genericInstantiation;
 };
 
 struct Variable
@@ -77,8 +78,10 @@ struct Body
 
 struct Function
 {
-  Type returnType;
   std::string name;
+  std::vector<std::string> genericTypeNames;
+  std::vector<std::vector<Type>> genericInstantiations;
+  Type returnType;
   std::vector<Variable> parameters;
   bool defined;
   Body body;
@@ -95,6 +98,8 @@ struct StructMember
 struct Struct
 {
   std::string name;
+  std::vector<std::string> genericTypeNames;
+  std::vector<std::vector<Type>> genericInstantiations;
   std::vector<StructMember<Variable>> members;
   std::vector<StructMember<Function>> methods;
 };
@@ -126,6 +131,7 @@ struct FuncExpr
   std::vector<std::string> namespacePrefixes;
   std::string functionName;
   std::vector<Expr> arguments;
+  std::vector<Type> genericInstantiation;
 };
 
 struct MethodExpr
@@ -133,6 +139,7 @@ struct MethodExpr
   std::shared_ptr<Expr> expr;
   std::string methodName;
   std::vector<Expr> arguments;
+  std::vector<Type> genericInstantiation;
 };
 
 enum class LitType
@@ -157,6 +164,7 @@ struct ParenExpr
 
 struct DotExpr
 {
+  bool isPointer;
   std::shared_ptr<Expr> expr;
   std::string identifier;
 };

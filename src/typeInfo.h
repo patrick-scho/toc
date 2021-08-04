@@ -15,7 +15,8 @@ TypeInfo typeType(const Program & p, Type t)
   TypeInfo result;
   result.isStruct = true;
   if (t.name == "int" || t.name == "float" || t.name == "double" ||
-      t.name == "char" || t.name == "long" || t.name == "short" || t.name == "bool")
+      t.name == "char" || t.name == "long" || t.name == "short" || t.name == "bool" ||
+      t.name == "void")
   {
     result.isStruct = false;
   }
@@ -47,7 +48,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
     auto m = findStructMethod(p, e._method.methodName, tiCaller);
     if (!m.has_value())
       throw "Unknown method";
-    result = typeType(p, m.value().returnType);
+    result = typeType(p, m.value().t.returnType);
     break;
   }
   case ExprType::Lit:
@@ -69,7 +70,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
         typeExpr(p, globalNamespace, globalCtx, *e._dot.expr), e._dot.identifier);
     if (!sm.has_value())
       throw "Unknown struct member";
-    result = typeType(p, sm.value().type);
+    result = typeType(p, sm.value().t.type);
     break;
   }
   case ExprType::PrefixOp:

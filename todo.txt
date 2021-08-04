@@ -43,11 +43,6 @@ define grammar:
 - private
 
 
-Zeitplan:
-02.08: Schreiben, generics
-03.08: Schreiben, namespaces, private
-04.08: Schreiben, type system
-
 
 
 
@@ -60,3 +55,10 @@ Missing:
 - nested bodies {}
 - multiple files
 - call outer functions with same name (::f1())
+- generic methods
+- nested type instantiation
+- automatic dereference/->
+- automatic "this"
+- Kommentare
+- include C
+- (compile)

@@ -14,7 +14,7 @@ varDecl:  'var' var;
 var:  varName (':' type) ('=' expr)?;
 varInit:  varName (':' type) ('=' expr);
 
-type: namespaceSpecifier* typeName (typeModifier)*;
+type: namespaceSpecifier* typeName genericInstantiation? (typeModifier)*;
 typeModifier: '*' | ('[' (INT_LIT)? ']');
 
 namespaceSpecifier: typeName '::';
@@ -33,6 +33,7 @@ structMethod: func;
 privateDecl: 'private';
 
 genericDecl: '<' typeName (',' typeName)* '>';
+genericInstantiation: '<' type (',' type)* '>';
 
 stmt: varDecl ';'
     | ifStmt
@@ -59,18 +60,21 @@ assignStmt: expr '=' expr;
 
 returnStmt: 'return' expr;
 
-expr: namespaceSpecifier* funcName '(' (expr (',' expr)*)? ')' #funcExpr
-    | expr '.' funcName '(' (expr (',' expr)*)? ')'            #methodExpr
-    | literal                                                  #litExpr
-    | '(' expr ')'                                             #parenExpr
-    | expr '.' varName                                         #dotExpr
-    | prefix_op expr                                           #prefixOpExpr
-    | expr postfix_op                                          #postfixOpExpr
-    | expr binary_op expr                                      #binaryOpExpr
-    | expr '?' expr ':' expr                                   #ternaryOpExpr
-    | expr '[' expr ']'                                        #bracketExpr
-    | namespaceSpecifier* varName                              #identifierExpr
+expr: namespaceSpecifier* funcName genericInstantiation? '(' (expr (',' expr)*)? ')' #funcExpr
+    | expr '.' funcName genericInstantiation? '(' (expr (',' expr)*)? ')'            #methodExpr
+    | literal                          #litExpr
+    | '(' expr ')'                     #parenExpr
+    | expr (dot | arrow) varName       #dotExpr
+    | prefix_op expr                   #prefixOpExpr
+    | expr postfix_op                  #postfixOpExpr
+    | expr binary_op expr              #binaryOpExpr
+    | expr '?' expr ':' expr           #ternaryOpExpr
+    | expr '[' expr ']'                #bracketExpr
+    | namespaceSpecifier* varName      #identifierExpr
     ;
+
+dot: '.';
+arrow: '->';
 
 literal: INT_LIT | DECIMAL_LIT | StringLit | BOOL_LIT;
 

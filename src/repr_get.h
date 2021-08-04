@@ -43,6 +43,13 @@ Type getType(TocParser::TypeContext * ctx)
       isStaticArray ? atoi(m->INT_LIT()->toString().c_str()) : -1
     );
   }
+  if (ctx->genericInstantiation() != nullptr)
+  {
+    for (auto g : ctx->genericInstantiation()->type())
+    {
+      result.genericInstantiation.push_back(getType(g));
+    }
+  }
   return result;
 }
 Variable getVariable(TocParser::VarContext * ctx)
@@ -77,11 +84,20 @@ Function getFunction(TocParser::FuncContext * ctx, std::shared_ptr<Context> pare
   Function result;
   result.name = ctx->funcName()->NAME()->toString();
   result.returnType = getType(ctx->type());
+  if (ctx->genericDecl() != nullptr)
+  {
+    for (auto t : ctx->genericDecl()->typeName())
+    {
+      result.genericTypeNames.push_back(t->getText());
+    }
+  }
+
   if (!ctx->parameter()->var().empty())
   {
     for (auto p : ctx->parameter()->var())
       result.parameters.push_back(getVariable(p));
   }
+
   if (ctx->body() != nullptr)
   {
     result.body = getBody(ctx->body(), parent);
@@ -97,6 +113,14 @@ Struct getStruct(TocParser::StructDeclContext * ctx, std::shared_ptr<Context> pa
 {
   Struct result;
   result.name = ctx->structName()->NAME()->toString();
+  if (ctx->genericDecl() != nullptr)
+  {
+    for (auto t : ctx->genericDecl()->typeName())
+    {
+      result.genericTypeNames.push_back(t->getText());
+    }
+  }
+
   for (auto m : ctx->structMember())
   {
     if (m->structVar() != nullptr)
@@ -199,6 +223,13 @@ Expr getExpr(TocParser::FuncExprContext * ctx)
   for (auto n : ctx->namespaceSpecifier())
     result._func.namespacePrefixes.push_back(n->typeName()->getText());
   result._func.functionName = ctx->funcName()->NAME()->toString();
+  if (ctx->genericInstantiation() != nullptr)
+  {
+    for (auto g : ctx->genericInstantiation()->type())
+    {
+      result._func.genericInstantiation.push_back(getType(g));
+    }
+  }
   for (auto e : ctx->expr())
     result._func.arguments.push_back(getExpr(e));
   return result;
@@ -209,6 +240,13 @@ Expr getExpr(TocParser::MethodExprContext * ctx)
   result.type = ExprType::Method;
   result._method.expr = std::make_unique<Expr>(getExpr(ctx->expr(0)));
   result._method.methodName = ctx->funcName()->NAME()->toString();
+  if (ctx->genericInstantiation() != nullptr)
+  {
+    for (auto g : ctx->genericInstantiation()->type())
+    {
+      result._method.genericInstantiation.push_back(getType(g));
+    }
+  }
   for (int i = 1; i < ctx->expr().size(); i++)
     result._method.arguments.push_back(getExpr(ctx->expr(i)));
   return result;
@@ -252,6 +290,7 @@ Expr getExpr(TocParser::DotExprContext * ctx)
   result.type = ExprType::Dot;
   result._dot.expr = std::make_unique<Expr>(getExpr(ctx->expr()));
   result._dot.identifier = ctx->varName()->getText();
+  result._dot.isPointer = ctx->arrow() != nullptr;
   return result;
 }
 Expr getExpr(TocParser::PrefixOpExprContext * ctx)

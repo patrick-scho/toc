@@ -1,0 +1,40 @@
+var abc: int;
+var def: int;
+var ghi: int;
+
+func f1<A, B> (a : int, b : int, cs: int[]) : int {
+  var i1 : int;
+  var s1 : S1;
+  if a != i1 {
+    var i2 : int = 987;
+    return i2;
+  }
+  print(s1.i1);
+  print(s1.a1[0]);
+  return 133;
+}
+
+struct S1<T> {
+  i1 : int;
+  i2 : int;
+  a1 : int[10];
+  a2 : int[10]*;
+  a2 : int[];
+
+  m1<I>() : void {
+    while i1 < i2 {
+      i1 = m2(i1);
+
+      i2 = i1 + i2 * (i2 - 45) + 4;
+
+      print(12345);
+    }
+  }
+
+  m2<A>(i: int) : int {
+    var j : int = 0;
+    while j < 10 {
+      print(a1[j]);
+    }
+  }
+}

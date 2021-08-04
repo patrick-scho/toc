@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "repr.h"
+#include "generic.h"
 #include "typeInfo.h"
 
 template<typename T>
@@ -53,15 +54,27 @@ static std::string namespacePrefix() {
   return sstr.str();
 }
 
+static std::map<std::string, Type> currentInstantiation;
+
 static Program globalPrg;
 static std::shared_ptr<Context> globalCtx;
 
 std::ostream & operator<< (std::ostream & out, const Type & t)
 {
+  for (auto kv : currentInstantiation)
+  {
+    if (t.name == kv.first)
+    {
+      out << kv.second;
+      return out;
+    }
+  }
   TypeInfo ti = typeType(globalPrg, t);
   if (ti.isStruct)
     out << "struct ";
   out << vectorStr(t.namespacePrefixes, "_", true) << t.name;
+  if (!t.genericInstantiation.empty())
+    out << genericAppendix(t.genericInstantiation);
 
   return out;
 }
@@ -135,16 +148,21 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
       TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, e);
       
     }
-    out << vectorStr(e._func.namespacePrefixes, "_", true) << e._func.functionName << "(" << vectorStr(e._func.arguments, ", ") << ")"; break;
+    out << vectorStr(e._func.namespacePrefixes, "_", true) << e._func.functionName;
+    if (!e._func.genericInstantiation.empty())
+      out << genericAppendix(e._func.genericInstantiation);
+    out <<"(" << vectorStr(e._func.arguments, ", ") << ")"; break;
   }
   case ExprType::Method:
   {
     TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, *e._method.expr);
     out <<
       vectorStr(ti.type.namespacePrefixes, "_", true) <<
-      ti.type.name << "_" << e._method.methodName <<
-      "(&" << *e._method.expr << (e._method.arguments.empty() ? "" : ", ") <<
-      vectorStr(e._method.arguments, ", ") << ")"; break;
+      ti.type.name << genericAppendix(ti.type.genericInstantiation) << "_" << e._method.methodName;
+    if (!e._method.genericInstantiation.empty())
+      out << genericAppendix(e._method.genericInstantiation);
+    out << "(&" << *e._method.expr << (e._method.arguments.empty() ? "" : ", ") <<
+    vectorStr(e._method.arguments, ", ") << ")"; break;
   }
   case ExprType::Lit:
     /**/ if (e._lit.type == LitType::Int) out << e._lit._int;
@@ -155,7 +173,7 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   case ExprType::Paren:
     out << "(" << e._paren.expr << ")"; break;
   case ExprType::Dot:
-    out << *e._dot.expr << "." << e._dot.identifier; break;
+    out << *e._dot.expr << (e._dot.isPointer ? "->" : ".") << e._dot.identifier; break;
   case ExprType::PrefixOp:
     out << PrefixOperatorTypeStrings[(int)e._prefixOp.type] << *e._prefixOp.expr; break;
   case ExprType::PostfixOp:
@@ -216,75 +234,172 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
 {
   if (!stub && !f.defined) return;
 
-  out << f.returnType << " " << namespacePrefix() << f.name << " (" << vectorStr(f.parameters, ", ") << ")";
-
-  if (stub)
+  if (f.genericTypeNames.empty())
   {
-    out << ";\n";
+    out << f.returnType << " " << namespacePrefix() << f.name << " (" << vectorStr(f.parameters, ", ") << ")";
+
+    if (stub)
+    {
+      out << ";\n";
+    }
+    else
+    {
+      out << "\n" << f.body;
+    }
   }
   else
   {
-    out << "\n" << f.body;
+    for (auto instantiation : f.genericInstantiations)
+    {
+      for (int i = 0; i < f.genericTypeNames.size(); i++)
+      {
+        currentInstantiation[f.genericTypeNames[i]] = instantiation[i];
+      }
+
+      out << f.returnType << " " << namespacePrefix() << f.name << genericAppendix(instantiation) << " (" << vectorStr(f.parameters, ", ") << ")";
+
+      if (stub)
+      {
+        out << ";\n";
+      }
+      else
+      {
+        out << "\n" << f.body;
+      }
+
+      currentInstantiation.clear();
+    }
   }
 }
 void tocStruct (std::ostream & out, const Struct & s, bool stub)
 {
-  out << "struct " << namespacePrefix() << s.name;
-  if (stub)
+  if (s.genericTypeNames.empty())
   {
-    out << ";\n";
+    out << "struct " << namespacePrefix() << s.name;
+    if (stub)
+    {
+      out << ";\n";
+      for (auto m : s.methods)
+      {
+        Function f = m;
+
+        f.parameters.insert(f.parameters.begin(),
+        {"this",
+          {
+            namespaces,
+            s.name,
+            {
+              {TypeModifierType::Pointer, false, -1}
+            }
+          }
+        });
+        out << f.returnType << " " <<
+          namespacePrefix() << s.name << "_" << f.name <<
+          " (" << vectorStr(f.parameters, ", ") << ");\n";
+      }
+      return;
+    }
+    out << "\n{\n";
+    indentation += 2;
+
+    for (auto m : s.members)
+    {
+      indent(out);
+      out << m << ";\n";
+    }
+
+    indent(out, -2);
+    out << "};\n";
+    
     for (auto m : s.methods)
     {
       Function f = m;
-
       f.parameters.insert(f.parameters.begin(),
-      {"this",
-        {
-          namespaces,
-          s.name,
+        {"this",
           {
-            {TypeModifierType::Pointer, false, -1}
+            namespaces,
+            s.name,
+            {
+              {TypeModifierType::Pointer, false, -1}
+            }
           }
-        }
-      });
+        });
       out << f.returnType << " " <<
-        namespacePrefix() << s.name << "_" << f.name <<
-        " (" << vectorStr(f.parameters, ", ") << ");\n";
+      namespacePrefix() << s.name << "_" << f.name <<
+      " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
     }
-    return;
   }
-  out << "\n{\n";
-  indentation += 2;
-
-  for (auto m : s.members)
+  else
   {
-    indent(out);
-    out << m << ";\n";
-  }
+    for (auto instantiation : s.genericInstantiations)
+    {
+      for (int i = 0; i < s.genericTypeNames.size(); i++)
+      {
+        currentInstantiation[s.genericTypeNames[i]] = instantiation[i];
+      }
 
-  indent(out, -2);
-  out << "};\n";
-  
-  for (auto m : s.methods)
-  {
-    Function f = m;
-    f.parameters.insert(f.parameters.begin(),
-      {"this",
+      out << "struct " << namespacePrefix() << s.name << genericAppendix(instantiation);
+      if (stub)
+      {
+        out << ";\n";
+        for (auto m : s.methods)
         {
-          namespaces,
-          s.name,
-          {
-            {TypeModifierType::Pointer, false, -1}
-          }
+          Function f = m;
+
+          f.parameters.insert(f.parameters.begin(),
+          {"this",
+            {
+              namespaces,
+              s.name + genericAppendix(instantiation),
+              {
+                {TypeModifierType::Pointer, false, -1}
+              }
+            }
+          });
+          out << f.returnType << " " <<
+            namespacePrefix() << s.name << genericAppendix(instantiation) << "_" << f.name <<
+            " (" << vectorStr(f.parameters, ", ") << ");\n";
         }
-      });
-    out << f.returnType << " " <<
-    namespacePrefix() << s.name << "_" << f.name <<
-    " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
+        return;
+      }
+      out << "\n{\n";
+      indentation += 2;
+
+      for (auto m : s.members)
+      {
+        indent(out);
+        out << m << ";\n";
+      }
+
+      indent(out, -2);
+      out << "};\n";
+      
+      for (auto m : s.methods)
+      {
+        Function f = m;
+        f.parameters.insert(f.parameters.begin(),
+          {"this",
+            {
+              namespaces,
+              s.name + genericAppendix(instantiation),
+              {
+                {TypeModifierType::Pointer, false, -1}
+              }
+            }
+          });
+        out << f.returnType << " " <<
+        namespacePrefix() << s.name << genericAppendix(instantiation) << "_" << f.name <<
+        " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
+      }
+
+      currentInstantiation.clear();
+    }
   }
 }
-void tocProgram (std::ostream & out, const Program & p)
+void tocProgram (std::ostream & out, const Program & _p)
 {
+  Program p = instantiateGenerics(_p);
+
   globalCtx = p.ctx;
 
   globalPrg = p;

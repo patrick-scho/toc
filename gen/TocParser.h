@@ -21,8 +21,8 @@ public:
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
     T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
     T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
-    T__56 = 57, INT_LIT = 58, DECIMAL_LIT = 59, BOOL_LIT = 60, StringLit = 61, 
-    NAME = 62, WS = 63, NEWLINE = 64
+    T__56 = 57, T__57 = 58, INT_LIT = 59, DECIMAL_LIT = 60, BOOL_LIT = 61, 
+    StringLit = 62, NAME = 63, WS = 64, NEWLINE = 65
   };
 
   enum {
@@ -30,12 +30,13 @@ public:
     RuleVar = 4, RuleVarInit = 5, RuleType = 6, RuleTypeModifier = 7, RuleNamespaceSpecifier = 8, 
     RuleFuncDecl = 9, RuleFunc = 10, RuleParameter = 11, RuleBody = 12, 
     RuleStructDecl = 13, RuleStructMember = 14, RuleStructVar = 15, RuleStructMethod = 16, 
-    RulePrivateDecl = 17, RuleGenericDecl = 18, RuleStmt = 19, RuleIfStmt = 20, 
-    RuleElseIfStmt = 21, RuleElseStmt = 22, RuleSwitchStmt = 23, RuleSwitchBody = 24, 
-    RuleSwitchCase = 25, RuleForStmt = 26, RuleWhileStmt = 27, RuleAssignStmt = 28, 
-    RuleReturnStmt = 29, RuleExpr = 30, RuleLiteral = 31, RuleFuncName = 32, 
-    RuleVarName = 33, RuleTypeName = 34, RuleStructName = 35, RulePostfix_op = 36, 
-    RulePrefix_op = 37, RuleBinary_op = 38
+    RulePrivateDecl = 17, RuleGenericDecl = 18, RuleGenericInstantiation = 19, 
+    RuleStmt = 20, RuleIfStmt = 21, RuleElseIfStmt = 22, RuleElseStmt = 23, 
+    RuleSwitchStmt = 24, RuleSwitchBody = 25, RuleSwitchCase = 26, RuleForStmt = 27, 
+    RuleWhileStmt = 28, RuleAssignStmt = 29, RuleReturnStmt = 30, RuleExpr = 31, 
+    RuleDot = 32, RuleArrow = 33, RuleLiteral = 34, RuleFuncName = 35, RuleVarName = 36, 
+    RuleTypeName = 37, RuleStructName = 38, RulePostfix_op = 39, RulePrefix_op = 40, 
+    RuleBinary_op = 41
   };
 
   explicit TocParser(antlr4::TokenStream *input);
@@ -67,6 +68,7 @@ public:
   class StructMethodContext;
   class PrivateDeclContext;
   class GenericDeclContext;
+  class GenericInstantiationContext;
   class StmtContext;
   class IfStmtContext;
   class ElseIfStmtContext;
@@ -79,6 +81,8 @@ public:
   class AssignStmtContext;
   class ReturnStmtContext;
   class ExprContext;
+  class DotContext;
+  class ArrowContext;
   class LiteralContext;
   class FuncNameContext;
   class VarNameContext;
@@ -172,6 +176,7 @@ public:
     TypeNameContext *typeName();
     std::vector<NamespaceSpecifierContext *> namespaceSpecifier();
     NamespaceSpecifierContext* namespaceSpecifier(size_t i);
+    GenericInstantiationContext *genericInstantiation();
     std::vector<TypeModifierContext *> typeModifier();
     TypeModifierContext* typeModifier(size_t i);
 
@@ -322,6 +327,18 @@ public:
   };
 
   GenericDeclContext* genericDecl();
+
+  class  GenericInstantiationContext : public antlr4::ParserRuleContext {
+  public:
+    GenericInstantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<TypeContext *> type();
+    TypeContext* type(size_t i);
+
+   
+  };
+
+  GenericInstantiationContext* genericInstantiation();
 
   class  StmtContext : public antlr4::ParserRuleContext {
   public:
@@ -483,6 +500,8 @@ public:
 
     ExprContext *expr();
     VarNameContext *varName();
+    DotContext *dot();
+    ArrowContext *arrow();
   };
 
   class  FuncExprContext : public ExprContext {
@@ -492,6 +511,7 @@ public:
     FuncNameContext *funcName();
     std::vector<NamespaceSpecifierContext *> namespaceSpecifier();
     NamespaceSpecifierContext* namespaceSpecifier(size_t i);
+    GenericInstantiationContext *genericInstantiation();
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
   };
@@ -519,6 +539,7 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     FuncNameContext *funcName();
+    GenericInstantiationContext *genericInstantiation();
   };
 
   class  PostfixOpExprContext : public ExprContext {
@@ -571,6 +592,26 @@ public:
 
   ExprContext* expr();
   ExprContext* expr(int precedence);
+  class  DotContext : public antlr4::ParserRuleContext {
+  public:
+    DotContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  DotContext* dot();
+
+  class  ArrowContext : public antlr4::ParserRuleContext {
+  public:
+    ArrowContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  ArrowContext* arrow();
+
   class  LiteralContext : public antlr4::ParserRuleContext {
   public:
     LiteralContext(antlr4::ParserRuleContext *parent, size_t invokingState);
