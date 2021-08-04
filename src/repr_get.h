@@ -82,7 +82,15 @@ Function getFunction(TocParser::FuncContext * ctx, std::shared_ptr<Context> pare
     for (auto p : ctx->parameter()->var())
       result.parameters.push_back(getVariable(p));
   }
-  result.body = getBody(ctx->body(), parent);
+  if (ctx->body() != nullptr)
+  {
+    result.body = getBody(ctx->body(), parent);
+    result.defined = true;
+  }
+  else
+  {
+    result.defined = false;
+  }
   return result;
 }
 Struct getStruct(TocParser::StructDeclContext * ctx, std::shared_ptr<Context> parent)
@@ -219,10 +227,10 @@ Expr getExpr(TocParser::LitExprContext * ctx)
     result._lit.type = LitType::Decimal;
     result._lit._decimal = atof(ctx->literal()->DECIMAL_LIT()->toString().c_str());
   }
-  else if (ctx->literal()->STRING_LIT() != nullptr)
+  else if (ctx->literal()->StringLit() != nullptr)
   {
     result._lit.type = LitType::String;
-    result._lit._string = ctx->literal()->STRING_LIT()->toString();
+    result._lit._string = ctx->literal()->StringLit()->toString();
   }
   else if (ctx->literal()->BOOL_LIT() != nullptr)
   {

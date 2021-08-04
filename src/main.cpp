@@ -48,7 +48,7 @@ int main(int argc, const char * argv[])
     tocProgram(ofs, prg);
     ofs.close();
   }
-  catch (const std::string & e)
+  catch (const char * e)
   {
     std::cerr << "Error: " << e << std::endl;
   }

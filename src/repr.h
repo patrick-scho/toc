@@ -80,6 +80,7 @@ struct Function
   Type returnType;
   std::string name;
   std::vector<Variable> parameters;
+  bool defined;
   Body body;
 };
 

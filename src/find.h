@@ -33,15 +33,26 @@ opt<Function> findFunction(
   if (!n.has_value())
     return nullopt;
 
+  std::vector<Namespace> namespaces = { n.value() };
+
   for (int i = 1; i < namespacePrefixes.size(); i++)
   {
     n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
     
     if (!n.has_value())
       return nullopt;
+
+    namespaces.push_back(n.value());
   }
 
-  return find<Function>(n.value().functions, [&](Function f) { return f.name == name; });
+  for (int i = namespaces.size()-1; i >= 0; i--)
+  {
+    auto f = find<Function>(namespaces[i].functions, [&](Function f) { return f.name == name; });
+    if (f.has_value())
+      return f.value();
+  }
+
+  return find<Function>(p.functions, [&](Function f) { return f.name == name; });
 }
 
 opt<Struct> findStruct(
@@ -72,28 +83,17 @@ opt<Struct> findStruct(
 opt<Variable> findVariable(
   const Program & p,
   const std::string & name,
-  const std::vector<std::string> & namespacePrefixes)
+  std::shared_ptr<Context> ctx)
 {
-  for (auto n : namespacePrefixes)
-    std::cout << n << std::endl;
-  if (namespacePrefixes.empty())
+  auto it = ctx;
+  while (it != nullptr)
   {
-    return find<Variable>(p.ctx->variables, [&](Variable v) { return v.name == name; });
+    auto v = find<Variable>(it->variables, [&](Variable v) { return v.name == name; });
+    if (v.has_value())
+      return v;
+    it = it->parent;
   }
-  
-  auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
-  
-  if (!n.has_value())
-    return nullopt;
-      
-  for (int i = 1; i < namespacePrefixes.size(); i++)
-  {
-    n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
-    
-    if (!n.has_value())
-      return nullopt;
-  }
-  return find<Variable>(n.value().ctx->variables, [&](Variable v) { return v.name == name; });
+  return nullopt;
 }
 
 opt<Function> findStructMethod(

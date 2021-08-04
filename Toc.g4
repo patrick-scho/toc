@@ -20,7 +20,7 @@ typeModifier: '*' | ('[' (INT_LIT)? ']');
 namespaceSpecifier: typeName '::';
 
 funcDecl: 'func' func;
-func: funcName genericDecl? '(' parameter ')' (':' type) body;
+func: funcName genericDecl? '(' parameter ')' (':' type) (body | ';');
 parameter: (var (',' var)*)?;
 
 body: '{' stmt* '}';
@@ -72,7 +72,7 @@ expr: namespaceSpecifier* funcName '(' (expr (',' expr)*)? ')' #funcExpr
     | namespaceSpecifier* varName                              #identifierExpr
     ;
 
-literal: INT_LIT | DECIMAL_LIT | STRING_LIT | BOOL_LIT;
+literal: INT_LIT | DECIMAL_LIT | StringLit | BOOL_LIT;
 
 funcName: NAME;
 varName: NAME;
@@ -92,8 +92,15 @@ binary_op:
 
 INT_LIT: ('+' | '-')? [0-9]+;
 DECIMAL_LIT: ('+' | '-')* [0-9]+ '.' [0-9]+;
-STRING_LIT: '"' [^"]* '"';
 BOOL_LIT: 'true' | 'false';
+StringLit: '"' CharSeq '"';
+
+fragment CharSeq: Char+;
+fragment Char: ~["\\\r\n]
+             | '\\' ['"?abfnrtv\\]
+             | '\\\n'
+             | '\\\r\n'
+             ;
 
 NAME: ([a-z] | [A-Z] | [0-9])+;
 WS: [ \t\r\n]+ -> skip;

@@ -21,7 +21,7 @@ public:
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
     T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
     T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
-    T__56 = 57, INT_LIT = 58, DECIMAL_LIT = 59, STRING_LIT = 60, BOOL_LIT = 61, 
+    T__56 = 57, INT_LIT = 58, DECIMAL_LIT = 59, BOOL_LIT = 60, StringLit = 61, 
     NAME = 62, WS = 63, NEWLINE = 64
   };
 
@@ -219,8 +219,8 @@ public:
     virtual size_t getRuleIndex() const override;
     FuncNameContext *funcName();
     ParameterContext *parameter();
-    BodyContext *body();
     TypeContext *type();
+    BodyContext *body();
     GenericDeclContext *genericDecl();
 
    
@@ -419,11 +419,10 @@ public:
   public:
     ForStmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    VarInitContext *varInit();
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     BodyContext *body();
-    VarInitContext *varInit();
-    AssignStmtContext *assignStmt();
 
    
   };
@@ -578,7 +577,7 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *INT_LIT();
     antlr4::tree::TerminalNode *DECIMAL_LIT();
-    antlr4::tree::TerminalNode *STRING_LIT();
+    antlr4::tree::TerminalNode *StringLit();
     antlr4::tree::TerminalNode *BOOL_LIT();
 
    

@@ -54,9 +54,13 @@ static std::string namespacePrefix() {
 }
 
 static Program globalPrg;
+static std::shared_ptr<Context> globalCtx;
 
 std::ostream & operator<< (std::ostream & out, const Type & t)
 {
+  TypeInfo ti = typeType(globalPrg, t);
+  if (ti.isStruct)
+    out << "struct ";
   out << vectorStr(t.namespacePrefixes, "_", true) << t.name;
 
   return out;
@@ -92,6 +96,9 @@ std::ostream & operator<< (std::ostream & out, const Variable & v)
 }
 std::ostream & operator<< (std::ostream & out, const Body & b)
 {
+  b.ctx->parent = globalCtx;
+  globalCtx = b.ctx;
+
   indent(out);
   out << "{\n";
   indentation += 2;
@@ -113,6 +120,8 @@ std::ostream & operator<< (std::ostream & out, const Body & b)
   indent(out, -2);
   out << "}\n";
 
+  globalCtx = b.ctx->parent;
+
   return out;
 }
 std::ostream & operator<< (std::ostream & out, const Expr & e)
@@ -120,13 +129,22 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   switch (e.type)
   {
   case ExprType::Func:
+  {
+    if (e._func.namespacePrefixes.empty())
+    {
+      TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, e);
+      
+    }
     out << vectorStr(e._func.namespacePrefixes, "_", true) << e._func.functionName << "(" << vectorStr(e._func.arguments, ", ") << ")"; break;
+  }
   case ExprType::Method:
   {
-    TypeInfo ti = typeExpr(globalPrg, namespaces, *e._method.expr);
+    TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, *e._method.expr);
     out <<
       vectorStr(ti.type.namespacePrefixes, "_", true) <<
-      ti.type.name << "_" << e._method.methodName << "(" << *e._method.expr << vectorStr(e._method.arguments, ", ") << ")"; break;
+      ti.type.name << "_" << e._method.methodName <<
+      "(&" << *e._method.expr << (e._method.arguments.empty() ? "" : ", ") <<
+      vectorStr(e._method.arguments, ", ") << ")"; break;
   }
   case ExprType::Lit:
     /**/ if (e._lit.type == LitType::Int) out << e._lit._int;
@@ -196,6 +214,8 @@ std::ostream & operator<< (std::ostream & out, const Stmt & s)
 
 void tocFunction (std::ostream & out, const Function & f, bool stub)
 {
+  if (!stub && !f.defined) return;
+
   out << f.returnType << " " << namespacePrefix() << f.name << " (" << vectorStr(f.parameters, ", ") << ")";
 
   if (stub)
@@ -265,41 +285,53 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
 }
 void tocProgram (std::ostream & out, const Program & p)
 {
+  globalCtx = p.ctx;
+
   globalPrg = p;
   for (auto n : p.namespaces)
   {
     tocNamespace(out, n, true);
   }
+  out << "\n\n";
   for (auto s : p.structs)
   {
     tocStruct(out, s, true);
   }
+  out << "\n\n";
   for (auto f : p.functions)
   {
     tocFunction(out, f, true);
   }
+  out << "\n\n";
 
   for (auto v : p.ctx->variables)
   {
     out << v << ";\n";
   }
+  out << "\n\n";
   for (auto n : p.namespaces)
   {
     tocNamespace(out, n, false);
   }
+  out << "\n\n";
   for (auto s : p.structs)
   {
     tocStruct(out, s, false);
   }
+  out << "\n\n";
   for (auto f : p.functions)
   {
     tocFunction(out, f, false);
   }
+  out << "\n\n";
 }
 
 
 void tocNamespace  (std::ostream & out, const Namespace & n, bool stub)
 {
+  n.ctx->parent = globalCtx;
+  globalCtx = n.ctx;
+
   namespaces.push_back(n.name);
   if (!stub)
   {
@@ -307,18 +339,24 @@ void tocNamespace  (std::ostream & out, const Namespace & n, bool stub)
     {
       out << v << ";\n";
     }
+    out << "\n\n";
   }
   for (auto n : n.namespaces)
   {
     tocNamespace(out, n, stub);
+    out << "\n\n";
   }
   for (auto s : n.structs)
   {
     tocStruct(out, s, stub);
+    out << "\n\n";
   }
   for (auto f : n.functions)
   {
     tocFunction(out, f, stub);
+    out << "\n\n";
   }
   namespaces.pop_back();
+
+  globalCtx = n.ctx->parent;
 }

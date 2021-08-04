@@ -23,7 +23,7 @@ TypeInfo typeType(const Program & p, Type t)
   return result;
 }
 
-TypeInfo typeExpr(const Program & p, const std::vector<string> & globalNamespace, Expr e)
+TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalNamespace, std::shared_ptr<Context> globalCtx, Expr e)
 {
   TypeInfo result;
 
@@ -43,7 +43,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<string> & globalNamespace
   }
   case ExprType::Method:
   {
-    TypeInfo tiCaller = typeExpr(p, globalNamespace, *e._method.expr);
+    TypeInfo tiCaller = typeExpr(p, globalNamespace, globalCtx, *e._method.expr);
     auto m = findStructMethod(p, e._method.methodName, tiCaller);
     if (!m.has_value())
       throw "Unknown method";
@@ -61,32 +61,32 @@ TypeInfo typeExpr(const Program & p, const std::vector<string> & globalNamespace
     }
     break;
   case ExprType::Paren:
-    result = typeExpr(p, globalNamespace, *e._paren.expr);
+    result = typeExpr(p, globalNamespace, globalCtx, *e._paren.expr);
     break;
   case ExprType::Dot:
   {
     auto sm = findStructMember(p,
-        typeExpr(p, globalNamespace, *e._dot.expr), e._dot.identifier);
+        typeExpr(p, globalNamespace, globalCtx, *e._dot.expr), e._dot.identifier);
     if (!sm.has_value())
       throw "Unknown struct member";
     result = typeType(p, sm.value().type);
     break;
   }
   case ExprType::PrefixOp:
-    result = typeExpr(p, globalNamespace, *e._prefixOp.expr);
+    result = typeExpr(p, globalNamespace, globalCtx, *e._prefixOp.expr);
     break;
   case ExprType::PostfixOp:
-    result = typeExpr(p, globalNamespace, *e._postfixOp.expr);
+    result = typeExpr(p, globalNamespace, globalCtx, *e._postfixOp.expr);
     break;
   case ExprType::BinaryOp:
-    result = typeExpr(p, globalNamespace, *e._binaryOp.lexpr);
+    result = typeExpr(p, globalNamespace, globalCtx, *e._binaryOp.lexpr);
     break;
   case ExprType::TernaryOp:
-    result = typeExpr(p, globalNamespace, *e._ternaryOp.rexprTrue);
+    result = typeExpr(p, globalNamespace, globalCtx, *e._ternaryOp.rexprTrue);
     break;
   case ExprType::Bracket:
   {
-    TypeInfo ti = typeExpr(p, globalNamespace, *e._brackets.lexpr);
+    TypeInfo ti = typeExpr(p, globalNamespace, globalCtx, *e._brackets.lexpr);
     if (!ti.type.modifiers.empty())
     {
       result = ti;
@@ -103,7 +103,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<string> & globalNamespace
     namespacePrefixes.insert(namespacePrefixes.end(),
       e._identifier.namespacePrefixes.begin(),
       e._identifier.namespacePrefixes.end());
-    auto v = findVariable(p, e._identifier.identifier, namespacePrefixes);
+    auto v = findVariable(p, e._identifier.identifier, globalCtx);
     if (!v.has_value())
       throw "Unknown variable";
     result = typeType(p, v.value().type);
