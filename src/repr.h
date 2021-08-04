@@ -13,18 +13,22 @@ struct Variable;
 struct Body;
 struct Function;
 struct Struct;
+struct Namespace;
 struct Program;
+
 struct FuncExpr;
+struct MethodExpr;
 struct LitExpr;
-struct IdentifierExpr;
-struct AccessExpr;
-struct BracketsExpr;
-struct UnaryOperatorExpr;
+struct ParenExpr;
+struct DotExpr;
+struct PrefixOperatorExpr;
+struct PostfixOperatorExpr;
 struct BinaryOperatorExpr;
 struct TernaryOperatorExpr;
-struct DotExpr;
-struct ParenExpr;
+struct BracketsExpr;
+struct IdentifierExpr;
 struct Expr;
+
 struct IfStmt;
 struct SwitchStmt;
 struct ForStmt;
@@ -48,6 +52,7 @@ struct TypeModifier
 
 struct Type
 {
+  std::vector<std::string> namespacePrefixes;
   std::string name;
   std::vector<TypeModifier> modifiers;
 };
@@ -72,11 +77,28 @@ struct Function
   Body body;
 };
 
+template<typename T>
+struct StructMember
+{
+  T t;
+  bool isPublic;
+  operator T() { return t; }
+};
+
 struct Struct
 {
   std::string name;
-  std::vector<Variable> members;
-  std::vector<Function> methods;
+  std::vector<StructMember<Variable>> members;
+  std::vector<StructMember<Function>> methods;
+};
+
+struct Namespace
+{
+  std::string name;
+  std::vector<Variable> variables;
+  std::vector<Struct> structs;
+  std::vector<Function> functions;
+  std::vector<Namespace> namespaces;
 };
 
 struct Program
@@ -84,16 +106,25 @@ struct Program
   std::vector<Variable> variables;
   std::vector<Struct> structs;
   std::vector<Function> functions;
+  std::vector<Namespace> namespaces;
 };
 
 enum class ExprType
 {
-  Func, Lit, Identifier, Brackets, UnaryOperator, BinaryOperator, TernaryOperator, Dot
+  Func, Method, Lit, Paren, Dot, PrefixOp, PostfixOp, BinaryOp, TernaryOp, Bracket, Identifier
 };
 
 struct FuncExpr
 {
+  std::vector<std::string> namespacePrefixes;
   std::string functionName;
+  std::vector<Expr> arguments;
+};
+
+struct MethodExpr
+{
+  std::shared_ptr<Expr> expr;
+  std::string methodName;
   std::vector<Expr> arguments;
 };
 
@@ -112,23 +143,46 @@ struct LitExpr
   bool _bool;
 };
 
-// TODO: accessExpr
-struct IdentifierExpr
+struct ParenExpr
 {
-  std::string name;
+  std::shared_ptr<Expr> expr;
 };
 
-struct BracketsExpr
+struct DotExpr
 {
-  std::shared_ptr<Expr> lexpr;
-  std::shared_ptr<Expr> rexpr;
+  std::shared_ptr<Expr> expr;
+  std::string identifier;
 };
 
-enum class UnaryOperatorType
+enum class PrefixOperatorType
 {
-  Plus, Minus, IncrementPre, DecrementPre, IncrementPost, DecrementPost,
+  Plus, Minus, Increment, Decrement,
   LogicalNot, BitwiseNot, Dereference, AddressOf,
   COUNT
+};
+static std::string PrefixOperatorTypeStrings[] =
+{
+  "+", "-", "++", "--", "!", "~", "*", "&" };
+
+struct PrefixOperatorExpr
+{
+  PrefixOperatorType type;
+  std::shared_ptr<Expr> expr;
+};
+
+enum class PostfixOperatorType
+{
+  Increment, Decrement,
+  COUNT
+};
+static std::string PostfixOperatorTypeStrings[] =
+{
+  "++", "--" };
+
+struct PostfixOperatorExpr
+{
+  PostfixOperatorType type;
+  std::shared_ptr<Expr> expr;
 };
 
 enum class BinaryOperatorType
@@ -139,22 +193,12 @@ enum class BinaryOperatorType
   LeftShiftEquals, RightShiftEquals,
   COUNT
 };
-static std::string UnaryOperatorTypeStrings[] =
-{
-  "+", "-", "++", "--", "++", "--", "!", "~", "*", "&" };
-
 static std::string BinaryOperatorTypeStrings[] =
 {
   "+", "-", "*", "/", "%", "&", "|", "^", "<", ">",
   "<<",">>","&&","||","==","!=","<=",">=","&=","|=","^=",
   "+=","-=","*=","/=","%=",
   "<<=",">>=" };
-
-struct UnaryOperatorExpr
-{
-  UnaryOperatorType type;
-  std::shared_ptr<Expr> expr;
-};
 
 struct BinaryOperatorExpr
 {
@@ -170,27 +214,33 @@ struct TernaryOperatorExpr
   std::shared_ptr<Expr> rexprFalse;
 };
 
-struct DotExpr
+struct BracketsExpr
 {
-  std::shared_ptr<Expr> expr;
-  IdentifierExpr ident;
+  std::shared_ptr<Expr> lexpr;
+  std::shared_ptr<Expr> rexpr;
 };
 
-// TODO: paren expr
+struct IdentifierExpr
+{
+  std::vector<std::string> namespacePrefixes;
+  std::string identifier;
+};
+
 struct Expr
 {
   ExprType type;
 
-  bool parenthesized;
-
   FuncExpr            _func;
+  MethodExpr          _method;
   LitExpr             _lit;
-  IdentifierExpr      _identifier;
-  BracketsExpr        _brackets;
-  UnaryOperatorExpr   _unaryOperator;
-  BinaryOperatorExpr  _binaryOperator;
-  TernaryOperatorExpr _ternaryOperator;
+  ParenExpr           _paren;
   DotExpr             _dot;
+  PrefixOperatorExpr  _prefixOp;
+  PostfixOperatorExpr _postfixOp;
+  BinaryOperatorExpr  _binaryOp;
+  TernaryOperatorExpr _ternaryOp;
+  BracketsExpr        _brackets;
+  IdentifierExpr      _identifier;
 };
 
 enum class StmtType
@@ -219,15 +269,14 @@ struct SwitchCase
 
 struct SwitchStmt
 {
-  IdentifierExpr ident;
+  std::shared_ptr<Expr> ident;
   std::vector<SwitchCase> cases;
 };
 
 // TODO: int i = 0 (var decl)
 struct ForStmt
 {
-  std::string varName;
-  std::shared_ptr<Expr> initValue;
+  std::shared_ptr<AssignStmt> init;
   std::shared_ptr<Expr> condition;
   std::shared_ptr<Expr> action;
   Body body;
@@ -241,8 +290,7 @@ struct WhileStmt
 
 struct AssignStmt
 {
-  std::string name;
-  Expr expr;
+  Expr lexpr, rexpr;
 };
 
 struct ReturnStmt

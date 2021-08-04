@@ -59,3 +59,4 @@ Missing:
 - bitfields
 - nested bodies {}
 - multiple files
+- call outer functions with same name (::f1())

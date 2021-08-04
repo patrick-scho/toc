@@ -4,8 +4,7 @@
 
 bool checkStmt(
   const Stmt & s,
-  std::vector<Struct> structs,
-  std::vector<Function> funcs,
+  std::vector<Namespace> namespaces,
   std::vector<Variable> vars)
 {
   return true;
@@ -13,15 +12,14 @@ bool checkStmt(
 
 bool checkFunction(
   const Function & f,
-  std::vector<Struct> structs,
-  std::vector<Function> funcs,
+  std::vector<Namespace> namespaces,
   std::vector<Variable> vars)
 {
   vars.insert(vars.end(), f.parameters.begin(), f.parameters.end());
   vars.insert(vars.end(), f.body.variables.begin(), f.body.variables.end());
   for (auto s : f.body.statements)
   {
-    if (!checkStmt(s, structs, funcs, vars))
+    if (!checkStmt(s, namespaces, vars))
       return false;
   }
   return true;
@@ -31,7 +29,7 @@ bool checkProgram(const Program & p)
 {
   for (auto f : p.functions)
   {
-    if (!checkFunction(f, p.structs, p.functions, p.variables))
+    if (!checkFunction(f, p.namespaces, p.variables))
       return false;
   }
   for (auto s : p.structs)
@@ -41,7 +39,7 @@ bool checkProgram(const Program & p)
       vars.push_back(v);
     for (auto f : s.methods)
     {
-      if (!checkFunction(f, p.structs, p.functions, vars))
+      if (!checkFunction(f, p.namespaces, vars))
         return false;
     }
   }

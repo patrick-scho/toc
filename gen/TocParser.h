@@ -27,18 +27,15 @@ public:
 
   enum {
     RuleProg = 0, RuleDecl = 1, RuleNamespaceDecl = 2, RuleVarDecl = 3, 
-    RuleVar = 4, RuleVarInit = 5, RuleType = 6, RuleTypeModifier = 7, RuleFuncDecl = 8, 
-    RuleFunc = 9, RuleParameter = 10, RuleBody = 11, RuleStructDecl = 12, 
-    RuleStructMember = 13, RuleStructVar = 14, RuleStructMethod = 15, RulePrivateDecl = 16, 
-    RuleGenericDecl = 17, RuleStmt = 18, RuleIfStmt = 19, RuleElseIfStmt = 20, 
-    RuleElseStmt = 21, RuleSwitchStmt = 22, RuleSwitchBody = 23, RuleSwitchCase = 24, 
-    RuleForStmt = 25, RuleWhileStmt = 26, RuleAssignStmt = 27, RuleReturnStmt = 28, 
-    RuleExpr = 29, RuleNonOpExpr = 30, RuleNonAccessExpr = 31, RuleFuncExpr = 32, 
-    RuleOpExpr = 33, RuleBinaryOp = 34, RulePrefixOp = 35, RulePostfixOp = 36, 
-    RuleTernaryOp = 37, RuleIdentifierExpr = 38, RuleLitExpr = 39, RuleAccessExpr = 40, 
-    RuleAccessSubExpr = 41, RuleAccessMember = 42, RuleAccessBrackets = 43, 
-    RuleParenExpr = 44, RuleFuncName = 45, RuleVarName = 46, RuleTypeName = 47, 
-    RuleStructName = 48, RulePostfix_op = 49, RulePrefix_op = 50, RuleBinary_op = 51
+    RuleVar = 4, RuleVarInit = 5, RuleType = 6, RuleTypeModifier = 7, RuleNamespaceSpecifier = 8, 
+    RuleFuncDecl = 9, RuleFunc = 10, RuleParameter = 11, RuleBody = 12, 
+    RuleStructDecl = 13, RuleStructMember = 14, RuleStructVar = 15, RuleStructMethod = 16, 
+    RulePrivateDecl = 17, RuleGenericDecl = 18, RuleStmt = 19, RuleIfStmt = 20, 
+    RuleElseIfStmt = 21, RuleElseStmt = 22, RuleSwitchStmt = 23, RuleSwitchBody = 24, 
+    RuleSwitchCase = 25, RuleForStmt = 26, RuleWhileStmt = 27, RuleAssignStmt = 28, 
+    RuleReturnStmt = 29, RuleExpr = 30, RuleLiteral = 31, RuleFuncName = 32, 
+    RuleVarName = 33, RuleTypeName = 34, RuleStructName = 35, RulePostfix_op = 36, 
+    RulePrefix_op = 37, RuleBinary_op = 38
   };
 
   explicit TocParser(antlr4::TokenStream *input);
@@ -59,6 +56,7 @@ public:
   class VarInitContext;
   class TypeContext;
   class TypeModifierContext;
+  class NamespaceSpecifierContext;
   class FuncDeclContext;
   class FuncContext;
   class ParameterContext;
@@ -81,21 +79,7 @@ public:
   class AssignStmtContext;
   class ReturnStmtContext;
   class ExprContext;
-  class NonOpExprContext;
-  class NonAccessExprContext;
-  class FuncExprContext;
-  class OpExprContext;
-  class BinaryOpContext;
-  class PrefixOpContext;
-  class PostfixOpContext;
-  class TernaryOpContext;
-  class IdentifierExprContext;
-  class LitExprContext;
-  class AccessExprContext;
-  class AccessSubExprContext;
-  class AccessMemberContext;
-  class AccessBracketsContext;
-  class ParenExprContext;
+  class LiteralContext;
   class FuncNameContext;
   class VarNameContext;
   class TypeNameContext;
@@ -186,6 +170,8 @@ public:
     TypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     TypeNameContext *typeName();
+    std::vector<NamespaceSpecifierContext *> namespaceSpecifier();
+    NamespaceSpecifierContext* namespaceSpecifier(size_t i);
     std::vector<TypeModifierContext *> typeModifier();
     TypeModifierContext* typeModifier(size_t i);
 
@@ -204,6 +190,17 @@ public:
   };
 
   TypeModifierContext* typeModifier();
+
+  class  NamespaceSpecifierContext : public antlr4::ParserRuleContext {
+  public:
+    NamespaceSpecifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    TypeNameContext *typeName();
+
+   
+  };
+
+  NamespaceSpecifierContext* namespaceSpecifier();
 
   class  FuncDeclContext : public antlr4::ParserRuleContext {
   public:
@@ -386,7 +383,7 @@ public:
   public:
     SwitchStmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    IdentifierExprContext *identifierExpr();
+    ExprContext *expr();
     SwitchBodyContext *switchBody();
 
    
@@ -449,8 +446,8 @@ public:
   public:
     AssignStmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    IdentifierExprContext *identifierExpr();
-    ExprContext *expr();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
 
    
   };
@@ -471,139 +468,113 @@ public:
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    ExprContext() = default;
+    void copyFrom(ExprContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
     virtual size_t getRuleIndex() const override;
-    FuncExprContext *funcExpr();
-    LitExprContext *litExpr();
-    IdentifierExprContext *identifierExpr();
-    ParenExprContext *parenExpr();
-    AccessExprContext *accessExpr();
-    OpExprContext *opExpr();
 
    
+  };
+
+  class  DotExprContext : public ExprContext {
+  public:
+    DotExprContext(ExprContext *ctx);
+
+    ExprContext *expr();
+    VarNameContext *varName();
+  };
+
+  class  FuncExprContext : public ExprContext {
+  public:
+    FuncExprContext(ExprContext *ctx);
+
+    FuncNameContext *funcName();
+    std::vector<NamespaceSpecifierContext *> namespaceSpecifier();
+    NamespaceSpecifierContext* namespaceSpecifier(size_t i);
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+  };
+
+  class  BracketExprContext : public ExprContext {
+  public:
+    BracketExprContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+  };
+
+  class  PrefixOpExprContext : public ExprContext {
+  public:
+    PrefixOpExprContext(ExprContext *ctx);
+
+    Prefix_opContext *prefix_op();
+    ExprContext *expr();
+  };
+
+  class  MethodExprContext : public ExprContext {
+  public:
+    MethodExprContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    FuncNameContext *funcName();
+  };
+
+  class  PostfixOpExprContext : public ExprContext {
+  public:
+    PostfixOpExprContext(ExprContext *ctx);
+
+    ExprContext *expr();
+    Postfix_opContext *postfix_op();
+  };
+
+  class  BinaryOpExprContext : public ExprContext {
+  public:
+    BinaryOpExprContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    Binary_opContext *binary_op();
+  };
+
+  class  TernaryOpExprContext : public ExprContext {
+  public:
+    TernaryOpExprContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+  };
+
+  class  LitExprContext : public ExprContext {
+  public:
+    LitExprContext(ExprContext *ctx);
+
+    LiteralContext *literal();
+  };
+
+  class  ParenExprContext : public ExprContext {
+  public:
+    ParenExprContext(ExprContext *ctx);
+
+    ExprContext *expr();
+  };
+
+  class  IdentifierExprContext : public ExprContext {
+  public:
+    IdentifierExprContext(ExprContext *ctx);
+
+    VarNameContext *varName();
+    std::vector<NamespaceSpecifierContext *> namespaceSpecifier();
+    NamespaceSpecifierContext* namespaceSpecifier(size_t i);
   };
 
   ExprContext* expr();
-
-  class  NonOpExprContext : public antlr4::ParserRuleContext {
+  ExprContext* expr(int precedence);
+  class  LiteralContext : public antlr4::ParserRuleContext {
   public:
-    NonOpExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    FuncExprContext *funcExpr();
-    LitExprContext *litExpr();
-    IdentifierExprContext *identifierExpr();
-    ParenExprContext *parenExpr();
-    AccessExprContext *accessExpr();
-
-   
-  };
-
-  NonOpExprContext* nonOpExpr();
-
-  class  NonAccessExprContext : public antlr4::ParserRuleContext {
-  public:
-    NonAccessExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    FuncExprContext *funcExpr();
-    IdentifierExprContext *identifierExpr();
-    ParenExprContext *parenExpr();
-
-   
-  };
-
-  NonAccessExprContext* nonAccessExpr();
-
-  class  FuncExprContext : public antlr4::ParserRuleContext {
-  public:
-    FuncExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    FuncNameContext *funcName();
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
-
-   
-  };
-
-  FuncExprContext* funcExpr();
-
-  class  OpExprContext : public antlr4::ParserRuleContext {
-  public:
-    OpExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    BinaryOpContext *binaryOp();
-    PrefixOpContext *prefixOp();
-    PostfixOpContext *postfixOp();
-    TernaryOpContext *ternaryOp();
-
-   
-  };
-
-  OpExprContext* opExpr();
-
-  class  BinaryOpContext : public antlr4::ParserRuleContext {
-  public:
-    BinaryOpContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<NonOpExprContext *> nonOpExpr();
-    NonOpExprContext* nonOpExpr(size_t i);
-    std::vector<Binary_opContext *> binary_op();
-    Binary_opContext* binary_op(size_t i);
-
-   
-  };
-
-  BinaryOpContext* binaryOp();
-
-  class  PrefixOpContext : public antlr4::ParserRuleContext {
-  public:
-    PrefixOpContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Prefix_opContext *prefix_op();
-    NonOpExprContext *nonOpExpr();
-
-   
-  };
-
-  PrefixOpContext* prefixOp();
-
-  class  PostfixOpContext : public antlr4::ParserRuleContext {
-  public:
-    PostfixOpContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    NonOpExprContext *nonOpExpr();
-    Postfix_opContext *postfix_op();
-
-   
-  };
-
-  PostfixOpContext* postfixOp();
-
-  class  TernaryOpContext : public antlr4::ParserRuleContext {
-  public:
-    TernaryOpContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    NonOpExprContext *nonOpExpr();
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
-
-   
-  };
-
-  TernaryOpContext* ternaryOp();
-
-  class  IdentifierExprContext : public antlr4::ParserRuleContext {
-  public:
-    IdentifierExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    VarNameContext *varName();
-
-   
-  };
-
-  IdentifierExprContext* identifierExpr();
-
-  class  LitExprContext : public antlr4::ParserRuleContext {
-  public:
-    LitExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    LiteralContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *INT_LIT();
     antlr4::tree::TerminalNode *DECIMAL_LIT();
@@ -613,65 +584,7 @@ public:
    
   };
 
-  LitExprContext* litExpr();
-
-  class  AccessExprContext : public antlr4::ParserRuleContext {
-  public:
-    AccessExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    NonAccessExprContext *nonAccessExpr();
-    std::vector<AccessSubExprContext *> accessSubExpr();
-    AccessSubExprContext* accessSubExpr(size_t i);
-
-   
-  };
-
-  AccessExprContext* accessExpr();
-
-  class  AccessSubExprContext : public antlr4::ParserRuleContext {
-  public:
-    AccessSubExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    AccessMemberContext *accessMember();
-    AccessBracketsContext *accessBrackets();
-
-   
-  };
-
-  AccessSubExprContext* accessSubExpr();
-
-  class  AccessMemberContext : public antlr4::ParserRuleContext {
-  public:
-    AccessMemberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    IdentifierExprContext *identifierExpr();
-
-   
-  };
-
-  AccessMemberContext* accessMember();
-
-  class  AccessBracketsContext : public antlr4::ParserRuleContext {
-  public:
-    AccessBracketsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
-
-   
-  };
-
-  AccessBracketsContext* accessBrackets();
-
-  class  ParenExprContext : public antlr4::ParserRuleContext {
-  public:
-    ParenExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
-
-   
-  };
-
-  ParenExprContext* parenExpr();
+  LiteralContext* literal();
 
   class  FuncNameContext : public antlr4::ParserRuleContext {
   public:
@@ -748,6 +661,9 @@ public:
 
   Binary_opContext* binary_op();
 
+
+  virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+  bool exprSempred(ExprContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

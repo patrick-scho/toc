@@ -14,9 +14,10 @@ varDecl:  'var' var;
 var:  varName (':' type) ('=' expr)?;
 varInit:  varName (':' type) ('=' expr);
 
-type: typeName (typeModifier)*;
+type: namespaceSpecifier* typeName (typeModifier)*;
 typeModifier: '*' | ('[' (INT_LIT)? ']');
 
+namespaceSpecifier: typeName '::';
 
 funcDecl: 'func' func;
 func: funcName genericDecl? '(' parameter ')' (':' type) body;
@@ -46,55 +47,32 @@ ifStmt: 'if' expr body elseIfStmt* elseStmt?;
 elseIfStmt: 'else' 'if' expr body;
 elseStmt: 'else' body;
 
-switchStmt: 'switch' identifierExpr switchBody;
+switchStmt: 'switch' expr switchBody;
 switchBody: '{' switchCase* '}';
 switchCase: 'case' expr body;
 
-forStmt: 'for' (varInit | assignStmt) ',' expr ',' expr body;
+forStmt: 'for' varInit ',' expr ',' expr body;
 
 whileStmt: 'while' expr body;
 
-assignStmt: identifierExpr '=' expr;
+assignStmt: expr '=' expr;
 
 returnStmt: 'return' expr;
 
-expr: funcExpr
-    | litExpr
-    | identifierExpr
-    | parenExpr
-    | accessExpr
-    | opExpr;
+expr: namespaceSpecifier* funcName '(' (expr (',' expr)*)? ')' #funcExpr
+    | expr '.' funcName '(' (expr (',' expr)*)? ')'            #methodExpr
+    | literal                                                  #litExpr
+    | '(' expr ')'                                             #parenExpr
+    | expr '.' varName                                         #dotExpr
+    | prefix_op expr                                           #prefixOpExpr
+    | expr postfix_op                                          #postfixOpExpr
+    | expr binary_op expr                                      #binaryOpExpr
+    | expr '?' expr ':' expr                                   #ternaryOpExpr
+    | expr '[' expr ']'                                        #bracketExpr
+    | namespaceSpecifier* varName                              #identifierExpr
+    ;
 
-/* op */
-nonOpExpr: funcExpr
-         | litExpr
-         | identifierExpr
-         | parenExpr
-         | accessExpr;
-
-/* lit access op */
-nonAccessExpr: funcExpr
-             | identifierExpr
-             | parenExpr;
-
-funcExpr: funcName '(' (expr (',' expr)*)? ')';
-
-opExpr: binaryOp | prefixOp | postfixOp | ternaryOp;
-binaryOp: nonOpExpr binary_op nonOpExpr (binary_op nonOpExpr)*;
-prefixOp: prefix_op nonOpExpr;
-postfixOp: nonOpExpr postfix_op;
-ternaryOp: nonOpExpr '?' expr ':' expr;
-
-identifierExpr: varName;
-
-litExpr: INT_LIT | DECIMAL_LIT | STRING_LIT | BOOL_LIT;
-
-accessExpr: nonAccessExpr (accessSubExpr)+;
-accessSubExpr: accessMember | accessBrackets;
-accessMember: ('.' | '->') identifierExpr;
-accessBrackets: '[' expr ']';
-
-parenExpr: '(' expr ')';
+literal: INT_LIT | DECIMAL_LIT | STRING_LIT | BOOL_LIT;
 
 funcName: NAME;
 varName: NAME;

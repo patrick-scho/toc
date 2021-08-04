@@ -14,7 +14,7 @@ using namespace antlr4;
 
 int main(int argc, const char * argv[])
 {
-  std::ifstream ifs("test.toc");
+  std::ifstream ifs("test/test2.toc");
 
   ANTLRInputStream input(ifs);
 
@@ -37,14 +37,21 @@ int main(int argc, const char * argv[])
 
   Program prg = getProgram(prog);
 
-  tocProgram(std::cout, prg);
+  try
+  {
+    tocProgram(std::cout, prg);
 
-  if (!checkProgram(prg))
-    std::cerr << "Error" << std::endl;
+    if (!checkProgram(prg))
+      std::cerr << "Error" << std::endl;
 
-  //std::ofstream ofs("output.c");
-  //tocProg(ofs, prg);
-  //ofs.close();
+    std::ofstream ofs("output.c");
+    tocProgram(ofs, prg);
+    ofs.close();
+  }
+  catch (const std::string & e)
+  {
+    std::cerr << "Error: " << e << std::endl;
+  }
 
   return 0;
 }
