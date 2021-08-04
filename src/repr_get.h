@@ -4,11 +4,11 @@
 
 Type                getType(TocParser::TypeContext * ctx);
 Variable            getVariable(TocParser::VarContext * ctx);
-Body                getBody(TocParser::BodyContext * ctx);
-Function            getFunction(TocParser::FuncContext * ctx);
-Struct              getStruct(TocParser::StructDeclContext * ctx);
-Namespace           getNamespace(TocParser::NamespaceDeclContext * ctx);
-Program             getProgram(TocParser::ProgContext * ctx);
+Body                getBody(TocParser::BodyContext * ctx, std::shared_ptr<Context> parent);
+Function            getFunction(TocParser::FuncContext * ctx, std::shared_ptr<Context> parent);
+Struct              getStruct(TocParser::StructDeclContext * ctx, std::shared_ptr<Context> parent);
+Namespace           getNamespace(TocParser::NamespaceDeclContext * ctx, std::shared_ptr<Context> parent);
+Program             getProgram(TocParser::ProgContext * ctx, std::shared_ptr<Context> parent);
 
 
 Expr                getExpr(TocParser::FuncExprContext * ctx);
@@ -24,7 +24,7 @@ Expr                getExpr(TocParser::BracketExprContext * ctx);
 Expr                getExpr(TocParser::IdentifierExprContext * ctx);
 Expr                getExpr(TocParser::ExprContext * ctx);
 
-Stmt                getStmt(TocParser::StmtContext * ctx);
+Stmt                getStmt(TocParser::StmtContext * ctx, std::shared_ptr<Context> parent);
 
 Type getType(TocParser::TypeContext * ctx)
 {
@@ -52,25 +52,27 @@ Variable getVariable(TocParser::VarContext * ctx)
   result.type = getType(ctx->type());
   return result;
 }
-Body getBody(TocParser::BodyContext * ctx)
+Body getBody(TocParser::BodyContext * ctx, std::shared_ptr<Context> parent)
 {
   Body result;
+  result.ctx = std::make_unique<Context>();
+  result.ctx->parent = parent;
   for (auto s : ctx->stmt())
   {
     if (s->varDecl() != nullptr)
     {
-      result.variables.push_back(getVariable(s->varDecl()->var()));
+      result.ctx->variables.push_back(getVariable(s->varDecl()->var()));
       if (s->varDecl()->var()->expr() != nullptr)
-        result.statements.push_back(getStmt(s));
+        result.statements.push_back(getStmt(s, result.ctx));
     }
     else
     {
-      result.statements.push_back(getStmt(s));
+      result.statements.push_back(getStmt(s, result.ctx));
     }
   }
   return result;
 }
-Function getFunction(TocParser::FuncContext * ctx)
+Function getFunction(TocParser::FuncContext * ctx, std::shared_ptr<Context> parent)
 {
   Function result;
   result.name = ctx->funcName()->NAME()->toString();
@@ -80,10 +82,10 @@ Function getFunction(TocParser::FuncContext * ctx)
     for (auto p : ctx->parameter()->var())
       result.parameters.push_back(getVariable(p));
   }
-  result.body = getBody(ctx->body());
+  result.body = getBody(ctx->body(), parent);
   return result;
 }
-Struct getStruct(TocParser::StructDeclContext * ctx)
+Struct getStruct(TocParser::StructDeclContext * ctx, std::shared_ptr<Context> parent)
 {
   Struct result;
   result.name = ctx->structName()->NAME()->toString();
@@ -99,58 +101,60 @@ Struct getStruct(TocParser::StructDeclContext * ctx)
     if (m->structMethod() != nullptr)
     {
       result.methods.push_back({
-        getFunction(m->structMethod()->func()),
+        getFunction(m->structMethod()->func(), parent),
         m->privateDecl() != nullptr
       });
     }
   }
   return result;
 }
-Namespace getNamespace(TocParser::NamespaceDeclContext * ctx)
+Namespace getNamespace(TocParser::NamespaceDeclContext * ctx, std::shared_ptr<Context> parent)
 {
   Namespace result;
+  result.ctx = std::make_unique<Context>();
   result.name = ctx->typeName()->getText();
   for (auto d : ctx->decl())
   {
     if (d->varDecl() != nullptr)
     {
-      result.variables.push_back(getVariable(d->varDecl()->var()));
+      result.ctx->variables.push_back(getVariable(d->varDecl()->var()));
     }
     if (d->funcDecl() != nullptr)
     {
-      result.functions.push_back(getFunction(d->funcDecl()->func()));
+      result.functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
     }
     if (d->structDecl() != nullptr)
     {
-      result.structs.push_back(getStruct(d->structDecl()));
+      result.structs.push_back(getStruct(d->structDecl(), result.ctx));
     }
     if (d->namespaceDecl() != nullptr)
     {
-      result.namespaces.push_back(getNamespace(d->namespaceDecl()));
+      result.namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
     }
   }
   return result;
 }
-Program getProgram(TocParser::ProgContext * ctx)
+Program getProgram(TocParser::ProgContext * ctx, std::shared_ptr<Context> parent)
 {
   Program result;
+  result.ctx = std::make_unique<Context>();
   for (auto d : ctx->decl())
   {
     if (d->varDecl() != nullptr)
     {
-      result.variables.push_back(getVariable(d->varDecl()->var()));
+      result.ctx->variables.push_back(getVariable(d->varDecl()->var()));
     }
     if (d->funcDecl() != nullptr)
     {
-      result.functions.push_back(getFunction(d->funcDecl()->func()));
+      result.functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
     }
     if (d->structDecl() != nullptr)
     {
-      result.structs.push_back(getStruct(d->structDecl()));
+      result.structs.push_back(getStruct(d->structDecl(), result.ctx));
     }
     if (d->namespaceDecl() != nullptr)
     {
-      result.namespaces.push_back(getNamespace(d->namespaceDecl()));
+      result.namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
     }
   }
   return result;
@@ -337,7 +341,7 @@ Expr getExpr(TocParser::ExprContext * ctx)
     result = getExpr(dynamic_cast<TocParser::IdentifierExprContext *>(ctx));
   return result;
 }
-Stmt getStmt(TocParser::StmtContext * ctx)
+Stmt getStmt(TocParser::StmtContext * ctx, std::shared_ptr<Context> parent)
 {
   Stmt result;
   if (ctx->varDecl() != nullptr && ctx->varDecl()->var()->expr() != nullptr)
@@ -351,13 +355,13 @@ Stmt getStmt(TocParser::StmtContext * ctx)
   {
     result.type = StmtType::If;
     result._if.condition = getExpr(ctx->ifStmt()->expr());
-    result._if.body = getBody(ctx->ifStmt()->body());
+    result._if.body = getBody(ctx->ifStmt()->body(), parent);
     for (auto ei : ctx->ifStmt()->elseIfStmt())
     {
       result._if.elses.emplace_back(
         true,
         std::make_unique<Expr>(getExpr(ei->expr())),
-        getBody(ei->body())
+        getBody(ei->body(), parent)
       );
     }
     if (ctx->ifStmt()->elseStmt() != nullptr)
@@ -365,7 +369,7 @@ Stmt getStmt(TocParser::StmtContext * ctx)
       result._if.elses.emplace_back(
         false,
         nullptr,
-        getBody(ctx->ifStmt()->elseStmt()->body())
+        getBody(ctx->ifStmt()->elseStmt()->body(), parent)
       );
     }
   }
@@ -377,7 +381,7 @@ Stmt getStmt(TocParser::StmtContext * ctx)
     {
       result._switch.cases.emplace_back(
         std::make_unique<Expr>(getExpr(c->expr())),
-        getBody(c->body())
+        getBody(c->body(), parent)
       );
     }
   }
@@ -390,13 +394,13 @@ Stmt getStmt(TocParser::StmtContext * ctx)
     result._for.init->rexpr = getExpr(ctx->forStmt()->varInit()->expr());
     result._for.condition = std::make_unique<Expr>(getExpr(ctx->forStmt()->expr(0)));
     result._for.action = std::make_unique<Expr>(getExpr(ctx->forStmt()->expr(1)));
-    result._for.body = getBody(ctx->forStmt()->body());
+    result._for.body = getBody(ctx->forStmt()->body(), parent);
   }
   if (ctx->whileStmt() != nullptr)
   {
     result.type = StmtType::While;
     result._while.condition = getExpr(ctx->whileStmt()->expr());
-    result._while.body = getBody(ctx->whileStmt()->body());
+    result._while.body = getBody(ctx->whileStmt()->body(), parent);
   }
   if (ctx->assignStmt() != nullptr)
   {

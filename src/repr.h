@@ -37,6 +37,12 @@ struct AssignStmt;
 struct ReturnStmt;
 struct Stmt;
 
+struct Context
+{
+  std::shared_ptr<Context> parent;
+  std::vector<Variable> variables;
+};
+
 enum class TypeModifierType
 {
   Pointer, Array
@@ -65,7 +71,7 @@ struct Variable
 
 struct Body
 {
-  std::vector<Variable> variables;
+  std::shared_ptr<Context> ctx;
   std::vector<Stmt> statements;
 };
 
@@ -95,7 +101,7 @@ struct Struct
 struct Namespace
 {
   std::string name;
-  std::vector<Variable> variables;
+  std::shared_ptr<Context> ctx;
   std::vector<Struct> structs;
   std::vector<Function> functions;
   std::vector<Namespace> namespaces;
@@ -103,7 +109,7 @@ struct Namespace
 
 struct Program
 {
-  std::vector<Variable> variables;
+  std::shared_ptr<Context> ctx;
   std::vector<Struct> structs;
   std::vector<Function> functions;
   std::vector<Namespace> namespaces;

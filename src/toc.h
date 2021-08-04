@@ -96,7 +96,7 @@ std::ostream & operator<< (std::ostream & out, const Body & b)
   out << "{\n";
   indentation += 2;
 
-  for (auto v : b.variables)
+  for (auto v : b.ctx->variables)
   {
     indent(out);
     out << v << ";\n";
@@ -279,7 +279,7 @@ void tocProgram (std::ostream & out, const Program & p)
     tocFunction(out, f, true);
   }
 
-  for (auto v : p.variables)
+  for (auto v : p.ctx->variables)
   {
     out << v << ";\n";
   }
@@ -303,7 +303,7 @@ void tocNamespace  (std::ostream & out, const Namespace & n, bool stub)
   namespaces.push_back(n.name);
   if (!stub)
   {
-    for (auto v : n.variables)
+    for (auto v : n.ctx->variables)
     {
       out << v << ";\n";
     }

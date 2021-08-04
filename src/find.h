@@ -78,7 +78,7 @@ opt<Variable> findVariable(
     std::cout << n << std::endl;
   if (namespacePrefixes.empty())
   {
-    return find<Variable>(p.variables, [&](Variable v) { return v.name == name; });
+    return find<Variable>(p.ctx->variables, [&](Variable v) { return v.name == name; });
   }
   
   auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
@@ -93,7 +93,7 @@ opt<Variable> findVariable(
     if (!n.has_value())
       return nullopt;
   }
-  return find<Variable>(n.value().variables, [&](Variable v) { return v.name == name; });
+  return find<Variable>(n.value().ctx->variables, [&](Variable v) { return v.name == name; });
 }
 
 opt<Function> findStructMethod(
