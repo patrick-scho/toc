@@ -27,98 +27,136 @@ opt<T *> findPtr(const std::vector<T> & ts, std::function<bool(T)> f)
   return nullopt;
 }
 
-bool checkNamespace(std::shared_ptr<Context> ctx, const std::vector<std::string> & namespacePrefix)
+std::optional<
+  std::tuple<
+    std::shared_ptr<Context>,
+    std::vector<std::string>>>
+getContext(std::shared_ptr<Context> ctx, const std::vector<std::string> & namespacePrefix)
 {
-  
-    bool prefixMatches = true;
+  auto result = ctx;
 
-    auto nIt = ctx;
-    for (int i = namespacePrefix.size() - 1; i >= 0; i--)
+  for (auto name : namespacePrefix)
+  {
+    auto newResult = find<Namespace>(result->namespaces, [&](Namespace n) { return n.name == name; });
+    if (newResult.has_value())
     {
-      const std::string & prefix = namespacePrefix[i];
-      if (nIt == nullptr || ! nIt->name.has_value() || nIt->name.value() != prefix)
-      {
-        prefixMatches = false;
-        break;
-      }
-      nIt = nIt->parent;
+      result = newResult->ctx;
     }
+    else
+    {
+      return nullopt;
+    }
+  }
 
-    return prefixMatches;
+  std::vector<std::string> namespaces;
+  for (auto it = result; it != nullptr; it = it->parent)
+  {
+    if (it->name.has_value())
+    {
+      namespaces.insert(namespaces.begin(), it->name.value());
+    }
+    else if (it->parent != nullptr)
+    {
+      namespaces.clear();
+      break;
+    }
+  }
+
+  return std::make_tuple(result, namespaces);
 }
 
 
 
-opt<Function> findFunction(
+opt<std::tuple<Function, std::vector<std::string>>> findFunction(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
   for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto f = find<Function>(it->functions, [&](Function f) { return f.name == name; });
-    if (f.has_value() && checkNamespace(it, namespacePrefix))
-      return f;
+    auto n = getContext(it, namespacePrefix);
+    if (n.has_value())
+    {
+      auto x = find<Function>(std::get<0>(*n)->functions, [&](Function _) { return _.name == name; });
+      if (x.has_value())
+        return std::make_tuple(x.value(), std::get<1>(*n));
+    }
   }
   return nullopt;
 }
 
-opt<Function *> findFunctionPtr(
+opt<std::tuple<Function *, std::vector<std::string>>> findFunctionPtr(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
   for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto f = findPtr<Function>(it->functions, [&](Function f) { return f.name == name; });
-    if (f.has_value() && checkNamespace(it, namespacePrefix))
-      return f;
+    auto n = getContext(it, namespacePrefix);
+    if (n.has_value())
+    {
+      auto x = findPtr<Function>(std::get<0>(*n)->functions, [&](Function _) { return _.name == name; });
+      if (x.has_value())
+        return std::make_tuple(x.value(), std::get<1>(*n));
+    }
   }
   return nullopt;
 }
 
 
 
-opt<Struct> findStruct(
+opt<std::tuple<Struct, std::vector<std::string>>> findStruct(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
   for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto s = find<Struct>(it->structs, [&](Struct s) { return s.name == name; });
-    if (s.has_value() && checkNamespace(it, namespacePrefix))
-      return s;
+    auto n = getContext(it, namespacePrefix);
+    if (n.has_value())
+    {
+      auto x = find<Struct>(std::get<0>(*n)->structs, [&](Struct _) { return _.name == name; });
+      if (x.has_value())
+        return std::make_tuple(x.value(), std::get<1>(*n));
+    }
   }
   return nullopt;
 }
 
-opt<Struct *> findStructPtr(
+opt<std::tuple<Struct *, std::vector<std::string>>> findStructPtr(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
   for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto s = findPtr<Struct>(it->structs, [&](Struct s) { return s.name == name; });
-    if (s.has_value() && checkNamespace(it, namespacePrefix))
-      return s;
+    auto n = getContext(it, namespacePrefix);
+    if (n.has_value())
+    {
+      auto x = findPtr<Struct>(std::get<0>(*n)->structs, [&](Struct _) { return _.name == name; });
+      if (x.has_value())
+        return std::make_tuple(x.value(), std::get<1>(*n));
+    }
   }
   return nullopt;
 }
 
 
 
-opt<Variable> findVariable(
+opt<std::tuple<Variable, std::vector<std::string>>> findVariable(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
   for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto v = find<Variable>(it->variables, [&](Variable v) { return v.name == name; });
-    if (v.has_value() && checkNamespace(it, namespacePrefix))
-      return v;
+    auto n = getContext(it, namespacePrefix);
+    if (n.has_value())
+    {
+      auto x = find<Variable>(std::get<0>(*n)->variables, [&](Variable _) { return _.name == name; });
+      if (x.has_value())
+        return std::make_tuple(x.value(), std::get<1>(*n));
+    }
   }
   return nullopt;
 }

@@ -22,7 +22,7 @@ public:
     T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
     T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
     T__56 = 57, T__57 = 58, INT_LIT = 59, DECIMAL_LIT = 60, BOOL_LIT = 61, 
-    StringLit = 62, NAME = 63, WS = 64, NEWLINE = 65
+    StringLit = 62, NAME = 63, WS = 64, NEWLINE = 65, COMMENT = 66
   };
 
   explicit TocLexer(antlr4::CharStream *input);

@@ -24,7 +24,7 @@ TypeInfo typeType(const Program & p, Type t)
   return result;
 }
 
-TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalNamespace, std::shared_ptr<Context> globalCtx, Expr e)
+TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
 {
   TypeInfo result;
 
@@ -32,28 +32,24 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
   {
   case ExprType::Func:
   {
-    auto namespacePrefixes = globalNamespace;
-    namespacePrefixes.insert(namespacePrefixes.end(),
-      e._func.namespacePrefixes.begin(),
-      e._func.namespacePrefixes.end());
     auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
     if (!f.has_value())
       throw "Unknown function";
-    result = typeType(p, f.value().returnType);
+    result = typeType(p, std::get<0>(*f).returnType);
     break;
   }
   case ExprType::Method:
   {
-    TypeInfo tiCaller = typeExpr(p, globalNamespace, globalCtx, *e._method.expr);
+    TypeInfo tiCaller = typeExpr(p, globalCtx, *e._method.expr);
     if (!tiCaller.isStruct)
       throw "Calling method on non-struct";
     auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
     if (!s.has_value())
       throw "Calling method on unknown struct";
-    auto m = findStructMethod(e._method.methodName, s.value());
+    auto m = findStructMethod(e._method.methodName, std::get<0>(*s));
     if (!m.has_value())
       throw "Unknown method";
-    result = typeType(p, m.value().t.returnType);
+    result = typeType(p, m->t.returnType);
     break;
   }
   case ExprType::Lit:
@@ -67,37 +63,37 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
     }
     break;
   case ExprType::Paren:
-    result = typeExpr(p, globalNamespace, globalCtx, *e._paren.expr);
+    result = typeExpr(p, globalCtx, *e._paren.expr);
     break;
   case ExprType::Dot:
   {
-    auto tiCaller = typeExpr(p, globalNamespace, globalCtx, *e._dot.expr);
+    auto tiCaller = typeExpr(p, globalCtx, *e._dot.expr);
     if (!tiCaller.isStruct)
       throw "Accessing member of non-struct";
     auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
     if (!s.has_value())
       throw "Calling method on unknown struct";
-    auto sm = findStructMember(e._dot.identifier, s.value());
+    auto sm = findStructMember(e._dot.identifier, std::get<0>(*s));
     if (!sm.has_value())
       throw "Unknown struct member";
-    result = typeType(p, sm.value().t.type);
+    result = typeType(p, sm->t.type);
     break;
   }
   case ExprType::PrefixOp:
-    result = typeExpr(p, globalNamespace, globalCtx, *e._prefixOp.expr);
+    result = typeExpr(p, globalCtx, *e._prefixOp.expr);
     break;
   case ExprType::PostfixOp:
-    result = typeExpr(p, globalNamespace, globalCtx, *e._postfixOp.expr);
+    result = typeExpr(p, globalCtx, *e._postfixOp.expr);
     break;
   case ExprType::BinaryOp:
-    result = typeExpr(p, globalNamespace, globalCtx, *e._binaryOp.lexpr);
+    result = typeExpr(p, globalCtx, *e._binaryOp.lexpr);
     break;
   case ExprType::TernaryOp:
-    result = typeExpr(p, globalNamespace, globalCtx, *e._ternaryOp.rexprTrue);
+    result = typeExpr(p, globalCtx, *e._ternaryOp.rexprTrue);
     break;
   case ExprType::Bracket:
   {
-    TypeInfo ti = typeExpr(p, globalNamespace, globalCtx, *e._brackets.lexpr);
+    TypeInfo ti = typeExpr(p, globalCtx, *e._brackets.lexpr);
     if (!ti.type.modifiers.empty())
     {
       result = ti;
@@ -110,14 +106,10 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
   }
   case ExprType::Identifier:
   {
-    auto namespacePrefixes = globalNamespace;
-    namespacePrefixes.insert(namespacePrefixes.end(),
-      e._identifier.namespacePrefixes.begin(),
-      e._identifier.namespacePrefixes.end());
-    auto v = findVariable(e._identifier.identifier, namespacePrefixes, globalCtx);
+    auto v = findVariable(e._identifier.identifier, e._identifier.namespacePrefixes, globalCtx);
     if (!v.has_value())
       throw "Unknown variable";
-    result = typeType(p, v.value().type);
+    result = typeType(p, std::get<0>(*v).type);
     break;
   }
   }

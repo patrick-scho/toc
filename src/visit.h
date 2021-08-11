@@ -141,7 +141,7 @@ public:
     
     ctx = x.ctx;
 
-    VISIT(x.namespaces)
+    VISIT(x.ctx->namespaces)
     VISIT(x.ctx->variables)
     VISIT(x.ctx->structs)
     VISIT(x.ctx->functions)
@@ -188,7 +188,7 @@ public:
 
     ctx = x.ctx;
 
-    VISIT(x.namespaces)
+    VISIT(x.ctx->namespaces)
     VISIT(x.ctx->variables)
     VISIT(x.ctx->structs)
     VISIT(x.ctx->functions)

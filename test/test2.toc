@@ -1,10 +1,16 @@
 func puts(str : char*) : void;
 
 namespace N1 {
+  var v1 : int;
   func f1() : void {
     puts("Hello\n");
   }
+  struct S1 {
+    test : char *;
+  }
+  // hallo
   namespace N2 {
+    var v1 : int; //buige
     struct S1 {
       i1 : int;
       i2 : int;
@@ -13,8 +19,10 @@ namespace N1 {
       m1(i: int) : int {
         this->i3 = this->i1 * this->i2;
 
-        f1();
-        N1::f1();
+        f1(v1);
+        N1::f1(N1::v1);
+        N2::f1(N2::v1);
+        N1::N2::f1();
 
         return this->i1 + this->i2;
       }
@@ -22,6 +30,7 @@ namespace N1 {
 
     func f1() : void {
       var s1 : N1::N2::S1;
+      var s2 : S1;
 
       s1.m1(123);
     }
@@ -38,6 +47,7 @@ struct S1<T> {
 }
 
 struct S2 {
+  s: char *;
   abc(): S2 { }
   xyz(): S2 { }
 }
@@ -49,7 +59,7 @@ func generic1<A>(a1 : A, a2 : A) : A {
 func main(argc : int, argv : char**) : int {
   var s1 : N1::N2::S1;
   var s2 : N1::N2::S1;
-  var s3 : N1::N2::S1;
+  var s3 : N1::S1;
   s1.i1 = 123;
   s1.i2 = 456;
   s1.m1(s2.m1(s3.m1(89)));

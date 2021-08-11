@@ -59,6 +59,21 @@ static std::map<std::string, Type> currentInstantiation;
 static Program globalPrg;
 static std::shared_ptr<Context> globalCtx;
 
+
+
+// std::string getPrefix(std::shared_ptr<Context> ctx)
+// {
+//   std::string result;
+//   for (auto it = ctx; it != nullptr; it = it->parent)
+//   {
+//     if (it->name.has_value())
+//     {
+//       result = it->name.value() + "_" + result;
+//     }
+//   }
+//   return result;
+// }
+
 std::ostream & operator<< (std::ostream & out, const Type & t)
 {
   for (auto kv : currentInstantiation)
@@ -72,7 +87,11 @@ std::ostream & operator<< (std::ostream & out, const Type & t)
   TypeInfo ti = typeType(globalPrg, t);
   if (ti.isStruct)
     out << "struct ";
-  out << vectorStr(t.namespacePrefixes, "_", true) << t.name;
+  auto s = findStruct(t.name, t.namespacePrefixes, globalCtx);
+  if (s.has_value())
+    out << vectorStr(std::get<1>(*s), "_", true) << t.name; 
+  else
+    out << vectorStr(t.namespacePrefixes, "_", true) << t.name;
   if (!t.genericInstantiation.empty())
     out << genericAppendix(t.genericInstantiation);
 
@@ -84,6 +103,10 @@ std::ostream & operator<< (std::ostream & out, const Variable & v)
 
   std::stringstream sstr;
   std::string s = v.name;
+  
+  auto var = findVariable(v.name, namespaces, globalCtx);
+  if (var.has_value())
+    s = vectorStr(std::get<1>(*var), "_", true) + s;
 
   for (auto m = v.type.modifiers.rbegin(); m != v.type.modifiers.rend(); m++)
   {
@@ -143,19 +166,19 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   {
   case ExprType::Func:
   {
-    if (e._func.namespacePrefixes.empty())
-    {
-      TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, e);
-      
-    }
-    out << vectorStr(e._func.namespacePrefixes, "_", true) << e._func.functionName;
+    auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
+
+    if (std::get<0>(*f).defined)
+      out << vectorStr(std::get<1>(*f), "_", true);
+
+    out << e._func.functionName;
     if (!e._func.genericInstantiation.empty())
       out << genericAppendix(e._func.genericInstantiation);
     out <<"(" << vectorStr(e._func.arguments, ", ") << ")"; break;
   }
   case ExprType::Method:
   {
-    TypeInfo ti = typeExpr(globalPrg, namespaces, globalCtx, *e._method.expr);
+    TypeInfo ti = typeExpr(globalPrg, globalCtx, *e._method.expr);
     out <<
       vectorStr(ti.type.namespacePrefixes, "_", true) <<
       ti.type.name << genericAppendix(ti.type.genericInstantiation) << "_" << e._method.methodName;
@@ -189,7 +212,13 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   case ExprType::Bracket:
     out << *e._brackets.lexpr << "[" << *e._brackets.rexpr << "]"; break;
   case ExprType::Identifier:
-    out << vectorStr(e._identifier.namespacePrefixes, "_", true) << e._identifier.identifier; break;
+    auto v = findVariable(e._identifier.identifier, e._identifier.namespacePrefixes, globalCtx);
+    if (v.has_value())
+      out << vectorStr(std::get<1>(*v), "_", true);
+    else
+      out << vectorStr(e._identifier.namespacePrefixes, "_", true);
+
+    out << e._identifier.identifier; break;
   }
 
   return out;
@@ -396,14 +425,12 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
     }
   }
 }
-void tocProgram (std::ostream & out, const Program & _p)
+void tocProgram (std::ostream & out, const Program & p)
 {
-  Program p = instantiateGenerics(_p);
-
   globalCtx = p.ctx;
 
   globalPrg = p;
-  for (auto n : p.namespaces)
+  for (auto n : p.ctx->namespaces)
   {
     tocNamespace(out, n, true);
   }
@@ -424,7 +451,7 @@ void tocProgram (std::ostream & out, const Program & _p)
     out << v << ";\n";
   }
   out << "\n\n";
-  for (auto n : p.namespaces)
+  for (auto n : p.ctx->namespaces)
   {
     tocNamespace(out, n, false);
   }
@@ -456,7 +483,7 @@ void tocNamespace  (std::ostream & out, const Namespace & n, bool stub)
     }
     out << "\n\n";
   }
-  for (auto n : n.namespaces)
+  for (auto n : n.ctx->namespaces)
   {
     tocNamespace(out, n, stub);
     out << "\n\n";

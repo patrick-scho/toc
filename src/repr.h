@@ -44,6 +44,7 @@ struct Context
   std::vector<Variable> variables;
   std::vector<Function> functions;
   std::vector<Struct> structs;
+  std::vector<Namespace> namespaces;
 };
 
 enum class TypeModifierType
@@ -65,6 +66,21 @@ struct Type
   std::string name;
   std::vector<TypeModifier> modifiers;
   std::vector<Type> genericInstantiation;
+  
+  bool operator!=(const Type & that)
+  {
+    if (this->name != that.name)
+      return true;
+
+    for (int i = 0; i < this->modifiers.size(); i++)
+      if (this->modifiers[i].type != that.modifiers[i].type)
+        return true;
+
+    for (int i = 0; i < this->namespacePrefixes.size(); i++)
+      if (this->namespacePrefixes[i] != that.namespacePrefixes[i])
+        return true;
+    return false;
+  }
 };
 
 struct Variable
@@ -113,13 +129,11 @@ struct Namespace
 {
   std::string name;
   std::shared_ptr<Context> ctx;
-  std::vector<Namespace> namespaces;
 };
 
 struct Program
 {
   std::shared_ptr<Context> ctx;
-  std::vector<Namespace> namespaces;
 };
 
 enum class ExprType

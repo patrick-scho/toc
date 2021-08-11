@@ -7,6 +7,7 @@
 #include "toc.h"
 #include "repr.h"
 #include "repr_get.h"
+#include "generic.h"
 //#include "check.h"
 
 using namespace antlr4;
@@ -35,6 +36,7 @@ int main(int argc, const char * argv[])
   //std::cout << "Parse Tree: " << s << std::endl;
 
   Program prg = getProgram(prog, nullptr);
+  instantiateGenerics(prg);
 
   try
   {

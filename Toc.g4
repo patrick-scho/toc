@@ -109,3 +109,4 @@ fragment Char: ~["\\\r\n]
 NAME: ([a-z] | [A-Z] | [0-9])+;
 WS: [ \t\r\n]+ -> skip;
 NEWLINE: [\r\n]+;
+COMMENT: '//' .*? '\n' -> skip;

@@ -145,6 +145,7 @@ Namespace getNamespace(TocParser::NamespaceDeclContext * ctx, std::shared_ptr<Co
   Namespace result;
   result.ctx = std::make_unique<Context>();
   result.name = ctx->typeName()->getText();
+  result.ctx->name = result.name;
   for (auto d : ctx->decl())
   {
     if (d->varDecl() != nullptr)
@@ -161,7 +162,7 @@ Namespace getNamespace(TocParser::NamespaceDeclContext * ctx, std::shared_ptr<Co
     }
     if (d->namespaceDecl() != nullptr)
     {
-      result.namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
+      result.ctx->namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
     }
   }
   return result;
@@ -186,7 +187,7 @@ Program getProgram(TocParser::ProgContext * ctx, std::shared_ptr<Context> parent
     }
     if (d->namespaceDecl() != nullptr)
     {
-      result.namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
+      result.ctx->namespaces.push_back(getNamespace(d->namespaceDecl(), result.ctx));
     }
   }
   return result;

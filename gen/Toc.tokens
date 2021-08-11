@@ -63,6 +63,7 @@ StringLit=62
 NAME=63
 WS=64
 NEWLINE=65
+COMMENT=66
 ';'=1
 'namespace'=2
 '{'=3
