@@ -27,202 +27,127 @@ opt<T *> findPtr(const std::vector<T> & ts, std::function<bool(T)> f)
   return nullopt;
 }
 
+bool checkNamespace(std::shared_ptr<Context> ctx, const std::vector<std::string> & namespacePrefix)
+{
+  
+    bool prefixMatches = true;
+
+    auto nIt = ctx;
+    for (int i = namespacePrefix.size() - 1; i >= 0; i--)
+    {
+      const std::string & prefix = namespacePrefix[i];
+      if (nIt == nullptr || ! nIt->name.has_value() || nIt->name.value() != prefix)
+      {
+        prefixMatches = false;
+        break;
+      }
+      nIt = nIt->parent;
+    }
+
+    return prefixMatches;
+}
+
+
+
 opt<Function> findFunction(
-  const Program & p,
   const std::string & name,
-  const std::vector<std::string> & namespacePrefixes)
-{
-  if (namespacePrefixes.empty())
-  {
-    return find<Function>(p.functions, [&](Function f) { return f.name == name; });
-  }
-  
-  auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
-
-  if (!n.has_value())
-    return nullopt;
-
-  std::vector<Namespace> namespaces = { n.value() };
-
-  for (int i = 1; i < namespacePrefixes.size(); i++)
-  {
-    n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
-    
-    if (!n.has_value())
-      return nullopt;
-
-    namespaces.push_back(n.value());
-  }
-
-  for (int i = namespaces.size()-1; i >= 0; i--)
-  {
-    auto f = find<Function>(namespaces[i].functions, [&](Function f) { return f.name == name; });
-    if (f.has_value())
-      return f.value();
-  }
-
-  return find<Function>(p.functions, [&](Function f) { return f.name == name; });
-}
-
-opt<Function *> findFunctionPtr(
-  const Program & p,
-  const std::string & name,
-  const std::vector<std::string> & namespacePrefixes)
-{
-  if (namespacePrefixes.empty())
-  {
-    return findPtr<Function>(p.functions, [&](Function f) { return f.name == name; });
-  }
-  
-  auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
-
-  if (!n.has_value())
-    return nullopt;
-
-  std::vector<Namespace> namespaces = { n.value() };
-
-  for (int i = 1; i < namespacePrefixes.size(); i++)
-  {
-    n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
-    
-    if (!n.has_value())
-      return nullopt;
-
-    namespaces.push_back(n.value());
-  }
-
-  for (int i = namespaces.size()-1; i >= 0; i--)
-  {
-    auto f = findPtr<Function>(namespaces[i].functions, [&](Function f) { return f.name == name; });
-    if (f.has_value())
-      return f.value();
-  }
-
-  return findPtr<Function>(p.functions, [&](Function f) { return f.name == name; });
-}
-
-opt<Struct> findStruct(
-  const Program & p,
-  const std::string & name,
-  const std::vector<std::string> & namespacePrefixes)
-{
-  if (namespacePrefixes.empty())
-  {
-    return find<Struct>(p.structs, [&](Struct s) { return s.name == name; });
-  }
-  
-  auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
-  
-  if (!n.has_value())
-    return nullopt;
-
-  std::vector<Namespace> namespaces = { n.value() };
-    
-  for (int i = 1; i < namespacePrefixes.size(); i++)
-  {
-    n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
-
-    if (!n.has_value())
-      return nullopt;
-
-    namespaces.push_back(n.value());
-  }
-
-  for (int i = namespaces.size()-1; i >= 0; i--)
-  {
-    auto f = find<Struct>(namespaces[i].structs, [&](Struct f) { return f.name == name; });
-    if (f.has_value())
-      return f.value();
-  }
-
-  return find<Struct>(n.value().structs, [&](Struct s) { return s.name == name; });
-}
-
-opt<Struct *> findStructPtr(
-  const Program & p,
-  const std::string & name,
-  const std::vector<std::string> & namespacePrefixes)
-{
-  if (namespacePrefixes.empty())
-  {
-    return findPtr<Struct>(p.structs, [&](Struct s) { return s.name == name; });
-  }
-  
-  auto n = find<Namespace>(p.namespaces, [&](Namespace n) { return n.name == namespacePrefixes[0]; });
-  
-  if (!n.has_value())
-    return nullopt;
-
-  std::vector<Namespace> namespaces = { n.value() };
-    
-  for (int i = 1; i < namespacePrefixes.size(); i++)
-  {
-    n = find<Namespace>(n.value().namespaces, [&](Namespace n) { return n.name == namespacePrefixes[i]; });
-
-    if (!n.has_value())
-      return nullopt;
-
-    namespaces.push_back(n.value());
-  }
-
-  for (int i = namespaces.size()-1; i >= 0; i--)
-  {
-    auto f = findPtr<Struct>(namespaces[i].structs, [&](Struct f) { return f.name == name; });
-    if (f.has_value())
-      return f.value();
-  }
-
-  return findPtr<Struct>(n.value().structs, [&](Struct s) { return s.name == name; });
-}
-
-opt<Variable> findVariable(
-  const Program & p,
-  const std::string & name,
+  const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
 {
-  auto it = ctx;
-  while (it != nullptr)
+  for (auto it = ctx; it != nullptr; it = it->parent)
   {
-    auto v = find<Variable>(it->variables, [&](Variable v) { return v.name == name; });
-    if (v.has_value())
-      return v;
-    it = it->parent;
+    auto f = find<Function>(it->functions, [&](Function f) { return f.name == name; });
+    if (f.has_value() && checkNamespace(it, namespacePrefix))
+      return f;
   }
   return nullopt;
 }
 
-opt<StructMember<Function>> findStructMethod(
-  const Program & p,
+opt<Function *> findFunctionPtr(
   const std::string & name,
-  TypeInfo ti)
+  const std::vector<std::string> & namespacePrefix,
+  std::shared_ptr<Context> ctx)
 {
-  if (!ti.isStruct)
-    return nullopt;
-  auto s = findStruct(p, ti.type.name, ti.type.namespacePrefixes);
-  if (!s.has_value())
-    return nullopt;
-  return find<StructMember<Function>>(s.value().methods, [&](Function f) { return f.name == name; });
+  for (auto it = ctx; it != nullptr; it = it->parent)
+  {
+    auto f = findPtr<Function>(it->functions, [&](Function f) { return f.name == name; });
+    if (f.has_value() && checkNamespace(it, namespacePrefix))
+      return f;
+  }
+  return nullopt;
+}
+
+
+
+opt<Struct> findStruct(
+  const std::string & name,
+  const std::vector<std::string> & namespacePrefix,
+  std::shared_ptr<Context> ctx)
+{
+  for (auto it = ctx; it != nullptr; it = it->parent)
+  {
+    auto s = find<Struct>(it->structs, [&](Struct s) { return s.name == name; });
+    if (s.has_value() && checkNamespace(it, namespacePrefix))
+      return s;
+  }
+  return nullopt;
+}
+
+opt<Struct *> findStructPtr(
+  const std::string & name,
+  const std::vector<std::string> & namespacePrefix,
+  std::shared_ptr<Context> ctx)
+{
+  for (auto it = ctx; it != nullptr; it = it->parent)
+  {
+    auto s = findPtr<Struct>(it->structs, [&](Struct s) { return s.name == name; });
+    if (s.has_value() && checkNamespace(it, namespacePrefix))
+      return s;
+  }
+  return nullopt;
+}
+
+
+
+opt<Variable> findVariable(
+  const std::string & name,
+  const std::vector<std::string> & namespacePrefix,
+  std::shared_ptr<Context> ctx)
+{
+  for (auto it = ctx; it != nullptr; it = it->parent)
+  {
+    auto v = find<Variable>(it->variables, [&](Variable v) { return v.name == name; });
+    if (v.has_value() && checkNamespace(it, namespacePrefix))
+      return v;
+  }
+  return nullopt;
+}
+
+
+
+opt<StructMember<Function>> findStructMethod(
+  const std::string & name,
+  const Struct & s)
+{
+  return find<StructMember<Function>>(s.methods, [&](Function f) { return f.name == name; });
 }
 opt<StructMember<Function> *> findStructMethodPtr(
-  const Program & p,
   const std::string & name,
-  TypeInfo ti)
+  const Struct & s)
 {
-  if (!ti.isStruct)
-    return nullopt;
-  auto s = findStruct(p, ti.type.name, ti.type.namespacePrefixes);
-  if (!s.has_value())
-    return nullopt;
-  return findPtr<StructMember<Function>>(s.value().methods, [&](Function f) { return f.name == name; });
+  return findPtr<StructMember<Function>>(s.methods, [&](Function f) { return f.name == name; });
 }
 
 opt<StructMember<Variable>> findStructMember(
-  const Program & p,
-  TypeInfo ti,
-  const std::string & name)
+  const std::string & name,
+  const Struct & s)
 {
-  auto s = findStruct(p, ti.type.name, ti.type.namespacePrefixes);
-  if (!s.has_value())
-    return nullopt;
-  return find<StructMember<Variable>>(s.value().members, [&](Variable v) { return v.name == name; });
+  return find<StructMember<Variable>>(s.members, [&](Variable v) { return v.name == name; });
+}
+
+opt<StructMember<Variable> *> findStructMemberPtr(
+  const std::string & name,
+  const Struct & s)
+{
+  return findPtr<StructMember<Variable>>(s.members, [&](Variable v) { return v.name == name; });
 }

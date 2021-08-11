@@ -36,7 +36,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
     namespacePrefixes.insert(namespacePrefixes.end(),
       e._func.namespacePrefixes.begin(),
       e._func.namespacePrefixes.end());
-    auto f = findFunction(p, e._func.functionName, namespacePrefixes);
+    auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
     if (!f.has_value())
       throw "Unknown function";
     result = typeType(p, f.value().returnType);
@@ -45,7 +45,12 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
   case ExprType::Method:
   {
     TypeInfo tiCaller = typeExpr(p, globalNamespace, globalCtx, *e._method.expr);
-    auto m = findStructMethod(p, e._method.methodName, tiCaller);
+    if (!tiCaller.isStruct)
+      throw "Calling method on non-struct";
+    auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
+    if (!s.has_value())
+      throw "Calling method on unknown struct";
+    auto m = findStructMethod(e._method.methodName, s.value());
     if (!m.has_value())
       throw "Unknown method";
     result = typeType(p, m.value().t.returnType);
@@ -66,8 +71,13 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
     break;
   case ExprType::Dot:
   {
-    auto sm = findStructMember(p,
-        typeExpr(p, globalNamespace, globalCtx, *e._dot.expr), e._dot.identifier);
+    auto tiCaller = typeExpr(p, globalNamespace, globalCtx, *e._dot.expr);
+    if (!tiCaller.isStruct)
+      throw "Accessing member of non-struct";
+    auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
+    if (!s.has_value())
+      throw "Calling method on unknown struct";
+    auto sm = findStructMember(e._dot.identifier, s.value());
     if (!sm.has_value())
       throw "Unknown struct member";
     result = typeType(p, sm.value().t.type);
@@ -104,7 +114,7 @@ TypeInfo typeExpr(const Program & p, const std::vector<std::string> & globalName
     namespacePrefixes.insert(namespacePrefixes.end(),
       e._identifier.namespacePrefixes.begin(),
       e._identifier.namespacePrefixes.end());
-    auto v = findVariable(p, e._identifier.identifier, globalCtx);
+    auto v = findVariable(e._identifier.identifier, namespacePrefixes, globalCtx);
     if (!v.has_value())
       throw "Unknown variable";
     result = typeType(p, v.value().type);

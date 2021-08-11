@@ -39,8 +39,11 @@ struct Stmt;
 
 struct Context
 {
+  std::optional<std::string> name;
   std::shared_ptr<Context> parent;
   std::vector<Variable> variables;
+  std::vector<Function> functions;
+  std::vector<Struct> structs;
 };
 
 enum class TypeModifierType
@@ -110,16 +113,12 @@ struct Namespace
 {
   std::string name;
   std::shared_ptr<Context> ctx;
-  std::vector<Struct> structs;
-  std::vector<Function> functions;
   std::vector<Namespace> namespaces;
 };
 
 struct Program
 {
   std::shared_ptr<Context> ctx;
-  std::vector<Struct> structs;
-  std::vector<Function> functions;
   std::vector<Namespace> namespaces;
 };
 

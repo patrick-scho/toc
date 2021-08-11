@@ -153,11 +153,11 @@ Namespace getNamespace(TocParser::NamespaceDeclContext * ctx, std::shared_ptr<Co
     }
     if (d->funcDecl() != nullptr)
     {
-      result.functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
+      result.ctx->functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
     }
     if (d->structDecl() != nullptr)
     {
-      result.structs.push_back(getStruct(d->structDecl(), result.ctx));
+      result.ctx->structs.push_back(getStruct(d->structDecl(), result.ctx));
     }
     if (d->namespaceDecl() != nullptr)
     {
@@ -178,11 +178,11 @@ Program getProgram(TocParser::ProgContext * ctx, std::shared_ptr<Context> parent
     }
     if (d->funcDecl() != nullptr)
     {
-      result.functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
+      result.ctx->functions.push_back(getFunction(d->funcDecl()->func(), result.ctx));
     }
     if (d->structDecl() != nullptr)
     {
-      result.structs.push_back(getStruct(d->structDecl(), result.ctx));
+      result.ctx->structs.push_back(getStruct(d->structDecl(), result.ctx));
     }
     if (d->namespaceDecl() != nullptr)
     {

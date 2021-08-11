@@ -408,12 +408,12 @@ void tocProgram (std::ostream & out, const Program & _p)
     tocNamespace(out, n, true);
   }
   out << "\n\n";
-  for (auto s : p.structs)
+  for (auto s : p.ctx->structs)
   {
     tocStruct(out, s, true);
   }
   out << "\n\n";
-  for (auto f : p.functions)
+  for (auto f : p.ctx->functions)
   {
     tocFunction(out, f, true);
   }
@@ -429,12 +429,12 @@ void tocProgram (std::ostream & out, const Program & _p)
     tocNamespace(out, n, false);
   }
   out << "\n\n";
-  for (auto s : p.structs)
+  for (auto s : p.ctx->structs)
   {
     tocStruct(out, s, false);
   }
   out << "\n\n";
-  for (auto f : p.functions)
+  for (auto f : p.ctx->functions)
   {
     tocFunction(out, f, false);
   }
@@ -461,12 +461,12 @@ void tocNamespace  (std::ostream & out, const Namespace & n, bool stub)
     tocNamespace(out, n, stub);
     out << "\n\n";
   }
-  for (auto s : n.structs)
+  for (auto s : n.ctx->structs)
   {
     tocStruct(out, s, stub);
     out << "\n\n";
   }
-  for (auto f : n.functions)
+  for (auto f : n.ctx->functions)
   {
     tocFunction(out, f, stub);
     out << "\n\n";

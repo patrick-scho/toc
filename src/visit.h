@@ -5,17 +5,17 @@
 #include <functional>
 
 struct Visitor {
-  std::function<void(const Type &, const std::vector<std::string> & namespaces)> onType = [](auto, auto){};
-  std::function<void(const Expr &, const std::vector<std::string> & namespaces)> onExpr = [](auto, auto){};
-  std::function<void(const Stmt &, const std::vector<std::string> & namespaces)> onStmt = [](auto, auto){};
-  std::function<void(const Body &, const std::vector<std::string> & namespaces)> onBody = [](auto, auto){};
-  std::function<void(const Function &, const std::vector<std::string> & namespaces)> onFunction = [](auto, auto){};
-  std::function<void(const Variable &, const std::vector<std::string> & namespaces)> onVariable = [](auto, auto){};
-  std::function<void(const StructMember<Function> &, const std::vector<std::string> & namespaces)> onStructMethod = [](auto, auto){};
-  std::function<void(const StructMember<Variable> &, const std::vector<std::string> & namespaces)> onStructMember = [](auto, auto){};
-  std::function<void(const Struct &, const std::vector<std::string> & namespaces)> onStruct = [](auto, auto){};
-  std::function<void(const Namespace &, const std::vector<std::string> & namespaces)> onNamespace = [](auto, auto){};
-  std::function<void(const Program &, const std::vector<std::string> & namespaces)> onProgram = [](auto, auto){};
+  std::function<void(const Type &, const std::shared_ptr<Context> ctx)> onType = [](auto, auto){};
+  std::function<void(const Expr &, const std::shared_ptr<Context> ctx)> onExpr = [](auto, auto){};
+  std::function<void(const Stmt &, const std::shared_ptr<Context> ctx)> onStmt = [](auto, auto){};
+  std::function<void(const Body &, const std::shared_ptr<Context> ctx)> onBody = [](auto, auto){};
+  std::function<void(const Function &, const std::shared_ptr<Context> ctx)> onFunction = [](auto, auto){};
+  std::function<void(const Variable &, const std::shared_ptr<Context> ctx)> onVariable = [](auto, auto){};
+  std::function<void(const StructMember<Function> &, const std::shared_ptr<Context> ctx)> onStructMethod = [](auto, auto){};
+  std::function<void(const StructMember<Variable> &, const std::shared_ptr<Context> ctx)> onStructMember = [](auto, auto){};
+  std::function<void(const Struct &, const std::shared_ptr<Context> ctx)> onStruct = [](auto, auto){};
+  std::function<void(const Namespace &, const std::shared_ptr<Context> ctx)> onNamespace = [](auto, auto){};
+  std::function<void(const Program &, const std::shared_ptr<Context> ctx)> onProgram = [](auto, auto){};
 };
 
 #define VISIT(XS) for (auto x : XS) visit(x);
@@ -23,7 +23,7 @@ struct Visitor {
 struct Visit {
 private:
   Visitor v;
-  std::vector<std::string> namespaces;
+  std::shared_ptr<Context> ctx;
 public:
   Visit(Visitor v)
   {
@@ -31,11 +31,11 @@ public:
   }
   void visit(const Type & x)
   {
-    v.onType(x, namespaces);
+    v.onType(x, ctx);
   }
   void visit(const Expr & x)
   {
-    v.onExpr(x, namespaces);
+    v.onExpr(x, ctx);
 
     switch (x.type)
     {
@@ -79,7 +79,7 @@ public:
   }
   void visit(const Stmt & x)
   {
-    v.onStmt(x, namespaces);
+    v.onStmt(x, ctx);
 
     switch (x.type)
     {
@@ -126,32 +126,36 @@ public:
   }
   void visit(const Body & x)
   {
-    v.onBody(x, namespaces);
+    v.onBody(x, ctx);
+
+    ctx = x.ctx;
 
     VISIT(x.ctx->variables)
     VISIT(x.statements)
+
+    ctx = ctx->parent;
   }
   void visit(const Namespace & x)
   {
-    v.onNamespace(x, namespaces);
-
-    namespaces.push_back(x.name);
+    v.onNamespace(x, ctx);
+    
+    ctx = x.ctx;
 
     VISIT(x.namespaces)
     VISIT(x.ctx->variables)
-    VISIT(x.structs)
-    VISIT(x.functions)
+    VISIT(x.ctx->structs)
+    VISIT(x.ctx->functions)
 
-    namespaces.pop_back();
+    ctx = ctx->parent;
   }
   void visit(const Variable & x)
   {
-    v.onVariable(x, namespaces);
+    v.onVariable(x, ctx);
     visit(x.type);
   }
   void visit(const Function & x)
   {
-    v.onFunction(x, namespaces);
+    v.onFunction(x, ctx);
 
     if (x.defined) {
       visit(x.body);
@@ -161,31 +165,35 @@ public:
   }
   void visit(const StructMember<Function> & x)
   {
-    v.onStructMethod(x, namespaces);
+    v.onStructMethod(x, ctx);
 
     visit(x.t);
   }
   void visit(const StructMember<Variable> & x)
   {
-    v.onStructMember(x, namespaces);
+    v.onStructMember(x, ctx);
 
     visit(x.t);
   }
   void visit(const Struct & x)
   {
-    v.onStruct(x, namespaces);
+    v.onStruct(x, ctx);
 
     VISIT(x.members)
     VISIT(x.methods)
   }
   void visit(const Program & x)
   {
-    v.onProgram(x, namespaces);
+    v.onProgram(x, ctx);
+
+    ctx = x.ctx;
 
     VISIT(x.namespaces)
     VISIT(x.ctx->variables)
-    VISIT(x.structs)
-    VISIT(x.functions)
+    VISIT(x.ctx->structs)
+    VISIT(x.ctx->functions)
+
+    ctx = nullptr;
   }
 };
 
