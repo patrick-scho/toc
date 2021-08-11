@@ -35,6 +35,11 @@ struct S1<T> {
   }
 }
 
+struct S2 {
+  abc(): S2 { }
+  xyz(): S2 { }
+}
+
 func generic1<A>(a1 : A, a2 : A) : A {
   return a1 + a2;
 }
@@ -56,6 +61,9 @@ func main(argc : int, argv : char**) : int {
 
   generic1<int>(1, 2);
   generic1<double>(3.4, 5.6);
+
+  var s: S2;
+  s.abc().xyz();
 
   return 0;
 }

@@ -79,11 +79,13 @@ struct Body
 struct Function
 {
   std::string name;
-  std::vector<std::string> genericTypeNames;
-  std::vector<std::vector<Type>> genericInstantiations;
   Type returnType;
   std::vector<Variable> parameters;
   bool defined;
+
+  std::vector<std::string> genericTypeNames;
+  std::vector<std::vector<Type>> genericInstantiations;
+
   Body body;
 };
 

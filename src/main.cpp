@@ -31,8 +31,7 @@ int main(int argc, const char * argv[])
     return 1;
   }
 
-  std::string s = tree->toStringTree(&parser) + "\n";
-
+  //std::string s = tree->toStringTree(&parser) + "\n";
   //std::cout << "Parse Tree: " << s << std::endl;
 
   Program prg = getProgram(prog, nullptr);
@@ -40,9 +39,6 @@ int main(int argc, const char * argv[])
   try
   {
     tocProgram(std::cout, prg);
-
-    // if (!checkProgram(prg))
-    //   std::cerr << "Error" << std::endl;
 
     std::ofstream ofs("output.c");
     tocProgram(ofs, prg);

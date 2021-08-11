@@ -44,17 +44,18 @@ define grammar:
 
 
 
-
+~14.08 Abgabe Paper/Code
 
 
 Missing:
-- unions
+- unions/enums
 - const/static/extern
-- operator precedence
+- operator precedence(given by C compiler)
 - bitfields
 - nested bodies {}
 - multiple files
 - call outer functions with same name (::f1())
+- automatically select function/var/struct from namespace recursively
 - generic methods
 - nested type instantiation
 - automatic dereference/->
