@@ -4,6 +4,7 @@
 #include "typeInfo.h"
 #include "visit.h"
 
+// add a generic instantiation if its not in the vector already
 void addGenericInstantiation(
   std::vector<std::vector<Type>> & insts,
   const std::vector<Type> & newInst)
@@ -32,6 +33,8 @@ Program instantiateGenerics(const Program & p)
 
   // Find generic instantiations
 
+  // visit expressions (only function calls are considered) and types,
+  // find the function/struct by pointer and add an instantiation
   Visitor findGenericInstantiations;
   findGenericInstantiations.onExpr =
   [&](const Expr & e, const std::shared_ptr<Context> ctx)
@@ -48,7 +51,6 @@ Program instantiateGenerics(const Program & p)
         addGenericInstantiation(std::get<0>(*f)->genericInstantiations, e._func.genericInstantiation);
       }
     }
-    // TODO: generic methods
   };
   findGenericInstantiations.onType =
   [&](const Type & t, const std::shared_ptr<Context> ctx)
@@ -72,6 +74,10 @@ Program instantiateGenerics(const Program & p)
   return result;
 }
 
+// generate the appendix for C struct/function names
+// including array/pointer indicators because
+// there might be distinct instantiations
+// for int and int* for example
 std::string genericAppendix(const std::vector<Type> & ts)
 {
   std::stringstream sstr;

@@ -2,6 +2,8 @@
 
 #include "repr.h"
 
+// Transform ANTLR-generated types to corresponding IR types recursively
+
 Type                getType(TocParser::TypeContext * ctx);
 Variable            getVariable(TocParser::VarContext * ctx);
 Body                getBody(TocParser::BodyContext * ctx, std::shared_ptr<Context> parent);
@@ -25,6 +27,11 @@ Expr                getExpr(TocParser::IdentifierExprContext * ctx);
 Expr                getExpr(TocParser::ExprContext * ctx);
 
 Stmt                getStmt(TocParser::StmtContext * ctx, std::shared_ptr<Context> parent);
+
+// all of these functions get the relevant information
+// from the parse tree and call each other for sub expressions
+// the getVariable is called for variable declarations and parameter definitions
+// for example, because they have the same rule in the grammar file
 
 Type getType(TocParser::TypeContext * ctx)
 {
@@ -216,7 +223,11 @@ OpType getOperatorType(const std::string & s, std::string typeStrings[])
 
 
 
-
+// Expressions are somewhat of an exception, because some of their
+// grammar rules are recursive, so they have to be defined
+// in a single rule using Labels (https://github.com/antlr/antlr4/blob/master/doc/parser-rules.md#alternative-labels)
+// Because this results in a polymorphic type, getExpr for the base expression type
+// is always called and from there the polymorphic type is determined at runtime
 Expr getExpr(TocParser::FuncExprContext * ctx)
 {
   Expr result;
@@ -361,7 +372,9 @@ Expr getExpr(TocParser::IdentifierExprContext * ctx)
 
 
 
-
+// this is always called for Expression rules
+// attempt dynamic_cast at runtime and call corresponding
+// function
 Expr getExpr(TocParser::ExprContext * ctx)
 {
   Expr result;

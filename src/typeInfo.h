@@ -12,6 +12,7 @@ struct TypeInfo
 
 TypeInfo typeType(std::shared_ptr<Context> globalCtx, Type t)
 {
+  // used to differentiate basic types from user defined types
   TypeInfo result;
   result.isStruct = true;
   if (t.name == "int" || t.name == "float" || t.name == "double" ||
@@ -33,6 +34,7 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
   {
   case ExprType::Func:
   {
+    // get type info from return type
     auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
     if (!f.has_value())
       throw "Unknown function";
@@ -41,6 +43,7 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
   }
   case ExprType::Method:
   {
+    // get type info from return type
     TypeInfo tiCaller = typeExpr(globalCtx, *e._method.expr);
     if (!tiCaller.isStruct)
       throw "Calling method on non-struct";
@@ -54,6 +57,7 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
     break;
   }
   case ExprType::Lit:
+    // literal types are defined
     result.isStruct = false;
     switch (e._lit.type)
     {
@@ -68,6 +72,8 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
     break;
   case ExprType::Dot:
   {
+    // assume dot access is always member access
+    // and lookup struct variable
     auto tiCaller = typeExpr(globalCtx, *e._dot.expr);
     if (!tiCaller.isStruct)
       throw "Accessing member of non-struct";
@@ -94,6 +100,8 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
     break;
   case ExprType::Bracket:
   {
+    // get type of expr and remove array/ptr modifier to get
+    // type of [] access
     TypeInfo ti = typeExpr(globalCtx, *e._brackets.lexpr);
     if (!ti.type.modifiers.empty())
     {
@@ -107,6 +115,7 @@ TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
   }
   case ExprType::Identifier:
   {
+    // var lookup and return var type
     auto v = findVariable(e._identifier.identifier, e._identifier.namespacePrefixes, globalCtx);
     if (!v.has_value())
       throw "Unknown variable";

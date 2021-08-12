@@ -4,6 +4,9 @@
 
 #include <functional>
 
+// struct with callback functions for all relevant types
+// tree can be walked selectively by providing only
+// needed callbacks
 struct Visitor {
   std::function<void(const Type &, const std::shared_ptr<Context> ctx)> onType = [](auto, auto){};
   std::function<void(const Expr &, const std::shared_ptr<Context> ctx)> onExpr = [](auto, auto){};
@@ -20,6 +23,7 @@ struct Visitor {
 
 #define VISIT(XS) for (auto x : XS) visit(x);
 
+// simply walk IR by recursively calling functions for all children
 struct Visit {
 private:
   Visitor v;

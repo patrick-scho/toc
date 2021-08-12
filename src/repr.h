@@ -8,6 +8,8 @@
 
 using namespace std;
 
+// This contains a 1 to 1 representation of the defined language
+
 struct Type;
 struct Variable;
 struct Body;
@@ -37,6 +39,9 @@ struct AssignStmt;
 struct ReturnStmt;
 struct Stmt;
 
+// Context is a collection of everything that can be defined in a namespace
+// that is reused for bodies so that the hierarchy can be walked uniformly
+// both up and down using the parent variable
 struct Context
 {
   std::optional<std::string> name;
@@ -184,6 +189,8 @@ struct DotExpr
   std::string identifier;
 };
 
+// OperatorType enum with corresponding string array to lookup
+// enum from string and the other way round
 enum class PrefixOperatorType
 {
   Plus, Minus, Increment, Decrement,

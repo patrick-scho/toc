@@ -7,6 +7,7 @@
 #include "generic.h"
 #include "typeInfo.h"
 
+// print a generic vector with specified separator, optionally printing the separator at the end aswell
 template<typename T>
 std::string vectorStr (const std::vector<T> & v, const std::string & separator, bool end = false)
 {
@@ -54,28 +55,18 @@ static std::string namespacePrefix() {
   return sstr.str();
 }
 
+// mapping from generic typenames (which are just names)
+// to actual instantiated types
 static std::map<std::string, Type> currentInstantiation;
 
-static Program globalPrg;
+// set current context so that lookups can be made correctly
 static std::shared_ptr<Context> globalCtx;
 
 
-
-// std::string getPrefix(std::shared_ptr<Context> ctx)
-// {
-//   std::string result;
-//   for (auto it = ctx; it != nullptr; it = it->parent)
-//   {
-//     if (it->name.has_value())
-//     {
-//       result = it->name.value() + "_" + result;
-//     }
-//   }
-//   return result;
-// }
-
 std::ostream & operator<< (std::ostream & out, const Type & t)
 {
+  // if the typename equals one of the current generic instantiations
+  // print instantiated type instead
   for (auto kv : currentInstantiation)
   {
     if (t.name == kv.first)
@@ -87,11 +78,16 @@ std::ostream & operator<< (std::ostream & out, const Type & t)
   TypeInfo ti = typeType(globalCtx, t);
   if (ti.isStruct)
     out << "struct ";
+  // try finding type in current context
   auto s = findStruct(t.name, t.namespacePrefixes, globalCtx);
+  // print prefix for either found type or the specified 
+  // prefix if type is not found (shouldn't happen)
   if (s.has_value())
     out << vectorStr(std::get<1>(*s), "_", true) << t.name; 
   else
     out << vectorStr(t.namespacePrefixes, "_", true) << t.name;
+
+  // print generic appendix
   if (!t.genericInstantiation.empty())
     out << genericAppendix(t.genericInstantiation);
 
@@ -104,10 +100,13 @@ std::ostream & operator<< (std::ostream & out, const Variable & v)
   std::stringstream sstr;
   std::string s = v.name;
   
+  // lookup variable and change name to reflect containing namespace
   auto var = findVariable(v.name, namespaces, globalCtx);
   if (var.has_value())
     s = vectorStr(std::get<1>(*var), "_", true) + s;
 
+  // nest modifiers, inverted because C defines them
+  // the opposite direction
   for (auto m = v.type.modifiers.rbegin(); m != v.type.modifiers.rend(); m++)
   {
     if (m->type == TypeModifierType::Pointer)
@@ -166,6 +165,7 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   {
   case ExprType::Func:
   {
+    // print function call
     auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
 
     if (std::get<0>(*f).defined)
@@ -178,6 +178,8 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   }
   case ExprType::Method:
   {
+    // get TypeInfo on the Expression that the method is called on
+    // then print method call
     TypeInfo ti = typeExpr(globalCtx, *e._method.expr);
     out <<
       vectorStr(ti.type.namespacePrefixes, "_", true) <<
@@ -215,6 +217,7 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   case ExprType::Bracket:
     out << *e._brackets.lexpr << "[" << *e._brackets.rexpr << "]"; break;
   case ExprType::Identifier:
+    // try variable lookup
     auto v = findVariable(e._identifier.identifier, e._identifier.namespacePrefixes, globalCtx);
     if (v.has_value())
       out << vectorStr(std::get<1>(*v), "_", true);
@@ -264,8 +267,10 @@ std::ostream & operator<< (std::ostream & out, const Stmt & s)
 
 void tocFunction (std::ostream & out, const Function & f, bool stub)
 {
-  if (!stub && !f.defined) return;
+  // for a function that is not defined, only the stub can be printed
+  if (!f.defined && !stub) return;
 
+  // regular function
   if (f.genericTypeNames.empty())
   {
     out << f.returnType << " " << namespacePrefix() << f.name << " (" << vectorStr(f.parameters, ", ") << ")";
@@ -279,10 +284,13 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
       out << "\n" << f.body;
     }
   }
+  // generic function
   else
   {
+    // print one instance per instantiation
     for (auto instantiation : f.genericInstantiations)
     {
+      // set global type mapping
       for (int i = 0; i < f.genericTypeNames.size(); i++)
       {
         currentInstantiation[f.genericTypeNames[i]] = instantiation[i];
@@ -305,6 +313,7 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
 }
 void tocStruct (std::ostream & out, const Struct & s, bool stub)
 {
+  // regular struct
   if (s.genericTypeNames.empty())
   {
     out << "struct " << namespacePrefix() << s.name;
@@ -315,6 +324,7 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
       {
         Function f = m;
 
+        // add implicit this parameter
         f.parameters.insert(f.parameters.begin(),
         {"this",
           {
@@ -346,6 +356,8 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
     for (auto m : s.methods)
     {
       Function f = m;
+      
+      // add implicit this parameter
       f.parameters.insert(f.parameters.begin(),
         {"this",
           {
@@ -361,6 +373,7 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
       " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
     }
   }
+  // generic struct
   else
   {
     for (auto instantiation : s.genericInstantiations)
@@ -378,6 +391,7 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
         {
           Function f = m;
 
+        // add implicit this parameter
           f.parameters.insert(f.parameters.begin(),
           {"this",
             {
@@ -409,6 +423,8 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
       for (auto m : s.methods)
       {
         Function f = m;
+        
+        // add implicit this parameter
         f.parameters.insert(f.parameters.begin(),
           {"this",
             {
@@ -432,7 +448,6 @@ void tocProgram (std::ostream & out, const Program & p)
 {
   globalCtx = p.ctx;
 
-  globalPrg = p;
   for (auto n : p.ctx->namespaces)
   {
     tocNamespace(out, n, true);

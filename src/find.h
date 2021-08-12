@@ -8,7 +8,10 @@
 
 template<typename T>
 using opt = std::optional<T>;
+template<typename ... Ts>
+using tup = std::tuple<Ts ...>;
 
+// find an item in a vector by predicate
 template<typename T>
 opt<T> find(const std::vector<T> & ts, std::function<bool(T)> f)
 {
@@ -18,6 +21,7 @@ opt<T> find(const std::vector<T> & ts, std::function<bool(T)> f)
   return nullopt;
 }
 
+// same as above but return pointer into raw array held by vector
 template<typename T>
 opt<T *> findPtr(const std::vector<T> & ts, std::function<bool(T)> f)
 {
@@ -27,12 +31,12 @@ opt<T *> findPtr(const std::vector<T> & ts, std::function<bool(T)> f)
   return nullopt;
 }
 
-std::optional<
-  std::tuple<
-    std::shared_ptr<Context>,
-    std::vector<std::string>>>
+opt<tup<
+        std::shared_ptr<Context>,
+        std::vector<std::string>>>
 getContext(std::shared_ptr<Context> ctx, const std::vector<std::string> & namespacePrefix)
 {
+  // try finding a continuos series of namespaces in a given context
   auto result = ctx;
 
   for (auto name : namespacePrefix)
@@ -48,6 +52,8 @@ getContext(std::shared_ptr<Context> ctx, const std::vector<std::string> & namesp
     }
   }
 
+  // if the found context is the end of a series of namespaces, also return
+  // a vector of namespace names
   std::vector<std::string> namespaces;
   for (auto it = result; it != nullptr; it = it->parent)
   {
@@ -65,9 +71,13 @@ getContext(std::shared_ptr<Context> ctx, const std::vector<std::string> & namesp
   return std::make_tuple(result, namespaces);
 }
 
+// all of the following functions work the same way,
+// walking up the context hierarchy until the global context.
+// return the first found instance that matches provided criteria
+// theres also a variant to get a pointer instead for functions and
+// structs used for generic instantiation
 
-
-opt<std::tuple<Function, std::vector<std::string>>> findFunction(
+opt<tup<Function, std::vector<std::string>>> findFunction(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
@@ -85,7 +95,7 @@ opt<std::tuple<Function, std::vector<std::string>>> findFunction(
   return nullopt;
 }
 
-opt<std::tuple<Function *, std::vector<std::string>>> findFunctionPtr(
+opt<tup<Function *, std::vector<std::string>>> findFunctionPtr(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
@@ -105,7 +115,7 @@ opt<std::tuple<Function *, std::vector<std::string>>> findFunctionPtr(
 
 
 
-opt<std::tuple<Struct, std::vector<std::string>>> findStruct(
+opt<tup<Struct, std::vector<std::string>>> findStruct(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
@@ -123,7 +133,7 @@ opt<std::tuple<Struct, std::vector<std::string>>> findStruct(
   return nullopt;
 }
 
-opt<std::tuple<Struct *, std::vector<std::string>>> findStructPtr(
+opt<tup<Struct *, std::vector<std::string>>> findStructPtr(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
@@ -143,7 +153,7 @@ opt<std::tuple<Struct *, std::vector<std::string>>> findStructPtr(
 
 
 
-opt<std::tuple<Variable, std::vector<std::string>>> findVariable(
+opt<tup<Variable, std::vector<std::string>>> findVariable(
   const std::string & name,
   const std::vector<std::string> & namespacePrefix,
   std::shared_ptr<Context> ctx)
@@ -162,6 +172,8 @@ opt<std::tuple<Variable, std::vector<std::string>>> findVariable(
 }
 
 
+
+// find struct members and pointer variants
 
 opt<StructMember<Function>> findStructMethod(
   const std::string & name,
