@@ -93,21 +93,14 @@ std::ostream & operator<< (std::ostream & out, const Type & t)
 
   return out;
 }
-std::ostream & operator<< (std::ostream & out, const Variable & v)
+
+std::string generateModifiers (std::string s, std::vector<TypeModifier> modifiers)
 {
-  out << v.type << " ";
-
   std::stringstream sstr;
-  std::string s = v.name;
-  
-  // lookup variable and change name to reflect containing namespace
-  auto var = findVariable(v.name, namespaces, globalCtx);
-  if (var.has_value())
-    s = vectorStr(std::get<1>(*var), "_", true) + s;
 
-  // nest modifiers, inverted because C defines them
+  // apply modifiers, inverted because C defines them
   // the opposite direction
-  for (auto m = v.type.modifiers.rbegin(); m != v.type.modifiers.rend(); m++)
+  for (auto m = modifiers.rbegin(); m != modifiers.rend(); m++)
   {
     if (m->type == TypeModifierType::Pointer)
     {
@@ -125,7 +118,23 @@ std::ostream & operator<< (std::ostream & out, const Variable & v)
       s = sstr.str();
     }
   }
-  out << s;
+
+  return s;
+}
+
+std::ostream & operator<< (std::ostream & out, const Variable & v)
+{
+  out << v.type << " ";
+
+  std::string s = v.name;
+  
+  // lookup variable and change name to reflect containing namespace
+  auto var = findVariable(v.name, namespaces, globalCtx);
+  if (var.has_value())
+    s = vectorStr(std::get<1>(*var), "_", true) + s;
+
+  // apply modifiers in C fashion
+  out << generateModifiers(s, v.type.modifiers);
 
   return out;
 }
@@ -273,7 +282,7 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
   // regular function
   if (f.genericTypeNames.empty())
   {
-    out << f.returnType << " " << namespacePrefix() << f.name << " (" << vectorStr(f.parameters, ", ") << ")";
+    out << f.returnType << " " << generateModifiers(namespacePrefix() + f.name, f.returnType.modifiers) << " (" << vectorStr(f.parameters, ", ") << ")";
 
     if (stub)
     {
@@ -296,7 +305,7 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
         currentInstantiation[f.genericTypeNames[i]] = instantiation[i];
       }
 
-      out << f.returnType << " " << namespacePrefix() << f.name << genericAppendix(instantiation) << " (" << vectorStr(f.parameters, ", ") << ")";
+      out << f.returnType << " " << generateModifiers(namespacePrefix() + f.name, f.returnType.modifiers) << genericAppendix(instantiation) << " (" << vectorStr(f.parameters, ", ") << ")";
 
       if (stub)
       {
@@ -336,7 +345,7 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
           }
         });
         out << f.returnType << " " <<
-          namespacePrefix() << s.name << "_" << f.name <<
+          generateModifiers(namespacePrefix() + s.name + "_" + f.name, f.returnType.modifiers) <<
           " (" << vectorStr(f.parameters, ", ") << ");\n";
       }
       return;
@@ -369,8 +378,8 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
           }
         });
       out << f.returnType << " " <<
-      namespacePrefix() << s.name << "_" << f.name <<
-      " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
+        generateModifiers(namespacePrefix() + s.name + "_" + f.name, f.returnType.modifiers) <<
+        " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
     }
   }
   // generic struct
@@ -403,7 +412,7 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
             }
           });
           out << f.returnType << " " <<
-            namespacePrefix() << s.name << genericAppendix(instantiation) << "_" << f.name <<
+            generateModifiers(namespacePrefix() + s.name + genericAppendix(instantiation) + "_" + f.name, f.returnType.modifiers) <<
             " (" << vectorStr(f.parameters, ", ") << ");\n";
         }
         return;
@@ -436,8 +445,8 @@ void tocStruct (std::ostream & out, const Struct & s, bool stub)
             }
           });
         out << f.returnType << " " <<
-        namespacePrefix() << s.name << genericAppendix(instantiation) << "_" << f.name <<
-        " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
+          generateModifiers(namespacePrefix() + s.name + genericAppendix(instantiation) + "_" + f.name, f.returnType.modifiers) <<
+          " (" << vectorStr(f.parameters, ", ") << ")\n" << f.body;
       }
 
       currentInstantiation.clear();

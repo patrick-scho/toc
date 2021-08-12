@@ -7,13 +7,13 @@ var global1 : int;
 var global2 : double = 123.45;
 
 func globalFunc() : void {
-  //puts("Hello\n");
+  puts("Hello\n");
 }
 
 // structs and functions can be declared generic
 // by providing a list of placeholder typenames
 struct S1<T1, T2> {
-  t1: T1;
+  t1: T1 *;
   t2: T1;
 
   m1() : T2 {
@@ -76,6 +76,13 @@ namespace N1 {
   }
 }
 
+struct List<T> {
+  array: T *;
+  get(index: int): T {
+    return this->array[index];
+  }
+}
+
 func main(argc : int, argv : char**) : int {
   var s1 : N1::N2::S1;
   var s2 : N1::N2::S1;
@@ -97,6 +104,11 @@ func main(argc : int, argv : char**) : int {
 
   var s: N1::N2::S2;
   s.abc();
+
+  var l1: List<int>;
+  l1.get(1);
+  
+  var i1: int = generic1<int>(1, 2);
 
   return 0;
 }
