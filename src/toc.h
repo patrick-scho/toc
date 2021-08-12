@@ -84,7 +84,7 @@ std::ostream & operator<< (std::ostream & out, const Type & t)
       return out;
     }
   }
-  TypeInfo ti = typeType(globalPrg, t);
+  TypeInfo ti = typeType(globalCtx, t);
   if (ti.isStruct)
     out << "struct ";
   auto s = findStruct(t.name, t.namespacePrefixes, globalCtx);
@@ -178,13 +178,16 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
   }
   case ExprType::Method:
   {
-    TypeInfo ti = typeExpr(globalPrg, globalCtx, *e._method.expr);
+    TypeInfo ti = typeExpr(globalCtx, *e._method.expr);
     out <<
       vectorStr(ti.type.namespacePrefixes, "_", true) <<
       ti.type.name << genericAppendix(ti.type.genericInstantiation) << "_" << e._method.methodName;
     if (!e._method.genericInstantiation.empty())
       out << genericAppendix(e._method.genericInstantiation);
-    out << "(&" << *e._method.expr << (e._method.arguments.empty() ? "" : ", ") <<
+    out << "(";
+    if (e._method.expr->type == ExprType::Identifier)
+      out << "&";
+    out << *e._method.expr << (e._method.arguments.empty() ? "" : ", ") <<
     vectorStr(e._method.arguments, ", ") << ")"; break;
   }
   case ExprType::Lit:
@@ -194,7 +197,7 @@ std::ostream & operator<< (std::ostream & out, const Expr & e)
     else if (e._lit.type == LitType::Bool) out << e._lit._bool;
     break;
   case ExprType::Paren:
-    out << "(" << e._paren.expr << ")"; break;
+    out << "(" << *e._paren.expr << ")"; break;
   case ExprType::Dot:
     out << *e._dot.expr << (e._dot.isPointer ? "->" : ".") << e._dot.identifier; break;
   case ExprType::PrefixOp:

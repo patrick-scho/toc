@@ -21,12 +21,6 @@ struct S1<T1, T2> {
   }
 }
 
-struct S2 {
-  s: char *;
-  abc(): S2 { }
-  xyz(): S2 { }
-}
-
 func generic1<A>(a1 : A, a2 : A) : A {
   return a1 + a2;
 }
@@ -64,6 +58,14 @@ namespace N1 {
       }
     }
 
+    struct S2 {
+      s: char *;
+      abc(): S1 {
+        var result : S1;
+        return result;
+      }
+    }
+
     func f1() : void {
       // these have the same type
       var s1 : N1::N2::S1;
@@ -93,8 +95,8 @@ func main(argc : int, argv : char**) : int {
   generic1<int>(1, 2);
   generic1<double>(3.4, 5.6);
 
-  var s: S2;
-  s.abc().xyz();
+  var s: N1::N2::S2;
+  s.abc();
 
   return 0;
 }

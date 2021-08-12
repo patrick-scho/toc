@@ -106,7 +106,7 @@ fragment Char: ~["\\\r\n]
              | '\\\r\n'
              ;
 
-NAME: ([a-z] | [A-Z] | [0-9])+;
+NAME: ([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | [0-9] | '_')*;
 WS: [ \t\r\n]+ -> skip;
 NEWLINE: [\r\n]+;
 COMMENT: '//' .*? '\n' -> skip;

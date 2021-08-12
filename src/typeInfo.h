@@ -10,7 +10,7 @@ struct TypeInfo
 
 #include "find.h"
 
-TypeInfo typeType(const Program & p, Type t)
+TypeInfo typeType(std::shared_ptr<Context> globalCtx, Type t)
 {
   TypeInfo result;
   result.isStruct = true;
@@ -21,10 +21,11 @@ TypeInfo typeType(const Program & p, Type t)
     result.isStruct = false;
   }
   result.type = t;
+
   return result;
 }
 
-TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
+TypeInfo typeExpr(std::shared_ptr<Context> globalCtx, Expr e)
 {
   TypeInfo result;
 
@@ -35,12 +36,12 @@ TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
     auto f = findFunction(e._func.functionName, e._func.namespacePrefixes, globalCtx);
     if (!f.has_value())
       throw "Unknown function";
-    result = typeType(p, std::get<0>(*f).returnType);
+    result = typeType(globalCtx, std::get<0>(*f).returnType);
     break;
   }
   case ExprType::Method:
   {
-    TypeInfo tiCaller = typeExpr(p, globalCtx, *e._method.expr);
+    TypeInfo tiCaller = typeExpr(globalCtx, *e._method.expr);
     if (!tiCaller.isStruct)
       throw "Calling method on non-struct";
     auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
@@ -49,7 +50,7 @@ TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
     auto m = findStructMethod(e._method.methodName, std::get<0>(*s));
     if (!m.has_value())
       throw "Unknown method";
-    result = typeType(p, m->t.returnType);
+    result = typeType(globalCtx, m->t.returnType);
     break;
   }
   case ExprType::Lit:
@@ -63,11 +64,11 @@ TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
     }
     break;
   case ExprType::Paren:
-    result = typeExpr(p, globalCtx, *e._paren.expr);
+    result = typeExpr(globalCtx, *e._paren.expr);
     break;
   case ExprType::Dot:
   {
-    auto tiCaller = typeExpr(p, globalCtx, *e._dot.expr);
+    auto tiCaller = typeExpr(globalCtx, *e._dot.expr);
     if (!tiCaller.isStruct)
       throw "Accessing member of non-struct";
     auto s = findStruct(tiCaller.type.name, tiCaller.type.namespacePrefixes, globalCtx);
@@ -76,24 +77,24 @@ TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
     auto sm = findStructMember(e._dot.identifier, std::get<0>(*s));
     if (!sm.has_value())
       throw "Unknown struct member";
-    result = typeType(p, sm->t.type);
+    result = typeType(globalCtx, sm->t.type);
     break;
   }
   case ExprType::PrefixOp:
-    result = typeExpr(p, globalCtx, *e._prefixOp.expr);
+    result = typeExpr(globalCtx, *e._prefixOp.expr);
     break;
   case ExprType::PostfixOp:
-    result = typeExpr(p, globalCtx, *e._postfixOp.expr);
+    result = typeExpr(globalCtx, *e._postfixOp.expr);
     break;
   case ExprType::BinaryOp:
-    result = typeExpr(p, globalCtx, *e._binaryOp.lexpr);
+    result = typeExpr(globalCtx, *e._binaryOp.lexpr);
     break;
   case ExprType::TernaryOp:
-    result = typeExpr(p, globalCtx, *e._ternaryOp.rexprTrue);
+    result = typeExpr(globalCtx, *e._ternaryOp.rexprTrue);
     break;
   case ExprType::Bracket:
   {
-    TypeInfo ti = typeExpr(p, globalCtx, *e._brackets.lexpr);
+    TypeInfo ti = typeExpr(globalCtx, *e._brackets.lexpr);
     if (!ti.type.modifiers.empty())
     {
       result = ti;
@@ -109,7 +110,7 @@ TypeInfo typeExpr(const Program & p, std::shared_ptr<Context> globalCtx, Expr e)
     auto v = findVariable(e._identifier.identifier, e._identifier.namespacePrefixes, globalCtx);
     if (!v.has_value())
       throw "Unknown variable";
-    result = typeType(p, std::get<0>(*v).type);
+    result = typeType(globalCtx, std::get<0>(*v).type);
     break;
   }
   }
