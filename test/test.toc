@@ -1,0 +1,100 @@
+// simply declare external functions
+func puts(str : char*) : void;
+
+// global context can contain functions,
+// structs, global variables and namespaces
+var global1 : int;
+var global2 : double = 123.45;
+
+func globalFunc() : void {
+  //puts("Hello\n");
+}
+
+// structs and functions can be declared generic
+// by providing a list of placeholder typenames
+struct S1<T1, T2> {
+  t1: T1;
+  t2: T1;
+
+  m1() : T2 {
+    return this->t1 + this->t2;
+  }
+}
+
+struct S2 {
+  s: char *;
+  abc(): S2 { }
+  xyz(): S2 { }
+}
+
+func generic1<A>(a1 : A, a2 : A) : A {
+  return a1 + a2;
+}
+
+// namespaces can contain everything that
+// the global context can
+
+namespace N1 {
+  var v1 : int;
+  func f1() : void {
+    puts("Hello\n");
+  }
+  struct S1 {
+    test : char *;
+  }
+  // nested namespaces
+  namespace N2 {
+    var v1 : int;
+    struct S1 {
+      i1 : int;
+      i2 : int;
+      i3 : int;
+
+      m1(i: int) : int {
+        // implicit 'this' parameter, pointer to containing struct
+        this->i3 = this->i1 * this->i2;
+
+        // lookup is done hierarchically
+        f1(v1); // this is basically N1::N2::f1(N1::N2::v1);
+        N1::f1(N1::v1); // the rest becomes exactly what they say
+        N2::f1(N2::v1);
+        N1::N2::f1();
+
+        return this->i1 + this->i2;
+      }
+    }
+
+    func f1() : void {
+      // these have the same type
+      var s1 : N1::N2::S1;
+      var s2 : S1;
+
+      s1.m1(123);
+    }
+  }
+}
+
+func main(argc : int, argv : char**) : int {
+  var s1 : N1::N2::S1;
+  var s2 : N1::N2::S1;
+  var s3 : N1::S1;
+  s1.i1 = 123;
+  s1.i2 = 456;
+  s1.m1(s2.m1(s3.m1(89)));
+
+  N1::N2::f1();
+
+  // one 'copy' is compiled for every unique instantiation
+  var s4 : S1<int, long>;
+  s4.t1 = 123;  
+  s4.t2 = 456;  
+  s4.m1();
+
+  generic1<int>(1, 2);
+  generic1<double>(3.4, 5.6);
+
+  var s: S2;
+  s.abc().xyz();
+
+  return 0;
+}

@@ -15,7 +15,7 @@ using namespace antlr4;
 
 int main(int argc, const char * argv[])
 {
-  std::ifstream ifs("test/test2.toc");
+  std::ifstream ifs("test/test.toc");
 
   ANTLRInputStream input(ifs);
 
