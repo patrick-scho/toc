@@ -1,0 +1,10 @@
+^C:\USERS\PATRICK\DOCUMENTS\STUDIUM\MASTER\SEM2\PROJEKT\TOC\ANTLR4-CPP-RUNTIME-4.9.2-SOURCE\BUILD\RUNTIME\THIRDPARTY\UTFCPP\TESTS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build --check-stamp-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build/tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

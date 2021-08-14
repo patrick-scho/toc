@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.17/Modules/ExternalProject.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindGit.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/RepositoryInfo.txt.in
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp/utfcpp-cfgcmd.txt.in
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/runtime/CMakeLists.txt

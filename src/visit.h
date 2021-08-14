@@ -8,17 +8,17 @@
 // tree can be walked selectively by providing only
 // needed callbacks
 struct Visitor {
-  std::function<void(const Type &, const std::shared_ptr<Context> ctx)> onType = [](auto, auto){};
-  std::function<void(const Expr &, const std::shared_ptr<Context> ctx)> onExpr = [](auto, auto){};
-  std::function<void(const Stmt &, const std::shared_ptr<Context> ctx)> onStmt = [](auto, auto){};
-  std::function<void(const Body &, const std::shared_ptr<Context> ctx)> onBody = [](auto, auto){};
-  std::function<void(const Function &, const std::shared_ptr<Context> ctx)> onFunction = [](auto, auto){};
-  std::function<void(const Variable &, const std::shared_ptr<Context> ctx)> onVariable = [](auto, auto){};
+  std::function<void(const Type &, const std::shared_ptr<Context> ctx)>                   onType = [](auto, auto){};
+  std::function<void(const Expr &, const std::shared_ptr<Context> ctx)>                   onExpr = [](auto, auto){};
+  std::function<void(const Stmt &, const std::shared_ptr<Context> ctx)>                   onStmt = [](auto, auto){};
+  std::function<void(const Body &, const std::shared_ptr<Context> ctx)>                   onBody = [](auto, auto){};
+  std::function<void(const Function &, const std::shared_ptr<Context> ctx)>               onFunction = [](auto, auto){};
+  std::function<void(const Variable &, const std::shared_ptr<Context> ctx)>               onVariable = [](auto, auto){};
   std::function<void(const StructMember<Function> &, const std::shared_ptr<Context> ctx)> onStructMethod = [](auto, auto){};
   std::function<void(const StructMember<Variable> &, const std::shared_ptr<Context> ctx)> onStructMember = [](auto, auto){};
-  std::function<void(const Struct &, const std::shared_ptr<Context> ctx)> onStruct = [](auto, auto){};
-  std::function<void(const Namespace &, const std::shared_ptr<Context> ctx)> onNamespace = [](auto, auto){};
-  std::function<void(const Program &, const std::shared_ptr<Context> ctx)> onProgram = [](auto, auto){};
+  std::function<void(const Struct &, const std::shared_ptr<Context> ctx)>                 onStruct = [](auto, auto){};
+  std::function<void(const Namespace &, const std::shared_ptr<Context> ctx)>              onNamespace = [](auto, auto){};
+  std::function<void(const Program &, const std::shared_ptr<Context> ctx)>                onProgram = [](auto, auto){};
 };
 
 #define VISIT(XS) for (auto x : XS) visit(x);
@@ -162,9 +162,9 @@ public:
     v.onFunction(x, ctx);
 
     if (x.defined) {
-      visit(x.body);
       for (auto v : x.parameters)
         visit(v.type);
+      visit(x.body);
     }
   }
   void visit(const StructMember<Function> & x)

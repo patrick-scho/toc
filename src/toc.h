@@ -305,7 +305,9 @@ void tocFunction (std::ostream & out, const Function & f, bool stub)
         currentInstantiation[f.genericTypeNames[i]] = instantiation[i];
       }
 
-      out << f.returnType << " " << generateModifiers(namespacePrefix() + f.name, f.returnType.modifiers) << genericAppendix(instantiation) << " (" << vectorStr(f.parameters, ", ") << ")";
+      out << f.returnType << " " <<
+        generateModifiers(namespacePrefix() + f.name + genericAppendix(instantiation), f.returnType.modifiers) <<
+        " (" << vectorStr(f.parameters, ", ") << ")";
 
       if (stub)
       {

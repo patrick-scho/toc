@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build\CMakeFiles\1baa425fb17041b162d5d90ef62e906c\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{122BF45A-519A-34FB-B8D2-E67762339659}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

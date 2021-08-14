@@ -1,0 +1,37 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/utfcpp-build"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/6111ad68a0afc64db1f3f94844b6c0a8/utfcpp-build.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-build.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-configure.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-skip-update.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-patch.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-download.rule"
+		},
+		{
+			"file" : "C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-mkdir.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"utfcpp"
+		],
+		"name" : "utfcpp-build"
+	}
+}

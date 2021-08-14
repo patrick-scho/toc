@@ -1,0 +1,957 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AC188AB3-0814-3B87-A10F-D758E8344F43}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>utfcpp</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\atn;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\dfa;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\misc;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\support;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\pattern;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\xpath;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp\utf8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\atn;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\dfa;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\misc;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\support;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\pattern;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\xpath;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp\utf8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\atn;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\dfa;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\misc;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\support;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\pattern;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\xpath;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp\utf8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\atn;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\dfa;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\misc;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\support;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\pattern;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\src\tree\xpath;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp\install\include\utf8cpp\utf8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-mkdir.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Creating directories for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Creating directories for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Creating directories for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Creating directories for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-download.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing download step (git clone) for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp/utfcpp-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\utfcpp-gitinfo.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing download step (git clone) for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp/utfcpp-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\utfcpp-gitinfo.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Performing download step (git clone) for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp/utfcpp-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\utfcpp-gitinfo.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Performing download step (git clone) for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -P C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/tmp/utfcpp-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\utfcpp-gitinfo.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-skip-update.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Skipping update step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Skipping update step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Skipping update step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Skipping update step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\thirdparty\utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-patch.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">No patch step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">No patch step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">No patch step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">No patch step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-configure.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing configure step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_PREFIX=C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/install -Dgtest_force_shared_crt=ON "-GVisual Studio 16 2019" "-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community" C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing configure step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_PREFIX=C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/install -Dgtest_force_shared_crt=ON "-GVisual Studio 16 2019" "-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community" C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Performing configure step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_PREFIX=C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/install -Dgtest_force_shared_crt=ON "-GVisual Studio 16 2019" "-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community" C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Performing configure step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_PREFIX=C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/install -Dgtest_force_shared_crt=ON "-GVisual Studio 16 2019" "-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community" C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-skip-update;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-build.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing build step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing build step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config Release
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Performing build step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Performing build step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-install.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing install step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config Debug --target install
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing install step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config Release --target install
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Performing install step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config MinSizeRel --target install
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Performing install step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" --build . --config RelWithDebInfo --target install
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\daf4a8e5496843c7252de330004b7b90\utfcpp-test.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing test step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\ctest.exe" -C Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing test step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\ctest.exe" -C Release
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Performing test step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\ctest.exe" -C MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Performing test step for 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+cd C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\ctest.exe" -C RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\aa730be7e3c84b6d0fbfb12a84ad44e9\utfcpp-complete.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Completed 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)/utfcpp-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Completed 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)/utfcpp-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Completed 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)/utfcpp-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Completed 'utfcpp'</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/$(Configuration)/utfcpp-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-stamp/$(Configuration)/utfcpp-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-install;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-mkdir;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-download;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-patch;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-configure;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-build;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\src\utfcpp-stamp\$(Configuration)\utfcpp-test;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\CMakeFiles\6111ad68a0afc64db1f3f94844b6c0a8\utfcpp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\utfcpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\utfcpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\utfcpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\$(Configuration)\utfcpp-complete;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\utfcpp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\runtime\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/runtime/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build --check-stamp-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\RepositoryInfo.txt.in;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/runtime/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build --check-stamp-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\RepositoryInfo.txt.in;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/runtime/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build --check-stamp-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\RepositoryInfo.txt.in;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/runtime/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build --check-stamp-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.17\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.17\Modules\RepositoryInfo.txt.in;C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\utfcpp-prefix\tmp\utfcpp-cfgcmd.txt.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\runtime\CMakeFiles\utfcpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Patrick\Documents\Studium\master\sem2\projekt\toc\antlr4-cpp-runtime-4.9.2-source\build\ZERO_CHECK.vcxproj">
+      <Project>{9D661440-BE18-311A-88F7-F635242E7B14}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

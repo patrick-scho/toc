@@ -1,0 +1,10 @@
+^C:\USERS\PATRICK\DOCUMENTS\STUDIUM\MASTER\SEM2\PROJEKT\TOC\ANTLR4-CPP-RUNTIME-4.9.2-SOURCE\BUILD\CMAKEFILES\EF4717A73BDB9EFA6D06D008A3A2F952\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source -BC:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/LIBANTLR4.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

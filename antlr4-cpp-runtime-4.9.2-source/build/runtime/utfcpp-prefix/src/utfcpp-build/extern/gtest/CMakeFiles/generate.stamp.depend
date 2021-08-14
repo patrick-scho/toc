@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/Platform/Windows-MSVC.cmake
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/CMakeLists.txt
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/utfcpp-prefix/src/utfcpp-build/CMakeFiles/3.17.2/CMakeCCompiler.cmake

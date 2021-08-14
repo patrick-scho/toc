@@ -1,0 +1,16 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.17/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.17/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindPythonInterp.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/FindThreads.cmake
+C:/Program Files/CMake/share/cmake-3.17/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/googletest/CMakeLists.txt
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/googletest/cmake/Config.cmake.in
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/googletest/cmake/gtest.pc.in
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/googletest/cmake/gtest_main.pc.in
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/extern/gtest/googletest/cmake/internal_utils.cmake

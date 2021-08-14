@@ -1,0 +1,14 @@
+# Target labels
+ utfcpp
+# Source files and their labels
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/CMakeFiles/utfcpp
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/6111ad68a0afc64db1f3f94844b6c0a8/utfcpp.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/aa730be7e3c84b6d0fbfb12a84ad44e9/utfcpp-complete.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-install.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-mkdir.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-download.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-patch.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-configure.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-build.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-test.rule
+C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/CMakeFiles/daf4a8e5496843c7252de330004b7b90/utfcpp-skip-update.rule

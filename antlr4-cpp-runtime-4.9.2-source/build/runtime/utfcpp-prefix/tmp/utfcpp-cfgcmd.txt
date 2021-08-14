@@ -1,0 +1,1 @@
+cmd='C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_INSTALL_PREFIX=C:/Users/Patrick/Documents/Studium/master/sem2/projekt/toc/antlr4-cpp-runtime-4.9.2-source/build/runtime/thirdparty/utfcpp/install;-Dgtest_force_shared_crt=ON;-GVisual Studio 16 2019;-DCMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community;<SOURCE_DIR><SOURCE_SUBDIR>'
